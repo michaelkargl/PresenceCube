@@ -1,32 +1,34 @@
 menu "Example Configuration"
 
     
-    config GREEN_LED_PIN
-        int "Green LED GPIO Pin number"
+    config RGB_RED_CHANNEL_PIN
+        int "Red pulse width modulation channel pin"
         range 0 34
-        default 23
+        default 19
         help 
-            GPIO number (IOxx) to blink on and off.
             Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
             GPIOs 35-39 are input-only so cannot be used as outputs.
             
-    config YELLOW_LED_PIN
-        int "Yellow LED GPIO Pin number"
+    config RGB_GREEN_CHANNEL_PIN
+        int "Green pulse width modulation channel pin"
         range 0 34
-        default 21
+        default 17
         help 
-            GPIO number (IOxx) to blink on and off.
             Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
             GPIOs 35-39 are input-only so cannot be used as outputs.
             
-    config RED_LED_PIN
-        int "Red LED GPIO Pin number"
+    config RGB_BLUE_CHANNEL_PIN
+        int "Blue pulse width modulation channel pin"
         range 0 34
-        default 22
+        default 18
         help
-            GPIO number (IOxx) to blink on and off.
             Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
                     GPIOs 35-39 are input-only so cannot be used as outputs.
+
+    config PULSE_WIDTH_MODULATION_FADE_INTERVAL
+        int "The time in milliseconds to fade from one duty cycle to the next"
+        range 0 86400000
+        default 3000
 
     config ESP_WIFI_SSID
         string "WiFi SSID"

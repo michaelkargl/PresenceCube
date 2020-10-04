@@ -9,11 +9,12 @@
 #include "mqtt_client.h"
 #include "cJSON.h"
 #include "string.h"
+#include "driver/ledc.h"
 
 // configured using Kconfig.projbuild and idf menuconfig
-#define RED_LED_PIN CONFIG_RED_LED_PIN
-#define GREEN_LED_PIN CONFIG_GREEN_LED_PIN
-#define YELLOW_LED_PIN CONFIG_YELLOW_LED_PIN
+#define RED_LED_PIN CONFIG_RGB_RED_CHANNEL_PIN
+#define GREEN_LED_PIN CONFIG_RGB_GREEN_CHANNEL_PIN
+#define YELLOW_LED_PIN CONFIG_RGB_BLUE_CHANNEL_PIN
 
 #define ESP_WIFI_SSID CONFIG_ESP_WIFI_SSID
 #define ESP_WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
@@ -24,6 +25,8 @@
 #define ESP_MQTT_BROKER_PASSWORD CONFIG_ESP_MQTT_BROKER_PASSWORD
 
 static const char *TAG = "toggle_led";
+
+
 
 /**
  * @see https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/log.html#logging-library
@@ -229,7 +232,7 @@ static void handle_mqtt_event(esp_mqtt_event_handle_t event)
             else if (strcmp(actuator_name, "led_green") == 0)
             {
                 toggle_led(GREEN_LED_PIN, (uint32_t)actuator_value);
-            }   
+            }
         }
 
         break;
@@ -275,4 +278,10 @@ void app_main(void)
 
     create_wifi_station();
     setup_mqtt_connection();
+
+    //TODO: Figure out a way to configure the ledc channels within a function => how to handle arrays properly
+    //TODO: Figure out a way to configure the ledc channels within a function => how to handle arrays properly
+    //TODO: Figure out a way to configure the ledc channels within a function => how to handle arrays properly
+    // And integrate PWM code from Hello-Esp32
+    // Dont forget to remove pin settings from configure_pins()
 }
