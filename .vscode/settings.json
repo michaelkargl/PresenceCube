@@ -18,6 +18,7 @@
     "vector": "c",
     "xstring": "c",
     "xutility": "c",
-    "mqtt_client.h": "c"
+    "mqtt_client.h": "c",
+    "math.h": "c"
   }
 }

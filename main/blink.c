@@ -11,6 +11,7 @@
 #include "string.h"
 #include "driver/ledc.h"
 #include <math.h>
+#include "math_helper.h"
 
 // configured using Kconfig.projbuild and idf menuconfig
 #define RED_LED_PIN CONFIG_RGB_RED_CHANNEL_PIN
@@ -61,9 +62,7 @@ static ledc_channel_config_t ledc_channel[3] = {
      .timer_sel = LEDC_HS_TIMER}};
 
 static void handle_mqtt_event(esp_mqtt_event_handle_t event);
-static int min(int value, int min);
-static int max(int value, int max);
-static int ranged_value(int value, int min_range, int max_range);
+
 
 /**
  * @see https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/log.html#logging-library
@@ -394,22 +393,6 @@ static void handle_mqtt_event(esp_mqtt_event_handle_t event)
     }
 }
 
-int max(int value, int max) {
-    return value <= max
-               ? value
-               : max;
-}
-
-
-int min(int value, int min) {
-    return value >= min
-               ? value
-               : min;
-}
-
-int ranged_value(int value, int min_range, int max_range) {
-    return max(min(value, min_range), max_range);
-}
 
 void configure_ledc()
 {
