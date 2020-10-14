@@ -11,8 +11,11 @@ list(APPEND required_components esp_wifi)
 list(APPEND required_components json mqtt)
 
 
+list(APPEND srcs "blink.c")
+list(APPEND srcs "wifi_setup.c")
+
 idf_component_register(
-    SRCS "blink.c"
+    SRCS "${srcs}"
     INCLUDE_DIRS "." "./include"
     PRIV_REQUIRES "${required_components}"
 )
