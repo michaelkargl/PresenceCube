@@ -22,6 +22,8 @@
     "math.h": "c",
     "math_helper.h": "c",
     "mqtt_setup.h": "c",
-    "cjson.h": "c"
+    "cjson.h": "c",
+    "ledc_types.h": "c",
+    "zube_ledc.h": "c"
   }
 }

@@ -2,6 +2,7 @@
 #include "mqtt_client.h"
 #include "math_helper.h"
 #include "esp_log.h"
+#include "zube_ledc.h"
 
 void setup_mqtt_connection();
 

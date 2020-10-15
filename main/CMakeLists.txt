@@ -14,9 +14,10 @@ list(APPEND required_components json mqtt)
 list(APPEND srcs "blink.c")
 list(APPEND srcs "wifi_setup.c")
 list(APPEND srcs "mqtt_setup.c")
+list(APPEND srcs "zube_ledc.c")
 
 idf_component_register(
-    SRCS "mqtt_setup.c" "${srcs}"
+    SRCS "${srcs}"
     INCLUDE_DIRS "." "./include"
     PRIV_REQUIRES "${required_components}"
 )
