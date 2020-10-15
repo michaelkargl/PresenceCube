@@ -5,24 +5,22 @@
 #include "sdkconfig.h"
 #include "esp_log.h"
 #include "esp_wifi.h"
-#include "mqtt_client.h"
 #include "cJSON.h"
 #include "string.h"
 #include "driver/ledc.h"
 #include <math.h>
 #include "math_helper.h"
 #include "wifi_setup.h"
+#include "mqtt_setup.h"
+
+//TODO: Extract MQTT into separate file => Provide separate events for each MQTT event
+//TODO: Extract LEDC into separate file
 
 // configured using Kconfig.projbuild and idf menuconfig
 #define RED_LED_PIN CONFIG_RGB_RED_CHANNEL_PIN
 #define GREEN_LED_PIN CONFIG_RGB_GREEN_CHANNEL_PIN
 #define YELLOW_LED_PIN CONFIG_RGB_BLUE_CHANNEL_PIN
 
-#define ESP_MQTT_URI CONFIG_ESP_MQTT_BROKER_URI
-#define ESP_MQTT_CONTROL_TOPIC CONFIG_ESP_MQTT_CONTROL_TOPIC
-#define ESP_MQTT_DATA_TOPIC CONFIG_ESP_MQTT_DATA_TOPIC
-#define ESP_MQTT_BROKER_USER CONFIG_ESP_MQTT_BROKER_USER
-#define ESP_MQTT_BROKER_PASSWORD CONFIG_ESP_MQTT_BROKER_PASSWORD
 
 #define LEDC_HS_TIMER LEDC_TIMER_0
 #define LEDC_HS_MODE LEDC_HIGH_SPEED_MODE
@@ -59,7 +57,7 @@ static ledc_channel_config_t ledc_channel[3] = {
      .hpoint = 0,
      .timer_sel = LEDC_HS_TIMER}};
 
-static void handle_mqtt_event(esp_mqtt_event_handle_t event);
+
 
 
 /**
@@ -74,30 +72,6 @@ void configure_logging()
     esp_log_level_set(TAG, ESP_LOG_VERBOSE);
 }
 
-
-static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
-{
-    ESP_LOGD(TAG, "Event dispatched from event loop base=%s, event_id=%d", base, event_id);
-    handle_mqtt_event(event_data);
-}
-
-void setup_mqtt_connection()
-{
-    esp_mqtt_client_config_t mqtt_configuration = {
-        .uri = ESP_MQTT_URI,
-        .username = ESP_MQTT_BROKER_USER,
-        .password = ESP_MQTT_BROKER_PASSWORD};
-
-    ESP_LOGV(TAG, "Initializing MQTT client...");
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_configuration);
-
-    ESP_LOGV(TAG, "Wiring up MQTT callbacks...");
-    esp_mqtt_client_register_event(
-        client, ESP_EVENT_ANY_ID, mqtt_event_handler, client);
-
-    ESP_LOGV(TAG, "Starting MQTT client...");
-    esp_mqtt_client_start(client);
-}
 
 void set_color_hard(ledc_channel_config_t channel, int32_t duty)
 {
@@ -182,94 +156,6 @@ void set_led_color_percent(ledc_channel_config_t *channels, int percent_red, int
         transition_interval_ms);
 }
 
-static void handle_mqtt_event(esp_mqtt_event_handle_t event)
-{
-
-    esp_mqtt_client_handle_t client = event->client;
-    int msg_id;
-
-    switch (event->event_id)
-    {
-    case MQTT_EVENT_CONNECTED:
-        ESP_LOGD(TAG, "MQTT_EVENT_CONNECTED");
-        msg_id = esp_mqtt_client_publish(client, ESP_MQTT_DATA_TOPIC, "MQTT_EVENT_CONNECTED", 0, 1, 0);
-        msg_id = esp_mqtt_client_subscribe(client, ESP_MQTT_CONTROL_TOPIC, 0);
-        break;
-    case MQTT_EVENT_DISCONNECTED:
-        ESP_LOGD(TAG, "MQTT_EVENT_DISCONNECTED");
-        msg_id = esp_mqtt_client_publish(client, ESP_MQTT_DATA_TOPIC, "MQTT_EVENT_DISCONNECTED", 0, 1, 0);
-        break;
-    case MQTT_EVENT_SUBSCRIBED:
-        ESP_LOGD(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
-        msg_id = esp_mqtt_client_publish(client, ESP_MQTT_DATA_TOPIC, "MQTT_EVENT_SUBSCRIBED", 0, 1, 0);
-        break;
-    case MQTT_EVENT_UNSUBSCRIBED:
-        ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
-        msg_id = esp_mqtt_client_publish(client, ESP_MQTT_DATA_TOPIC, "MQTT_EVENT_UNSUBSCRIBED", 0, 1, 0);
-        break;
-    case MQTT_EVENT_PUBLISHED:
-        ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
-        break;
-    case MQTT_EVENT_DATA:
-        ESP_LOGI(TAG, "MQTT_EVENT_DATA");
-        ESP_LOGD(TAG, "TOPIC=%.*s\r\n", event->topic_len, event->topic);
-        ESP_LOGD(TAG, "DATA=%.*s\r\n", event->data_len, event->data);
-        char *data = event->data;
-
-        // TODO: use functions to parse request and find right handler
-        // TODO: send status / error code to gateway
-        // TODO: use senml library to parse request
-
-        cJSON *root = cJSON_Parse(data);
-
-        int packSize = cJSON_GetArraySize(root);
-        for (int i = 0; i < packSize; i++)
-        {
-            cJSON *senmlRecord = cJSON_GetArrayItem(root, i);
-
-            char *actuator_name = cJSON_GetObjectItem(senmlRecord, "bn")->valuestring;
-            if (strcmp(actuator_name, "led_rgb") == 0) {
-                //TODO: Error handling
-
-                char *rgbValueJson = cJSON_GetObjectItem(senmlRecord, "vs")->valuestring;
-                cJSON *rgbValues = cJSON_Parse(rgbValueJson);
-
-                int r = max(cJSON_GetObjectItem(rgbValues, "r")->valueint, 255);
-                int g = max(cJSON_GetObjectItem(rgbValues, "g")->valueint, 255);
-                int b = max(cJSON_GetObjectItem(rgbValues, "b")->valueint, 255);
-                ESP_LOGD(TAG, "Received request to set led-color to %i,%i,%i", r, g, b);
-
-                float r_percent = floor((100 / (float)255) * r);
-                float g_percent = floor((100 / (float)255) * g);
-                float b_percent = floor((100 / (float)255) * b);
-
-                cJSON_Delete(rgbValues); // dispose
-
-                ESP_LOGD(TAG, "Received request to set led-color to %f,%f,%f", r_percent, g_percent, b_percent);
-                set_led_color_percent(
-                    ledc_channel,
-                    r_percent,
-                    g_percent,
-                    b_percent,
-                    LEDC_TRANSITION_INTERVAL);
-            }
-           
-            // free memory
-            cJSON_Delete(senmlRecord);
-        }
-
-        break;
-    case MQTT_EVENT_ERROR:
-        ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
-        msg_id = esp_mqtt_client_publish(client, ESP_MQTT_DATA_TOPIC, "MQTT_EVENT_ERROR", 0, 1, 0);
-        break;
-    default:
-        ESP_LOGI(TAG, "Other event id:%d", event->event_id);
-        msg_id = esp_mqtt_client_publish(client, ESP_MQTT_DATA_TOPIC, "OTHER EVENT", 0, 1, 0);
-        break;
-    }
-}
-
 
 void configure_ledc()
 {
@@ -303,6 +189,7 @@ void configure_ledc()
 
     ledc_fade_func_install(0);
 }
+
 
 void app_main(void)
 {

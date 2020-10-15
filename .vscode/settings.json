@@ -19,6 +19,9 @@
     "xstring": "c",
     "xutility": "c",
     "mqtt_client.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "math_helper.h": "c",
+    "mqtt_setup.h": "c",
+    "cjson.h": "c"
   }
 }
