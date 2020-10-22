@@ -10,6 +10,8 @@ list(APPEND required_components esp_wifi)
 # mqtt
 list(APPEND required_components json mqtt)
 
+# eventing
+list(APPEND required_components freertos)
 
 list(APPEND srcs "blink.c")
 list(APPEND srcs "wifi_setup.c")

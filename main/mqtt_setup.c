@@ -1,31 +1,15 @@
 #include "mqtt_setup.h"
 #include "zube_ledc.h"
 
+// configured using Kconfig.projbuild and idf menuconfig
 #define ESP_MQTT_URI CONFIG_ESP_MQTT_BROKER_URI
 #define ESP_MQTT_CONTROL_TOPIC CONFIG_ESP_MQTT_CONTROL_TOPIC
 #define ESP_MQTT_DATA_TOPIC CONFIG_ESP_MQTT_DATA_TOPIC
 #define ESP_MQTT_BROKER_USER CONFIG_ESP_MQTT_BROKER_USER
 #define ESP_MQTT_BROKER_PASSWORD CONFIG_ESP_MQTT_BROKER_PASSWORD
-
-// configured using Kconfig.projbuild and idf menuconfig
 #define LEDC_TRANSITION_INTERVAL CONFIG_PULSE_WIDTH_MODULATION_FADE_INTERVAL
-#define LEDC_HS_CH0_GPIO_BLUE (18)
-#define LEDC_HS_CH1_GPIO_RED (19)
-#define LEDC_HS_CH2_GPIO_GREEN (17)
 
-#define LEDC_HS_CH0_CHANNEL_BLUE LEDC_CHANNEL_0
-#define LEDC_HS_CH1_CHANNEL_RED LEDC_CHANNEL_1
-#define LEDC_HS_CH2_CHANNEL_GREEN LEDC_CHANNEL_2
-
-#define LEDC_HS_TIMER LEDC_TIMER_0
-#define LEDC_HS_MODE LEDC_HIGH_SPEED_MODE
-
-#define RED_LED_PIN CONFIG_RGB_RED_CHANNEL_PIN
-#define GREEN_LED_PIN CONFIG_RGB_GREEN_CHANNEL_PIN
-#define YELLOW_LED_PIN CONFIG_RGB_BLUE_CHANNEL_PIN
-
-static const char *TAG = "mqtt_setup";
-
+static const char *TAG = "zube.mqtt_setup";
 static ledc_channel_config_t ledc_channel[3];
 
 void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
@@ -61,7 +45,6 @@ void setup_mqtt_connection(ledc_channel_config_t *ledc_channels)
 // TODO: should event be a pointer?
 void handle_mqtt_event(esp_mqtt_event_handle_t event)
 {
-    // MQTT_EVENT_ANY = -1,
     // MQTT_EVENT_ERROR = 0,          /*!< on error event, additional context: connection return code, error handle from esp_tls (if supported) */
     // MQTT_EVENT_CONNECTED,      /*!< connected event, additional context: session_present flag */
     // MQTT_EVENT_DISCONNECTED,   /*!< disconnected event */
@@ -80,7 +63,7 @@ void handle_mqtt_event(esp_mqtt_event_handle_t event)
     //                                 longer than internal buffer. In that case only first event contains topic
     //                                 pointer and length, other contain data only with current data length
     //                                 and current data offset updating.
-    //                                     */
+    //
     // MQTT_EVENT_BEFORE_CONNECT, /*!< The event occurs before connecting */
 
     switch (event->event_id)
@@ -105,9 +88,6 @@ void handle_mqtt_event(esp_mqtt_event_handle_t event)
         break;
     case MQTT_EVENT_ERROR:
         mqtt_error_handler(event);
-        break;
-    case MQTT_EVENT_ANY:
-        mqtt_any_handler(event);
         break;
     case MQTT_EVENT_BEFORE_CONNECT:
         mqtt_before_connect_handler(event);
