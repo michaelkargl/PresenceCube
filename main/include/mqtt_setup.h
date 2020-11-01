@@ -4,7 +4,7 @@
 #include "esp_log.h"
 #include "zube_ledc.h"
 
-void setup_mqtt_connection();
+void setup_mqtt_connection(ledc_channel_config_t *ledc_channels);
 
 void handle_mqtt_event(esp_mqtt_event_handle_t event);
 void mqtt_connected_handler(esp_mqtt_event_handle_t event);
