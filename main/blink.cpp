@@ -3,6 +3,7 @@
 #include "freertos/task.h"
 #include "driver/gpio.h"
 #include "sdkconfig.h"
+#include "number_display.h"
 
 extern "C"
 {
@@ -53,6 +54,18 @@ void setup_rgb_channels(ledc_channel_config_t *ledc_config, led_pins *gpio_pins,
     setup_rgb_channel(&ledc_config[2], gpio_pins->blue, channels->blue);
 }
 
+void draw_screen(NumberDisplay *display, int number)
+{
+    auto random = rand() % 100;
+    auto filledEllipses = random % 2 == 1;
+
+    display->clearScreen();
+    display->displayEllipses(filledEllipses);
+    display->displayNumber(number);
+
+    // delay(2000);
+}
+
 extern "C" void app_main(void)
 {
     led_pins pins = {
@@ -64,9 +77,13 @@ extern "C" void app_main(void)
         LEDC_CHANNEL_2,
         LEDC_CHANNEL_0};
 
+    NumberDisplay tft_display_service;
+    draw_screen(&tft_display_service, 0);
+
     setup_rgb_channels(ledc_channel, &pins, &channels);
     create_wifi_station();
 
     configure_ledc(ledc_channel);
     setup_mqtt_connection(ledc_channel);
+
 }

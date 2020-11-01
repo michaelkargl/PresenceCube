@@ -13,6 +13,10 @@ list(APPEND required_components json mqtt)
 # eventing
 list(APPEND required_components freertos)
 
+# display
+list(APPEND required_components number-display)
+
+
 list(APPEND srcs "blink.cpp")
 list(APPEND srcs "wifi_setup.c")
 list(APPEND srcs "mqtt_setup.c")
