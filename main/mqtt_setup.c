@@ -7,7 +7,6 @@
 #define ESP_MQTT_DATA_TOPIC CONFIG_ESP_MQTT_DATA_TOPIC
 #define ESP_MQTT_BROKER_USER CONFIG_ESP_MQTT_BROKER_USER
 #define ESP_MQTT_BROKER_PASSWORD CONFIG_ESP_MQTT_BROKER_PASSWORD
-#define LEDC_TRANSITION_INTERVAL CONFIG_PULSE_WIDTH_MODULATION_FADE_INTERVAL
 
 static const char *TAG = "zube.mqtt_setup";
 static ledc_channel_config_t ledc_channel[3];
@@ -166,46 +165,25 @@ void mqtt_data_handler(esp_mqtt_event_handle_t event)
 
     char *data = event->data;
     mqtt_message_handler(data);
-    
+
     // TODO: use functions to parse request and find right handler
     // TODO: send status / error code to gateway
     // TODO: use senml library to parse request
 
-    cJSON *root = cJSON_Parse(data);
+    // cJSON *root = cJSON_Parse(data);
 
-    int packSize = cJSON_GetArraySize(root);
-    for (int i = 0; i < packSize; i++)
-    {
-        cJSON *senmlRecord = cJSON_GetArrayItem(root, i);
+    // int packSize = cJSON_GetArraySize(root);
+    // for (int i = 0; i < packSize; i++)
+    // {
+    // // cJSON *senmlRecord = cJSON_GetArrayItem(root, i);
 
-        char *actuator_name = cJSON_GetObjectItem(senmlRecord, "bn")->valuestring;
-        if (strcmp(actuator_name, "led_rgb") == 0)
-        {
-            //TODO: Error handling
-            char *rgbValueJson = cJSON_GetObjectItem(senmlRecord, "vs")->valuestring;
-            cJSON *rgbValues = cJSON_Parse(rgbValueJson);
+    // char *actuator_name = cJSON_GetObjectItem(senmlRecord, "bn")->valuestring;
+    // if (strcmp(actuator_name, "led_rgb") == 0)
+    // {
 
-            int r = max(cJSON_GetObjectItem(rgbValues, "r")->valueint, 255);
-            int g = max(cJSON_GetObjectItem(rgbValues, "g")->valueint, 255);
-            int b = max(cJSON_GetObjectItem(rgbValues, "b")->valueint, 255);
-            ESP_LOGD(TAG, "Received request to set led-color to %i,%i,%i", r, g, b);
+    // }
 
-            float r_percent = floor((100 / (float)255) * r);
-            float g_percent = floor((100 / (float)255) * g);
-            float b_percent = floor((100 / (float)255) * b);
-
-            cJSON_Delete(rgbValues); // dispose
-
-            ESP_LOGD(TAG, "Received request to set led-color to %f,%f,%f", r_percent, g_percent, b_percent);
-            set_led_color_percent(
-                ledc_channel,
-                r_percent,
-                g_percent,
-                b_percent,
-                LEDC_TRANSITION_INTERVAL);
-        }
-
-        // free memory
-        cJSON_Delete(senmlRecord);
-    }
+    // // free memory
+    // cJSON_Delete(senmlRecord);
+    // }
 }

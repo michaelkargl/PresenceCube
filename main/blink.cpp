@@ -20,6 +20,8 @@ extern "C"
 #define GREEN_LED_PIN CONFIG_RGB_GREEN_CHANNEL_PIN
 #define BLUE_LED_PIN CONFIG_RGB_BLUE_CHANNEL_PIN
 
+#define LEDC_TRANSITION_INTERVAL CONFIG_PULSE_WIDTH_MODULATION_FADE_INTERVAL
+
 typedef struct
 {
     int red;
@@ -88,6 +90,29 @@ void handle_mqtt_mesasge(char *message)
         if (strcmp(actuator_name, "led_rgb") == 0)
         {
             ESP_LOGW(TAG, "Received LED color message: %s", message);
+
+            //TODO: Error handling
+            char *rgbValueJson = cJSON_GetObjectItem(senmlRecord, "vs")->valuestring;
+            cJSON *rgbValues = cJSON_Parse(rgbValueJson);
+
+            int r = max(cJSON_GetObjectItem(rgbValues, "r")->valueint, 255);
+            int g = max(cJSON_GetObjectItem(rgbValues, "g")->valueint, 255);
+            int b = max(cJSON_GetObjectItem(rgbValues, "b")->valueint, 255);
+            ESP_LOGD(TAG, "Received request to set led-color to %i,%i,%i", r, g, b);
+
+            float r_percent = floor((100 / (float)255) * r);
+            float g_percent = floor((100 / (float)255) * g);
+            float b_percent = floor((100 / (float)255) * b);
+
+            cJSON_Delete(rgbValues); // dispose
+
+            ESP_LOGD(TAG, "Received request to set led-color to %f,%f,%f", r_percent, g_percent, b_percent);
+            set_led_color_percent(
+                ledc_channel,
+                r_percent,
+                g_percent,
+                b_percent,
+                LEDC_TRANSITION_INTERVAL);
         }
         else if (strcmp(actuator_name, "number") == 0)
         {
