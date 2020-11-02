@@ -69,66 +69,74 @@ void draw_screen(NumberDisplay *display, int number)
     // delay(2000);
 }
 
+void handle_led_message(cJSON *senmlRecord)
+{
+    //TODO: Error handling
+    char *rgbValueJson = cJSON_GetObjectItem(senmlRecord, "vs")->valuestring;
+    cJSON *rgbValues = cJSON_Parse(rgbValueJson);
+
+    int r = max(cJSON_GetObjectItem(rgbValues, "r")->valueint, 255);
+    int g = max(cJSON_GetObjectItem(rgbValues, "g")->valueint, 255);
+    int b = max(cJSON_GetObjectItem(rgbValues, "b")->valueint, 255);
+    ESP_LOGD(TAG, "Received request to set led-color to %i,%i,%i", r, g, b);
+
+    float r_percent = floor((100 / (float)255) * r);
+    float g_percent = floor((100 / (float)255) * g);
+    float b_percent = floor((100 / (float)255) * b);
+
+    cJSON_Delete(rgbValues); // dispose
+
+    ESP_LOGD(TAG, "Received request to set led-color to %f,%f,%f", r_percent, g_percent, b_percent);
+    set_led_color_percent(
+        ledc_channel,
+        r_percent,
+        g_percent,
+        b_percent,
+        LEDC_TRANSITION_INTERVAL);
+}
+
+void handle_number_message(cJSON *senml_record)
+{
+    cJSON *jsonItem = cJSON_GetObjectItem(senml_record, "n");
+    if (cJSON_IsNumber(jsonItem))
+    {
+        int number = jsonItem->valueint;
+        ESP_LOGD(TAG, "Received Number: %i", number);
+
+        draw_screen(&tft_display_service, number);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Received value: %s was not a number.", senml_record->valuestring);
+    }
+}
+
 void handle_mqtt_mesasge(char *message)
 {
     ESP_LOGI(TAG, "=======================================");
     ESP_LOGI(TAG, "Received message: %s", message);
     ESP_LOGI(TAG, "=======================================");
 
-    // TODO: use functions to parse request and find right handler
-    // TODO: send status / error code to gateway
-    // TODO: use senml library to parse request
-
     cJSON *root = cJSON_Parse(message);
-
     int packSize = cJSON_GetArraySize(root);
+
     for (int i = 0; i < packSize; i++)
     {
         cJSON *senmlRecord = cJSON_GetArrayItem(root, i);
-
         char *actuator_name = cJSON_GetObjectItem(senmlRecord, "bn")->valuestring;
+
         if (strcmp(actuator_name, "led_rgb") == 0)
         {
-            ESP_LOGW(TAG, "Received LED color message: %s", message);
-
-            //TODO: Error handling
-            char *rgbValueJson = cJSON_GetObjectItem(senmlRecord, "vs")->valuestring;
-            cJSON *rgbValues = cJSON_Parse(rgbValueJson);
-
-            int r = max(cJSON_GetObjectItem(rgbValues, "r")->valueint, 255);
-            int g = max(cJSON_GetObjectItem(rgbValues, "g")->valueint, 255);
-            int b = max(cJSON_GetObjectItem(rgbValues, "b")->valueint, 255);
-            ESP_LOGD(TAG, "Received request to set led-color to %i,%i,%i", r, g, b);
-
-            float r_percent = floor((100 / (float)255) * r);
-            float g_percent = floor((100 / (float)255) * g);
-            float b_percent = floor((100 / (float)255) * b);
-
-            cJSON_Delete(rgbValues); // dispose
-
-            ESP_LOGD(TAG, "Received request to set led-color to %f,%f,%f", r_percent, g_percent, b_percent);
-            set_led_color_percent(
-                ledc_channel,
-                r_percent,
-                g_percent,
-                b_percent,
-                LEDC_TRANSITION_INTERVAL);
+            handle_led_message(senmlRecord);
         }
         else if (strcmp(actuator_name, "number") == 0)
         {
-            ESP_LOGW(TAG, "Received Number message: %s", message);
-
-            cJSON *pack = cJSON_Parse(message);
-            cJSON *segment = cJSON_GetArrayItem(pack, 0);
-            cJSON *n = cJSON_GetObjectItem(segment, "n");
-            if (cJSON_IsNumber(n))
-            {
-                draw_screen(&tft_display_service, n->valueint);
-            }
+            handle_number_message(senmlRecord);
         }
 
         // free memory
         cJSON_Delete(senmlRecord);
+        senmlRecord = 0;
     }
 }
 
@@ -149,5 +157,5 @@ extern "C" void app_main(void)
     create_wifi_station();
 
     configure_ledc(ledc_channel);
-    setup_mqtt_connection(ledc_channel, handle_mqtt_mesasge);
+    setup_mqtt_connection(handle_mqtt_mesasge);
 }
