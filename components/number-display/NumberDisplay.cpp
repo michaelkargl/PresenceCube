@@ -14,13 +14,13 @@ void NumberDisplay::clearScreen()
 void NumberDisplay::displayNumber(int number)
 {
     // Set "cursor" at top left corner of display (0,0) and select font 2
-    const int cursorX = 30;
+    const int cursorX = 35;
     const int cursorY = 30;
     const int font = 2;
     tft.setCursor(cursorX, cursorY, font);
 
     // set text style
-    const int textSizeMultiplier = 4;
+    const int textSizeMultiplier = 6;
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
     tft.setTextSize(textSizeMultiplier);
 
