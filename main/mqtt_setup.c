@@ -1,5 +1,4 @@
 #include "mqtt_setup.h"
-#include "zube_ledc.h"
 
 // configured using Kconfig.projbuild and idf menuconfig
 #define ESP_MQTT_URI CONFIG_ESP_MQTT_BROKER_URI
@@ -7,10 +6,9 @@
 #define ESP_MQTT_DATA_TOPIC CONFIG_ESP_MQTT_DATA_TOPIC
 #define ESP_MQTT_BROKER_USER CONFIG_ESP_MQTT_BROKER_USER
 #define ESP_MQTT_BROKER_PASSWORD CONFIG_ESP_MQTT_BROKER_PASSWORD
-#define LEDC_TRANSITION_INTERVAL CONFIG_PULSE_WIDTH_MODULATION_FADE_INTERVAL
 
 static const char *TAG = "zube.mqtt_setup";
-static ledc_channel_config_t ledc_channel[3];
+void (*mqtt_message_handler)(char *);
 
 void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
 {
@@ -18,13 +16,9 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
     handle_mqtt_event(event_data);
 }
 
-void setup_mqtt_connection(ledc_channel_config_t *ledc_channels)
+void setup_mqtt_connection(void (*message_handler)(char *))
 {
-    //TODO: Find better way to assign the channels or link zube with mqtt (c++ classes maybe?)
-    //memcpy(&ledc_channel, &ledc_channels, sizeof(ledc_channels)); // doesnt work as expected
-    ledc_channel[0] = ledc_channels[0];
-    ledc_channel[1] = ledc_channels[1];
-    ledc_channel[2] = ledc_channels[2];
+    mqtt_message_handler = message_handler;
 
     esp_mqtt_client_config_t mqtt_configuration = {
         .uri = ESP_MQTT_URI,
@@ -157,51 +151,10 @@ void mqtt_unknown_handler(esp_mqtt_event_handle_t event)
 
 void mqtt_data_handler(esp_mqtt_event_handle_t event)
 {
-    ESP_LOGI(TAG, "MQTT_EVENT_DATA");
+    ESP_LOGD(TAG, "MQTT_EVENT_DATA");
     ESP_LOGD(TAG, "TOPIC=%.*s\r\n", event->topic_len, event->topic);
     ESP_LOGD(TAG, "DATA=%.*s\r\n", event->data_len, event->data);
 
     char *data = event->data;
-
-    // TODO: use functions to parse request and find right handler
-    // TODO: send status / error code to gateway
-    // TODO: use senml library to parse request
-
-    cJSON *root = cJSON_Parse(data);
-
-    int packSize = cJSON_GetArraySize(root);
-    for (int i = 0; i < packSize; i++)
-    {
-        cJSON *senmlRecord = cJSON_GetArrayItem(root, i);
-
-        char *actuator_name = cJSON_GetObjectItem(senmlRecord, "bn")->valuestring;
-        if (strcmp(actuator_name, "led_rgb") == 0)
-        {
-            //TODO: Error handling
-            char *rgbValueJson = cJSON_GetObjectItem(senmlRecord, "vs")->valuestring;
-            cJSON *rgbValues = cJSON_Parse(rgbValueJson);
-
-            int r = max(cJSON_GetObjectItem(rgbValues, "r")->valueint, 255);
-            int g = max(cJSON_GetObjectItem(rgbValues, "g")->valueint, 255);
-            int b = max(cJSON_GetObjectItem(rgbValues, "b")->valueint, 255);
-            ESP_LOGD(TAG, "Received request to set led-color to %i,%i,%i", r, g, b);
-
-            float r_percent = floor((100 / (float)255) * r);
-            float g_percent = floor((100 / (float)255) * g);
-            float b_percent = floor((100 / (float)255) * b);
-
-            cJSON_Delete(rgbValues); // dispose
-
-            ESP_LOGD(TAG, "Received request to set led-color to %f,%f,%f", r_percent, g_percent, b_percent);
-            set_led_color_percent(
-                ledc_channel,
-                r_percent,
-                g_percent,
-                b_percent,
-                LEDC_TRANSITION_INTERVAL);
-        }
-
-        // free memory
-        cJSON_Delete(senmlRecord);
-    }
+    mqtt_message_handler(data);
 }

@@ -9,4 +9,4 @@ void set_color_hard(ledc_channel_config_t channel, int32_t duty);
 void set_led_color_percent(ledc_channel_config_t *channels, int percent_red, int percent_green, int percent_blue, int transition_interval_ms);
 int calculate_duty(int8_t percent);
 int get_max_duty(int duty_resolution);
-void configure_ledc();
+void configure_ledc(ledc_channel_config_t *ledc_channels);
