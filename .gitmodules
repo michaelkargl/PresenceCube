@@ -2,3 +2,6 @@
 	path = components/arduino-esp32
 	url = https://github.com/espressif/arduino-esp32.git
 	branch = idf-release/v4.0
+[submodule "components/idf-tft_espi/TFT_eSPI"]
+	path = components/idf-tft_espi/TFT_eSPI
+	url = https://github.com/Bodmer/TFT_eSPI.git
