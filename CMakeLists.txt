@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.5)
 
 # register custom components
 list(APPEND EXTRA_COMPONENTS components/math_helper)
-list(APPEND EXTRA_COMPONENTS components/arduino)
+list(APPEND EXTRA_COMPONENTS components/arduino-esp32)
 list(APPEND EXTRA_COMPONENTS components/idf-tft_espi)
 list(APPEND EXTRA_COMPONENTS components/number-display)
 
