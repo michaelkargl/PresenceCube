@@ -8,7 +8,8 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "serve": "docusaurus serve"
+    "serve": "docusaurus serve",
+    "build-pdf": "npx docusaurus-pdf http://localhost:3000/docs docs.pdf"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.66",
