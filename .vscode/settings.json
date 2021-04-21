@@ -1,29 +1,26 @@
 {
-  "C_Cpp.clang_format_style": "Visual Studio",
-  "editor.formatOnSave": false,
-  "[cpp]": {
-    "editor.quickSuggestions": true
-  },
-  "[c]": {
-    "editor.quickSuggestions": true
-  },
-  "C_Cpp.intelliSenseEngineFallback": "Enabled",
-  "idf.portWin": "COM3",
-  "files.associations": {
-    "*.inc": "c",
-    "err.h": "c",
-    "esp_wifi.h": "c",
-    "xiosbase": "c",
-    "array": "c",
-    "vector": "c",
-    "xstring": "c",
-    "xutility": "c",
-    "mqtt_client.h": "c",
-    "math.h": "c",
-    "math_helper.h": "c",
-    "mqtt_setup.h": "c",
-    "cjson.h": "c",
-    "ledc_types.h": "c",
-    "zube_ledc.h": "c"
-  }
+    "files.associations": {
+        "wifi_setup.h": "c",
+        "st7789.h": "c",
+        "esp_vfs.h": "c",
+        "display.h": "c",
+        "*.ipp": "c",
+        "fstream": "c",
+        "esp_spiffs.h": "c",
+        "spiffs.h": "c",
+        "mqtt_setup.h": "c",
+        "mqtt_client.h": "c",
+        "cjson.h": "c",
+        "zube_mqtt_handler.h": "c",
+        "mqtt_event_handlers.h": "c",
+        "stdlib.h": "c",
+        "mqtt_handlers.h": "c",
+        "zube_ledc.h": "c",
+        "esp_log.h": "c",
+        "ledc.h": "c",
+        "color_util.h": "c",
+        "stdint.h": "c",
+        "cstdlib": "c"
+    },
+    "idf.portWin": "COM21"
 }

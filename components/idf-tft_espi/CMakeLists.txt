@@ -1,7 +1,0 @@
-list(APPEND COMPONENT_ADD_INCLUDEDIRS TFT_eSPI)
-
-list(APPEND COMPONENT_SRCS TFT_eSPI/TFT_eSPI.cpp)
-
-list(APPEND COMPONENT_REQUIRES arduino-esp32)
-
-register_component()

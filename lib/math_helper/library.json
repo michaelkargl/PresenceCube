@@ -1,0 +1,12 @@
+{
+    "name": "nopnop2002_esp-idf-st7789",
+    "version": "1.0.3",
+    "srcDir": "esp-idf-st7789/main",
+    "build": {
+        "srcFilter": [
+            "+<*.c>",
+            "-<main.*>"
+        ],
+        "includeDir": "include"
+    }
+}
