@@ -1,10 +1,3 @@
-[submodule "components/arduino-esp32"]
-	path = components/arduino-esp32
-	url = https://github.com/espressif/arduino-esp32.git
-	branch = idf-release/v4.0
-[submodule "components/idf-tft_espi/TFT_eSPI"]
-	path = components/idf-tft_espi/TFT_eSPI
-	url = https://github.com/Bodmer/TFT_eSPI.git
-[submodule "Zube-App/lib/lib_esp-idf-st7789/esp-idf-st7789"]
-	path = Zube-App/lib/lib_esp-idf-st7789/esp-idf-st7789
+[submodule "lib/lib_esp-idf-st7789/esp-idf-st7789"]
+	path = lib/lib_esp-idf-st7789/esp-idf-st7789
 	url = https://github.com/nopnop2002/esp-idf-st7789.git

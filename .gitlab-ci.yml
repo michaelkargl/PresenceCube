@@ -1,0 +1,46 @@
+# Learn more: 
+# https://docs.gitlab.com/ee/ci/yaml/README.html#script
+# https://docs.platformio.org/en/latest/integration/ci/gitlab.html
+# https://electric-toast.com/esp32-diy-smarter-home-collect-measurements/
+# https://www.reddit.com/r/esp32/comments/est2wj/full_platformio_cicd/
+
+# After committing this template, visit CI/CD > Jobs to see the script output.
+
+image: python:3.6
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_UPDATE_STRATEGY: default
+  PLATFORMIO_CI_SRC: "src/main.c"
+
+stages:
+ - build
+ - test
+
+before_script:
+  - 'echo "----------- Variables ---------------"'
+  - 'echo "CI_JOB_STAGE: $CI_JOB_STAGE"'
+  - 'echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"'
+  - 'echo'
+
+# list:
+#   stage: build
+#   script:
+#     - "ls -R lib/"
+
+build:
+ stage: build
+ script: 
+   - "pip install -U platformio"
+   - "pio run"
+
+flawfinder:
+  stage: test
+  image: python:latest
+  script: 
+    - python -m pip install flawfinder
+    - flawfinder --context --html . > flawfinder.html
+  artifacts:
+    paths:
+      - flawfinder.html
+  allow_failure: true
