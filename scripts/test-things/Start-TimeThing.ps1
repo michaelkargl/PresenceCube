@@ -38,5 +38,6 @@ Function Start-TimeThing {
 }
 
 . $(Join-Path $ScriptPath 'Import-EnvironmentVariables.ps1')
-
-Start-TimeThing -BaseUri $MainfluxUriBase -Topic "$ChannelTopic/time" -Token $ThingKey
+Start-TimeThing -BaseUri $MainfluxUriBase `
+                -Topic "$ChannelTopic/time" `
+                -Token $ThingKey -TickLengthSeconds 1
