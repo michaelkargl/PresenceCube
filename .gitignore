@@ -5,3 +5,5 @@
 .vscode/ipch
 **/sdkconfig
 **/sdkconfig*
+
+scripts/**/Import-EnvironmentVariables.ps*
