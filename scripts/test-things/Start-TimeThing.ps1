@@ -4,6 +4,11 @@
 
 
 <#
+.SYNOPSIS
+ Publishes the current time in an endless loop
+.DESCRIPTION
+ Beware, this is intended to provide development data only and is therefore 
+ not intended to be highly precise
 .EXAMPLE
  (Get-Date).ToShortTimeString() | Invoke-WebRequest -Method Post -Uri "$MainfluxUriBase/$Topic" -Headers @{ Authorization = $ThingKey }
 #>
@@ -12,21 +17,23 @@ Function Start-TimeThing {
         [String]$BaseUri,
         [String]$Topic,
         [String]$Token,
-        [int] $TickLengthSeconds
+        [int] $TickLengthSeconds,
+        [String]$DateTimeFormat = '%H:%m:%s'
     )
 
     $RetryInterval = 1;
 
     while ( $true ) {
         Try {
-            $Value = Get-Date -Format '%H:%m:%s'
+            $Value = Get-Date -Format $DateTimeFormat
             $Value | ConvertTo-Json `
                    | Invoke-WebRequest -Method Post `
                                       -Uri "$BaseUri/$Topic" `
-                                      -Headers @{ 
+                                      -Headers @{
                 Authorization = $Token
-            } -TimeoutSec 2
+            } -TimeoutSec 2 | Out-Null
 
+            Write-Host
             Start-SleepLoudly -Seconds $TickLengthSeconds `
                               -Status "Current: $Value. Next update in..."
         } Catch {
@@ -40,4 +47,5 @@ Function Start-TimeThing {
 . $(Join-Path $ScriptPath 'Import-EnvironmentVariables.ps1')
 Start-TimeThing -BaseUri $MainfluxUriBase `
                 -Topic "$ChannelTopic/time" `
-                -Token $ThingKey -TickLengthSeconds 1
+                -Token $ThingKey `
+                -TickLengthSeconds 10
