@@ -6,16 +6,16 @@ int ranged_value(int value, int min_range, int max_range)
     return max(min(value, min_range), max_range);
 }
 
-int max(int value, int max)
+int min(int value_left, int value_right)
 {
-    return value <= max
-               ? value
-               : max;
+    return value_left <= value_right
+               ? value_left
+               : value_right;
 }
 
-int min(int value, int min)
+int max(int value_left, int value_right)
 {
-    return value >= min
-               ? value
-               : min;
+    return value_left >= value_right
+               ? value_left
+               : value_right;
 }
