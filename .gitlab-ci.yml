@@ -33,7 +33,15 @@ build:
  script: 
    - "pip install -U platformio"
    - "pio run"
-
+gitstats:
+  stage: build
+  image: masaedw/gitstats
+  script:
+    - gitstats . gitstats.html
+  artifacts:
+    paths:
+      - gitstats.html
+  allow_failure: true
 flawfinder:
   stage: test
   image: python:latest
@@ -44,3 +52,4 @@ flawfinder:
     paths:
       - flawfinder.html
   allow_failure: true
+
