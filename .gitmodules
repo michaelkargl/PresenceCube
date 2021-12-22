@@ -1,3 +1,9 @@
 [submodule "lib/lib_esp-idf-st7789/esp-idf-st7789"]
 	path = lib/lib_esp-idf-st7789/esp-idf-st7789
 	url = https://github.com/nopnop2002/esp-idf-st7789.git
+[submodule "circuits/zube/zube/digikey-kicad-library"]
+	path = circuits/zube/zube/digikey-kicad-library
+	url = https://github.com/Digi-Key/digikey-kicad-library.git
+[submodule "circuits/zube/zube/SparkFun-KiCad-Libraries"]
+	path = circuits/zube/zube/SparkFun-KiCad-Libraries
+	url = https://github.com/sparkfun/SparkFun-KiCad-Libraries.git
