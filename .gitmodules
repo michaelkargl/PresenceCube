@@ -10,3 +10,9 @@
 [submodule "lib/webserver"]
 	path = lib/webserver
 	url = ../webserver.git
+[submodule "lib/rgb-ledc"]
+	path = lib/rgb-ledc
+	url = ../rgb-ledc.git
+[submodule "lib/mathutil"]
+	path = lib/mathutil
+	url = ../mathutil.git

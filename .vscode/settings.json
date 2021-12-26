@@ -34,7 +34,10 @@
         "utility": "c",
         "webserver.h": "c",
         "webserver_init.h": "c",
-        "home_controller.h": "c"
+        "home_controller.h": "c",
+        "led_control_init.h": "c",
+        "math.h": "c",
+        "rgb_ledc.h": "c"
     },
     "idf.portWin": "COM21"
 }
