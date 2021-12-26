@@ -7,6 +7,7 @@
 #include "mqtt_setup.h"
 #include "zube_mqtt_handler.h"
 #include "zube_ledc.h"
+#include "web/webserver_init.h"
 
 // configured using Kconfig.projbuild and idf menuconfig
 // Mqtt connection
@@ -106,6 +107,9 @@ void app_main()
    
     ESP_LOGI(TAG, "Setting up wifi connection...");
     create_wifi_station();
+
+    ESP_LOGI(TAG, "Setting up web server...");
+    ESP_ERROR_CHECK(initialize_webserver());
 
     _mqtt_client = _connect_mqtt();
 

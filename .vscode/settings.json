@@ -31,7 +31,10 @@
         "functional": "c",
         "tuple": "c",
         "type_traits": "c",
-        "utility": "c"
+        "utility": "c",
+        "webserver.h": "c",
+        "webserver_init.h": "c",
+        "home_controller.h": "c"
     },
     "idf.portWin": "COM21"
 }

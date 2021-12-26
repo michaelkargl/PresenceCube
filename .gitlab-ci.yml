@@ -22,7 +22,7 @@ before_script:
   - 'echo "CI_JOB_STAGE: $CI_JOB_STAGE"'
   - 'echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"'
   - 'echo'
-
+  
 # list:
 #   stage: build
 #   script:
