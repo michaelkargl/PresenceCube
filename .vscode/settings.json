@@ -40,7 +40,12 @@
         "rgb_ledc.h": "c",
         "led_controller.h": "c",
         "esp_http_server.h": "c",
-        "esp_err.h": "c"
+        "esp_err.h": "c",
+        "rgb_ledc_duty_calculator.h": "c",
+        "rgb_ledc_types.h": "c",
+        "rgb_ledc_init.h": "c",
+        "typeinfo": "c",
+        "string.h": "c"
     },
     "idf.portWin": "COM21"
 }
