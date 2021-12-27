@@ -1,12 +1,12 @@
 #include "webserver_init.h"
 #include "webserver.h"
-#include "controllers/home_controller.h"
+#include "controllers/led_controller.h"
 #include "esp_log.h"
 
 static const char *_LOGGING_TAG = "webserver_init";
 
 static esp_err_t _register_endpoints() {
-    const struct home_controller_endpoints_t *home_controller_routes = get_home_controller_endpoints();
+    const struct led_controller_endpoints_t *home_controller_routes = get_led_controller_endpoints();
     
     assert(home_controller_routes);
     

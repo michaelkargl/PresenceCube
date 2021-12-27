@@ -37,7 +37,10 @@
         "home_controller.h": "c",
         "led_control_init.h": "c",
         "math.h": "c",
-        "rgb_ledc.h": "c"
+        "rgb_ledc.h": "c",
+        "led_controller.h": "c",
+        "esp_http_server.h": "c",
+        "esp_err.h": "c"
     },
     "idf.portWin": "COM21"
 }
