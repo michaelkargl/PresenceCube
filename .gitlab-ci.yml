@@ -47,7 +47,7 @@ flawfinder:
   image: python:latest
   script: 
     - python -m pip install flawfinder
-    - flawfinder --context --html . > flawfinder.html
+    - flawfinder --context --html ./src ./test > flawfinder.html
   artifacts:
     paths:
       - flawfinder.html
