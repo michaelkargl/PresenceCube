@@ -10,8 +10,8 @@
 #define REQUEST_ERROR_MESSAGE_BUFFER_SIZE 50
 
 static const char *_LOGGER_TAG = "led_controller";
-static const struct ledc_rgb_led_t *_led;
-static int _led_size;
+static const struct ledc_rgb_led_t *_leds;
+static int _leds_size;
 
 static esp_err_t POST_led_handler(httpd_req_t *req);
 static esp_err_t GET_leds_handler(httpd_req_t *req);
@@ -32,9 +32,9 @@ static const struct led_controller_endpoints_t _home_controller_endpoints = {
     .get_leds = &_get_leds
 };
 
-void initialize_led_controller(const struct ledc_rgb_led_t *led) {
-    _led = led;
-    _led_size = 1;
+void initialize_led_controller(const struct ledc_rgb_led_t *leds, int leds_size) {
+    _leds = leds;
+    _leds_size = leds_size;
 }
 
 const struct led_controller_endpoints_t *get_led_controller_endpoints()
@@ -52,17 +52,18 @@ static void _send_response(httpd_req_t *request, char* status_code, char* payloa
 static esp_err_t GET_leds_handler(httpd_req_t *request) {
     cJSON* led_array = cJSON_CreateArray();
 
-    cJSON* element = cJSON_CreateObject();
-    cJSON_AddNumberToObject(element, "id", 0);
-    cJSON_AddStringToObject(element, "name", _led->name);
-    cJSON_AddBoolToObject(element, "isInitialized", _led->is_initialized);
-    cJSON_AddBoolToObject(element, "isCommonAnode", _led->is_common_anode);
-    cJSON_AddItemToArray(led_array, element);
-
+    for(int i = 0; i < _leds_size; i ++) {
+        cJSON* element = cJSON_CreateObject();
+        cJSON_AddNumberToObject(element, "id", i);
+        cJSON_AddStringToObject(element, "name", _leds[i].name);
+        cJSON_AddBoolToObject(element, "isInitialized", _leds[i].is_initialized);
+        cJSON_AddBoolToObject(element, "isCommonAnode", _leds[i].is_common_anode);
+        cJSON_AddItemToArray(led_array, element);
+    }
+    
     char* response_string = cJSON_Print(led_array);
     _send_response(request, HTTPD_200, response_string);
 
-    cJSON_free(element);
     cJSON_free(led_array);
     free(response_string);
 
@@ -95,7 +96,7 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
     }
 
     int ledId = cJSON_GetObjectItem(json, "id")->valueint;
-    bool is_valid_led_id = ledId >= 0 && ledId <= (_led_size-1);
+    bool is_valid_led_id = ledId >= 0 && ledId <= (_leds_size-1);
     if (!is_valid_led_id) {
         _send_response(request, HTTPD_500, "Led 'id' is not a valid number => see /leds");
         cJSON_free(json);
@@ -113,7 +114,7 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
     }
 
     set_led_color_percent(
-        &_led[ledId],
+        &_leds[ledId],
         cJSON_GetObjectItem(json, "r")->valueint,
         cJSON_GetObjectItem(json, "g")->valueint,
         cJSON_GetObjectItem(json, "b")->valueint

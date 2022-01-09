@@ -98,7 +98,7 @@ void app_main()
 
     ESP_LOGI(TAG, "Setting up web server...");
     ESP_LOGI(TAG, "Initializing controllers...");
-    initialize_led_controller(&_leds[0]);
+    initialize_led_controller(_leds, _leds_count);
 
     ESP_LOGI(TAG, "Initializing / starting webserver...");
     ESP_ERROR_CHECK(start_webserver());

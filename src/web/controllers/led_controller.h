@@ -9,5 +9,5 @@ struct led_controller_endpoints_t
     const httpd_uri_t *get_leds;
 };
 
-void initialize_led_controller(const struct ledc_rgb_led_t *led);
+void initialize_led_controller(const struct ledc_rgb_led_t *led, int leds_size);
 const struct led_controller_endpoints_t *get_led_controller_endpoints();

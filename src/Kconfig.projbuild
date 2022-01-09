@@ -108,35 +108,55 @@ menu "ST7789 Configuration"
 endmenu
 
 
-
-
 menu "Light Control"
 
-	config RGB_RED_CHANNEL_PIN
-		int "Red pulse width modulation channel pin"
-		range 0 34
-		default 19
-		help 
-			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
-			GPIOs 35-39 are input-only so cannot be used as outputs.
-			
-	config RGB_GREEN_CHANNEL_PIN
-		int "Green pulse width modulation channel pin"
-		range 0 34
-		default 17
-		help 
-			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
-			GPIOs 35-39 are input-only so cannot be used as outputs.
-			
-	config RGB_BLUE_CHANNEL_PIN
-		int "Blue pulse width modulation channel pin"
-		range 0 34
-		default 18
-		help
-			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
-					GPIOs 35-39 are input-only so cannot be used as outputs.
+	menu "RGBA East"
+		config RGBA_EAST_RED_CHANNEL_PIN
+			int "Red PWM channel pin"
+			range 0 34
+			default 13
+			help 
+				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+				
+		config RGBA_EAST_GREEN_CHANNEL_PIN
+			int "Green PWM channel pin"
+			range 0 34
+			default 14
+			help 
+				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 
-	config PULSE_WIDTH_MODULATION_FADE_INTERVAL
+		config RGBA_EAST_BLUE_CHANNEL_PIN
+			int "Blue PWM channel pin"
+			range 0 34
+			default 15
+			help
+				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+	endmenu
+
+	menu "RGBA West"
+		config RGBA_WEST_RED_CHANNEL_PIN
+			int "Red PWM channel pin"
+			range 0 34
+			default 25
+			help 
+				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+				
+		config RGBA_WEST_GREEN_CHANNEL_PIN
+			int "Green PWM channel pin"
+			range 0 34
+			default 32
+			help 
+				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+		config RGBA_WEST_BLUE_CHANNEL_PIN
+			int "Blue PWM channel pin"
+			range 0 34
+			default 33
+			help
+				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+	endmenu
+
+	config PWM_FADE_INTERVAL
 		int "The time in milliseconds to fade from one duty cycle to the next"
 		range 0 86400000
 		default 3000
