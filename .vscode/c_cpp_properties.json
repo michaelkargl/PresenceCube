@@ -10,6 +10,10 @@
             "includePath": [
                 "/home/kami/workspace/embedded-space/zube-app/include",
                 "/home/kami/workspace/embedded-space/zube-app/src",
+                "/home/kami/workspace/embedded-space/zube-app/lib/wifiinit/include",
+                "/home/kami/workspace/embedded-space/zube-app/lib/wifiinit",
+                "/home/kami/workspace/embedded-space/zube-app/lib/nvs_init/include",
+                "/home/kami/workspace/embedded-space/zube-app/lib/nvs_init",
                 "/home/kami/workspace/embedded-space/zube-app/lib/webserver/include",
                 "/home/kami/workspace/embedded-space/zube-app/lib/webserver/src",
                 "/home/kami/workspace/embedded-space/zube-app/lib/rgb-ledc/include",
@@ -124,6 +128,11 @@
                 "/home/kami/.platformio/packages/framework-espidf/components/spiffs/include",
                 "/home/kami/.platformio/packages/framework-espidf/components/ulp/include",
                 "/home/kami/.platformio/packages/framework-espidf/components/wifi_provisioning/include",
+                "/home/kami/workspace/embedded-space/zube-app/components/Adaf",
+                "/home/kami/workspace/embedded-space/zube-app/components/Adafruit-GFX",
+                "/home/kami/workspace/embedded-space/zube-app/components/FT6X36-IDF/include",
+                "/home/kami/workspace/embedded-space/zube-app/components/epd_driver/include",
+                "/home/kami/workspace/embedded-space/zube-app/components/CalEPD/include",
                 "/home/kami/.platformio/packages/tool-unity",
                 ""
             ],
@@ -132,6 +141,10 @@
                 "path": [
                     "/home/kami/workspace/embedded-space/zube-app/include",
                     "/home/kami/workspace/embedded-space/zube-app/src",
+                    "/home/kami/workspace/embedded-space/zube-app/lib/wifiinit/include",
+                    "/home/kami/workspace/embedded-space/zube-app/lib/wifiinit",
+                    "/home/kami/workspace/embedded-space/zube-app/lib/nvs_init/include",
+                    "/home/kami/workspace/embedded-space/zube-app/lib/nvs_init",
                     "/home/kami/workspace/embedded-space/zube-app/lib/webserver/include",
                     "/home/kami/workspace/embedded-space/zube-app/lib/webserver/src",
                     "/home/kami/workspace/embedded-space/zube-app/lib/rgb-ledc/include",
@@ -246,6 +259,11 @@
                     "/home/kami/.platformio/packages/framework-espidf/components/spiffs/include",
                     "/home/kami/.platformio/packages/framework-espidf/components/ulp/include",
                     "/home/kami/.platformio/packages/framework-espidf/components/wifi_provisioning/include",
+                    "/home/kami/workspace/embedded-space/zube-app/components/Adaf",
+                    "/home/kami/workspace/embedded-space/zube-app/components/Adafruit-GFX",
+                    "/home/kami/workspace/embedded-space/zube-app/components/FT6X36-IDF/include",
+                    "/home/kami/workspace/embedded-space/zube-app/components/epd_driver/include",
+                    "/home/kami/workspace/embedded-space/zube-app/components/CalEPD/include",
                     "/home/kami/.platformio/packages/tool-unity",
                     ""
                 ]

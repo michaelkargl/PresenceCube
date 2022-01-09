@@ -1,13 +1,17 @@
-#include <stdlib.h>
-#include "wifi/spiffs.h"
-#include "wifi/wifi_setup.h"
-#include "display.h"
-#include "esp_log.h"
-#include "led_control/led_control_init.h"
-#include "web/controllers/led_controller.h"
-#include "rgb_ledc.h"
-#include "delay_service.h"
-#include "webserver.h"
+extern "C" {
+    #include <stdlib.h>
+    #include "spiffs/spiffs.h"
+    #include "wifi/wifi_setup.h"
+    #include "display.h"
+    #include "esp_log.h"
+    #include "led_control/led_control_init.h"
+    #include "web/controllers/led_controller.h"
+    #include "rgb_ledc.h"
+    #include "delay_service.h"
+    #include "webserver.h"
+}
+
+#include <gdew027w3T.h>
 
 // configured using Kconfig.projbuild and idf menuconfig
 // Mqtt connection
@@ -31,6 +35,39 @@ static esp_vfs_spiffs_conf_t spiffs_config = {
 static const struct ledc_rgb_led_t* _leds;
 static int _leds_count = 0;
 
+static FT6X36 touch_panel(CONFIG_TOUCH_INT);
+static EpdSpi spi_io_interface;
+static Gdew027w3T display(spi_io_interface, touch_panel);
+static const bool cleanScreenAtStart = true;
+
+static void _draw_text(char* text) {
+    uint8_t font_size_x = 5;
+
+    display.setCursor(10, 10);
+    display.setTextColor(EPD_WHITE);
+    display.setTextSize(font_size_x);
+    display.setTextWrap(true);
+    display.println(text);
+}
+
+static void _draw_circles(int interval, bool autoflush = false) {
+    ESP_LOGI(TAG, "Drawing circles...");
+    const int16_t center_x = GDEW027W3_WIDTH / 2;
+    const int16_t center_y = GDEW027W3_HEIGHT /2;
+
+    for (int16_t radius = GDEW027W3_HEIGHT; radius > 0; radius -= interval) {
+        ESP_LOGD(TAG, "   circle (x%i,y%i)-> r%i", center_x, center_y, radius);
+        display.drawCircle(center_x, center_y, radius, EPD_BLACK);
+    }
+
+    if (autoflush) {
+        ESP_LOGD(TAG, "   Flushing circles to display");
+        display.update();
+    }
+}
+
+
+
 // static esp_mqtt_client_handle_t _connect_mqtt()
 // {
 //     ESP_LOGI(TAG, "Setting up MQTT connection...");
@@ -50,15 +87,26 @@ static int _leds_count = 0;
 //     return mqtt_client;
 // }
 
-
-
-void app_main()
+extern "C" void app_main()
 {    
     // set all components to ERROR level
     esp_log_level_set("*", ESP_LOG_VERBOSE);
 
     ESP_LOGI(TAG, "Setting up spiffs...");
     initialize_spiffs(&spiffs_config);
+
+    // TODO: Move into separate initializer module
+    ESP_LOGI(TAG, "Initializing E-Ink display...");
+    display.init(false);
+
+    if (cleanScreenAtStart) {
+        ESP_LOGD(TAG, "Clearing screen...");
+        display.update();
+    }
+    // TODO: Move into separate service
+    _draw_circles(2);
+    _draw_text("Hello :)");
+    display.update();
 
     // ESP_LOGI(TAG, "Setting up display with fonts...");
     // const char *font_gothic_16x32 = "/spiffs/ILGH32XB.FNT";
