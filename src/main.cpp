@@ -11,7 +11,12 @@ extern "C" {
     #include "webserver.h"
 }
 
-#include <gdew027w3T.h>
+#include "display/display.hpp"
+#include "display/display_init.h"
+#include "display/heads_up_display.hpp"
+#include "gdew_colors.h"
+
+
 
 // configured using Kconfig.projbuild and idf menuconfig
 // Mqtt connection
@@ -34,38 +39,7 @@ static esp_vfs_spiffs_conf_t spiffs_config = {
 // static esp_mqtt_client_handle_t _mqtt_client;
 static const struct ledc_rgb_led_t* _leds;
 static int _leds_count = 0;
-
-static FT6X36 touch_panel(CONFIG_TOUCH_INT);
-static EpdSpi spi_io_interface;
-static Gdew027w3T display(spi_io_interface, touch_panel);
-static const bool cleanScreenAtStart = true;
-
-static void _draw_text(char* text) {
-    uint8_t font_size_x = 5;
-
-    display.setCursor(10, 10);
-    display.setTextColor(EPD_WHITE);
-    display.setTextSize(font_size_x);
-    display.setTextWrap(true);
-    display.println(text);
-}
-
-static void _draw_circles(int interval, bool autoflush = false) {
-    ESP_LOGI(TAG, "Drawing circles...");
-    const int16_t center_x = GDEW027W3_WIDTH / 2;
-    const int16_t center_y = GDEW027W3_HEIGHT /2;
-
-    for (int16_t radius = GDEW027W3_HEIGHT; radius > 0; radius -= interval) {
-        ESP_LOGD(TAG, "   circle (x%i,y%i)-> r%i", center_x, center_y, radius);
-        display.drawCircle(center_x, center_y, radius, EPD_BLACK);
-    }
-
-    if (autoflush) {
-        ESP_LOGD(TAG, "   Flushing circles to display");
-        display.update();
-    }
-}
-
+static HeadsUpDisplay _heads_up_display = NULL;
 
 
 // static esp_mqtt_client_handle_t _connect_mqtt()
@@ -97,16 +71,22 @@ extern "C" void app_main()
 
     // TODO: Move into separate initializer module
     ESP_LOGI(TAG, "Initializing E-Ink display...");
-    display.init(false);
+    new(&_heads_up_display) HeadsUpDisplay(initialize_display());
 
-    if (cleanScreenAtStart) {
-        ESP_LOGD(TAG, "Clearing screen...");
-        display.update();
-    }
-    // TODO: Move into separate service
-    _draw_circles(2);
-    _draw_text("Hello :)");
-    display.update();
+    _heads_up_display.drawBackground();
+    const char center_label[] = "Employees";
+    _heads_up_display.updateCenterLabel(center_label, sizeof(center_label)/sizeof(center_label[0]));
+    
+    const char center_value[] = "12";
+    _heads_up_display.updateCenterValue(center_value, sizeof(center_value)/sizeof(center_value[0]));
+
+    const char bottom_text[] = "Updated: 13:43";
+    _heads_up_display.updateBottomText(bottom_text, sizeof(bottom_text)/sizeof(bottom_text[0]));
+
+    const char top_text[] = "Runlevel: 3";
+    _heads_up_display.updateTopText(top_text, sizeof(top_text)/sizeof(top_text[0]));
+    _heads_up_display.flushUpdates();
+
 
     // ESP_LOGI(TAG, "Setting up display with fonts...");
     // const char *font_gothic_16x32 = "/spiffs/ILGH32XB.FNT";

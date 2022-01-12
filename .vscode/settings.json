@@ -48,7 +48,10 @@
         "string.h": "c",
         "wifi_init.h": "c",
         "nvs_init.h": "c",
-        "esp_wifi.h": "c"
+        "esp_wifi.h": "c",
+        "*.tcc": "cpp",
+        "gdew027w3t.h": "c",
+        "new": "cpp"
     },
     "idf.portWin": "COM21"
 }

@@ -9,7 +9,6 @@
 #define REQUEST_BODY_BUFFER_SIZE 50
 #define REQUEST_ERROR_MESSAGE_BUFFER_SIZE 50
 
-static const char *_LOGGER_TAG = "led_controller";
 static const struct ledc_rgb_led_t *_leds;
 static int _leds_size;
 
