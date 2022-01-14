@@ -15,20 +15,18 @@ static int _leds_size;
 static esp_err_t POST_led_handler(httpd_req_t *req);
 static esp_err_t GET_leds_handler(httpd_req_t *req);
 
-static const httpd_uri_t _post_hello = {
-    .uri = "/led",
-    .method = HTTP_POST,
-    .handler = POST_led_handler};
 
-static const httpd_uri_t _get_leds = {
-    .uri = "/leds",
-    .method = HTTP_GET,
-    .handler = GET_leds_handler
-};
-
-static const struct led_controller_endpoints_t _home_controller_endpoints = {
-    .get_hello = &_post_hello,
-    .get_leds = &_get_leds
+static const httpd_uri_t _home_controller_endpoints[] = {
+    {
+        .uri = "/led",
+        .method = HTTP_POST,
+        .handler = POST_led_handler
+    },
+    {
+        .uri = "/leds",
+        .method = HTTP_GET,
+        .handler = GET_leds_handler
+    }
 };
 
 void initialize_led_controller(const struct ledc_rgb_led_t *leds, int leds_size) {
@@ -36,9 +34,10 @@ void initialize_led_controller(const struct ledc_rgb_led_t *leds, int leds_size)
     _leds_size = leds_size;
 }
 
-const struct led_controller_endpoints_t *get_led_controller_endpoints()
+const httpd_uri_t* get_led_controller_endpoints(uint32_t* endpoint_count)
 {
-    return &_home_controller_endpoints;
+    *endpoint_count = sizeof(_home_controller_endpoints) / sizeof(_home_controller_endpoints[0]);
+    return _home_controller_endpoints;
 }
 
 

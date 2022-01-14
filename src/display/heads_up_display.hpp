@@ -20,6 +20,7 @@ class HeadsUpDisplay : public IHeadsUpDisplay {
 
     private:
         IDisplay* display;
+        bool is_dirty = false;
     
         const char* loggingTag = "HeadsUpDisplay";
 
@@ -43,6 +44,13 @@ class HeadsUpDisplay : public IHeadsUpDisplay {
             const uint8_t font_size_factor,
             const uint32_t text_length
         );
+        void clearSection(
+            const uint8_t font_size_factor, 
+            const Position2D elementPosition
+        );
+        void setDirtyFlag(bool flag);
+        void markScreenDirty();
+        void markScreenClean();
     
     public:
         HeadsUpDisplay(IDisplay* display): display(display) {}
@@ -58,6 +66,8 @@ class HeadsUpDisplay : public IHeadsUpDisplay {
         for (int16_t y = 0; y < screen_size.y; y += 10) {
             this->display->drawFastHLine(0, y, screen_size.x, EPD_DARKGREY);
         }
+
+        this->markScreenDirty();
     }
 
     /**
@@ -67,53 +77,71 @@ class HeadsUpDisplay : public IHeadsUpDisplay {
      * @param font_size_factor Multiplication factor starting at 1 for default 6x8 font size. 2 is 12x16, 3 is 18x24, etc
      */
     void updateCenterLabel(const char* label, uint16_t label_length) {
-        Position2D text_position = this->getCenterLabelPosition(CENTER_LABEL_FONT_FIZE_FACTOR, label_length);
-        this->display->drawText(label, label_length, text_position, CENTER_LABEL_FONT_FIZE_FACTOR);
+        Position2D position = this->getCenterLabelPosition(CENTER_LABEL_FONT_FIZE_FACTOR, label_length);
+
+        this->clearSection(CENTER_LABEL_FONT_FIZE_FACTOR, position);
+        this->display->drawText(label, label_length, position, CENTER_LABEL_FONT_FIZE_FACTOR);
+        this->markScreenDirty();
     }
 
     /**
      * @brief Updates the center value
      * @param text The text to render
-     * @param text_length The text length including null-terminator
+     * @param text_length The text length
      */
     void updateCenterValue(const char* text, uint16_t text_length) {
-        Position2D text_position = this->getCenterValuePosition(CENTER_VALUE_FONT_SIZE_FACTOR, text_length);
-        this->display->drawText(text, text_length, text_position, CENTER_VALUE_FONT_SIZE_FACTOR);
+        ESP_LOGI(this->loggingTag, "Updating center value with length %i: %s", text_length, text);
+        Position2D position = this->getCenterValuePosition(CENTER_VALUE_FONT_SIZE_FACTOR, text_length);
+
+        this->clearSection(CENTER_VALUE_FONT_SIZE_FACTOR, position);
+        this->display->drawText(text, text_length, position, CENTER_VALUE_FONT_SIZE_FACTOR);
+        this->markScreenDirty();
     }
 
     /**
      * @brief Updates the text at the bottom
      * @param text The text to render
-     * @param text_length The text length including null terminator
+     * @param text_length The text length
      */
     void updateBottomText(const char* text, uint16_t text_length) {
         Position2D position = this->getBottomTextPosition(BOTTOM_LABEL_FONT_SIZE_FACTOR, text_length);
+        
+        this->clearSection(BOTTOM_LABEL_FONT_SIZE_FACTOR, position);
         this->display->drawText(text, text_length, position, BOTTOM_LABEL_FONT_SIZE_FACTOR);
+        this->markScreenDirty();
     }
 
     /**
      * @brief Updates the text at the top
      * 
      * @param text The text to render
-     * @param text_length The text length including null-terminator
+     * @param text_length The length of the text
      */
     void updateTopText(const char* text, uint16_t text_length) {
         Position2D position = this->getTopTextPosition(TOP_LABEL_FONT_SIZE_FACTOR, text_length);
+
+        this->clearSection(TOP_LABEL_FONT_SIZE_FACTOR, position);
         this->display->drawText(text, text_length, position, TOP_LABEL_FONT_SIZE_FACTOR);
+        this->markScreenDirty();
     }
 
     /**
      * @brief Applies queued changes and sends paint commands to the physical display.
      */
     void flushUpdates() {
-        display->flushUpdates();
+        if ( this->is_dirty) {
+            display->flushUpdates();
+            this->markScreenClean();
+        } else {
+            ESP_LOGD(this->loggingTag, "No updates are queued, ignoring flush request...");
+        }
     }
 };
 
 /**
  * @brief Get the texts center origin. Assuming a top-left origin of 0,0
  * @param font_size_factor Multiplication factor starting at 1 for default 6x8 font size. 2 is 12x16, 3 is 18x24, etc
- * @param text_length The text length including null terminator
+ * @param text_length The text length
  * @return const Position2D The position at the very center of specified text.
  * @pre    o-----------------------+    +-----------------------+
  * @pre    |                       | => |           o           |
@@ -123,10 +151,9 @@ const Position2D HeadsUpDisplay::getTextCenterOrigin(
     const uint8_t font_size_factor,
     const uint32_t text_length
 ) {
-    const uint8_t string_terminator = 1;
     Size2D font_size = this->display->getFontSize(font_size_factor);
     Size2D text_size_in_pixel = {
-        ((int)text_length - string_terminator) * font_size.x,
+        (int)text_length * font_size.x,
         font_size.y
     };
 
@@ -146,7 +173,7 @@ const Position2D HeadsUpDisplay::getTextCenterOrigin(
 /**
  * @brief Gets the position of the top text field
  * @param font_size_factor Multiplication factor starting at 1 for default 6x8 font size. 2 is 12x16, 3 is 18x24, etc
- * @param text_length The text length including null terminator
+ * @param text_length The text length to calculate the text position for 
  * @return const Position2D 
  */
 const Position2D HeadsUpDisplay::getTopTextPosition(
@@ -190,7 +217,7 @@ const Position2D HeadsUpDisplay::getBottomTextPosition(
 /**
  * @brief 
  * @param font_size_factor Multiplication factor starting at 1 for default 6x8 font size. 2 is 12x16, 3 is 18x24, etc
- * @param label_length The length of the label to render (including null-terminator)
+ * @param label_length The length of the label
  * @return Position2D 
  */
 const Position2D HeadsUpDisplay::getCenterLabelPosition(const uint8_t font_size_factor, uint32_t label_length) {
@@ -217,7 +244,7 @@ const Position2D HeadsUpDisplay::getCenterLabelPosition(const uint8_t font_size_
 /**
  * @brief Gets the text position for the center value
  * @param font_size_factor The size of the font to render the text in
- * @param text_length The length of the text to render (including null-terminator)
+ * @param text_length The length of the text
  * @return const Position2D
  */
 const Position2D HeadsUpDisplay::getCenterValuePosition(
@@ -239,4 +266,45 @@ const Position2D HeadsUpDisplay::getCenterValuePosition(
     };
 
     return position;
+}
+
+
+/**
+ * @brief Prepares / clears the entire section so that new values can be drawn.
+ *        Without this step, artifacts may appear when updating texts with smaller values.
+ * 
+ * @param font_size_factor font size of the text to be drawn
+ * @param elementPosition position of the element to be drawn
+ */
+void HeadsUpDisplay::clearSection(const uint8_t font_size_factor, const Position2D elementPosition) {
+    Size2D font_size = this->display->getFontSize(BOTTOM_LABEL_FONT_SIZE_FACTOR);
+    Size2D screen_size = this->display->getScreenSize();
+    Position2D sectionPosition = { 0, elementPosition.y };
+    Size2D sectionSize = { screen_size.x, font_size.y };
+
+    this->display->fillRectangle(
+        sectionPosition.x, sectionPosition.y,
+        sectionSize.x, sectionSize.y, 
+        EPD_WHITE
+    );
+
+    this->markScreenDirty();
+}
+
+void HeadsUpDisplay::setDirtyFlag(bool flag) {
+    this->is_dirty = flag;
+}
+
+/**
+ * @brief Marks the screen as dirty to know when updates are needed.
+ */
+void HeadsUpDisplay::markScreenDirty() {
+    this->is_dirty = true;
+}
+
+/**
+ * @brief Resets the screens dirty flag to know when to ignore unnecessary screen updates.
+ */
+void HeadsUpDisplay::markScreenClean() {
+    this->is_dirty = false;
 }

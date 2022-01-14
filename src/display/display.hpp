@@ -49,6 +49,15 @@ class IDisplay {
         virtual void drawFastHLine(const int x, const int y, const int height, uint16_t color) = 0;
         
         /**
+         *  @brief Fill a rectangle completely with one color
+         *  @param x     Top left corner x coordinate
+         *  @param y     Top left corner y coordinate
+         *  @param w     Width in pixels
+         *  @param h     Height in pixels
+         *  @param color 16-bit 5-6-5 Color to fill with
+         */
+        virtual void fillRectangle(int16_t x, int16_t y, int16_t width, int16_t height, uint16_t color) = 0;
+        /**
          * @brief Fills the entire screen
          * @param color color to fill the screen with
          */

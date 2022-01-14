@@ -51,7 +51,8 @@
         "esp_wifi.h": "c",
         "*.tcc": "cpp",
         "gdew027w3t.h": "c",
-        "new": "cpp"
+        "new": "cpp",
+        "cstring": "c"
     },
     "idf.portWin": "COM21"
 }

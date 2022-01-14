@@ -13,7 +13,7 @@ class EpaperDisplay final : public IDisplay {
         uint8_t font_size_factor
     ) {
         this->display->setCursor(position.x, position.y);
-        this->display->setTextColor(EPD_BLACK);
+        this->display->setTextColor(EPD_BLACK, EPD_WHITE);
         this->display->setTextSize(font_size_factor);
         this->display->setTextWrap(true);
         this->display->println(label);
@@ -27,6 +27,10 @@ class EpaperDisplay final : public IDisplay {
         this->display->drawFastHLine(x, y, height, color);
     }
     
+    void fillRectangle(int16_t x, int16_t y, int16_t width, int16_t height, uint16_t color) {
+        this->display->fillRect(x, y, width, height, color);
+    }
+
     const Position2D getScreenCenter() {
         const Size2D screen_size = this->getScreenSize();
         const Position2D center = {
