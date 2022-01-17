@@ -11,45 +11,73 @@ image: python:3.6
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SUBMODULE_UPDATE_STRATEGY: default
-  PLATFORMIO_CI_SRC: "src/main.c"
-
-stages:
- - build
- - test
+  PLATFORMIO_CI_SRC: src/main.c
+  DOCUSAURUS_PAGE_DIR: $CI_PROJECT_DIR/docs/zube
+  DOCUSAURUS_BUILD_DIR: $DOCUSAURUS_PAGE_DIR/build
+  DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR: $CI_PROJECT_DIR/public
 
 before_script:
   - 'echo "----------- Variables ---------------"'
   - 'echo "CI_JOB_STAGE: $CI_JOB_STAGE"'
   - 'echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"'
+  - 'echo "PWD: $PWD"'
   - 'echo'
-  
+
 # list:
 #   stage: build
 #   script:
-#     - "ls -R lib/"
+#     # Listing all environment variables is a security risk! Use with caution!
+#     # https://docs.gitlab.com/ee/ci/variables/index.html#list-all-environment-variables
+#     - export
 
+pages:
+  stage: deploy
+  image: node:16-alpine
+  allow_failure: false
+  script:
+    - cd $DOCUSAURUS_PAGE_DIR
+    - 'echo "PWD: $PWD"'
+    - npm install
+    - npm run build
+    - cd -
+    - 'echo "PWD: $PWD"'
+    - mv $DOCUSAURUS_BUILD_DIR $DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR
+    - echo '-----------------------------------'
+    - echo "$CI_PAGES_URL    "
+    - echo "-----------------------------------"
+    
+  artifacts:
+    paths:
+      - $DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR
+  only:
+      - master
+ 
 build:
  stage: build
+ allow_failure: false
  script: 
    - "pip install -U platformio"
    - "pio run"
+
 gitstats:
   stage: build
   image: masaedw/gitstats
+  allow_failure: true
   script:
     - gitstats . gitstats.html
   artifacts:
     paths:
       - gitstats.html
-  allow_failure: true
+  only:
+      - master
+
 flawfinder:
   stage: test
   image: python:latest
+  allow_failure: true
   script: 
     - python -m pip install flawfinder
     - flawfinder --context --html ./src ./test > flawfinder.html
   artifacts:
     paths:
       - flawfinder.html
-  allow_failure: true
-

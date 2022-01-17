@@ -1,11 +1,11 @@
 module.exports = {
   title: 'My Site',
   tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://ohsnaparts.gitlab.io/',
+  baseUrl: '/osasoftworks/zube/zube-app/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: 'ohsnaparts', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
     navbar: {
@@ -101,4 +101,25 @@ module.exports = {
       },
     ],
   ],
+  plugins: [
+    [ require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // @easyops-cn/docusaurus-search-local options
+        // https://github.com/easyops-cn/docusaurus-search-local#plugin-options
+        
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        //
+        // For Docs using Chinese, The `language` is recommended to set to:
+        // ```
+        // language: ["en", "zh"],
+        // ```
+        // When applying `zh` in language, please install `nodejieba` in your project.
+        // default: false
+        highlightSearchTermsOnTargetPage: true,
+        // deffault: 50
+        searchResultContextMaxLength: 128
+      }
+    ]
+  ]
 };
