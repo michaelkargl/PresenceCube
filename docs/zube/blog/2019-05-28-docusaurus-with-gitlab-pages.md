@@ -8,7 +8,10 @@ author_image_url: https://secure.gravatar.com/avatar/88023fd552be8a8e8430136472c
 tags: [ today-i-learned, docusaurus, gitlab, ci/cd, gitlab-pages, lunrjs, gatsby, algolia, docsearch, static-site-generators, devops ]
 ---
 
-At times it is hard to keep track of your own learnings, findings, notes and achievements. When building a project from scratch, one has to deal with problems as they arise. Sometimes these problems are just small, googleable, problems easily solved in 5 minutes. There are, however, problems that can take weeks, months or even years to solve. These problems often tend to shadow the little things. Todays task was to find a way to document learnings big and small to make the invisible more visible....
+At times, it is hard to keep track of your own learnings
+, findings, notes and achievements. When building a project from scratch, one has to deal with problems as they arise. Sometimes these problems are just small, googleable, problems easily solved in 5 minutes. There are, however, problems that can take weeks, months or even years to solve. These problems often tend to shadow the little things. Today's task was to find a way to document learnings
+ big and small to make the invisible more visibl
+e....
 
 <!--truncate-->
 
@@ -43,7 +46,7 @@ Configuration is possible:
 
 ### BasePath configuration
 
-An important detail is the proper configuration of your `url` and `baseUrl`. Without this step, browsers wont be able to find styles and assets and run into 404 errors:
+An important detail is the proper configuration of your `url` and `baseUrl`. Without this step, browsers won't be able to find styles and assets and run into 404 errors:
 * [Docusaurus Docs: Deployment][docusaurus_docs_deployment]
 * [ZubeApp Docusaurus Deployment PR][gitlab_zube_app_docusaurus_pull_request]
 
@@ -69,7 +72,7 @@ It works similar to algolia in that it builds a search index. The index is built
 
 ## Gitlab Pages
 
-Now that we have a docusaurus page up and runnung, we'll have to host it somewhere. Gitlab provides a service called [Gitlab Pages][gitlab_pages_doc]. It lts you publish static content directly from a gitlab repository.
+Now that we have a docusaurus page up and running, we'll have to host it somewhere. Gitlab provides a service called [Gitlab Pages][gitlab_pages_doc]. It lts you publish static content directly from a gitlab repository.
 * Use any static site generator (Gatsby, Jekyll, Hugo, Middleman, Harp, Hexo, Brunch, Docusaurus, ...) or plain HTML
 * Create websites for projects, groups or user account
 * Host the site for free
