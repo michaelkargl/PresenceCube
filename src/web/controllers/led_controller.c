@@ -42,6 +42,7 @@ const httpd_uri_t* get_led_controller_endpoints(uint32_t* endpoint_count)
 
 
 static void _send_response(httpd_req_t *request, char* status_code, char* payload) {
+    ESP_ERROR_CHECK(httpd_resp_set_hdr(request, "Access-Control-Allow-Origin", "*"));
     ESP_ERROR_CHECK(httpd_resp_set_status(request, status_code));
     ESP_ERROR_CHECK(httpd_resp_send(request, payload, HTTPD_RESP_USE_STRLEN));
 }
@@ -111,7 +112,7 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
         return ESP_FAIL;
     }
 
-    set_led_color_percent(
+    set_led_color_8bit(
         &_leds[ledId],
         cJSON_GetObjectItem(json, "r")->valueint,
         cJSON_GetObjectItem(json, "g")->valueint,
@@ -120,7 +121,6 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
     
     cJSON_free(json);
     
-    ESP_ERROR_CHECK(httpd_resp_send(request, "hello", HTTPD_RESP_USE_STRLEN));
-    ESP_ERROR_CHECK(httpd_resp_send(request, body_buffer, HTTPD_RESP_USE_STRLEN));
+    _send_response(request, HTTPD_200, "OK");
     return ESP_OK;
 }

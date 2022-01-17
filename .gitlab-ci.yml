@@ -34,6 +34,7 @@ pages:
   stage: deploy
   image: node:16-alpine
   allow_failure: false
+  interruptible: false
   script:
     - cd $DOCUSAURUS_PAGE_DIR
     - 'echo "PWD: $PWD"'
@@ -55,6 +56,7 @@ pages:
 build:
  stage: build
  allow_failure: false
+ interruptible: true
  script: 
    - "pip install -U platformio"
    - "pio run"
@@ -63,6 +65,7 @@ gitstats:
   stage: build
   image: masaedw/gitstats
   allow_failure: true
+  interruptible: true
   script:
     - gitstats . gitstats.html
   artifacts:
@@ -75,6 +78,7 @@ flawfinder:
   stage: test
   image: python:latest
   allow_failure: true
+  interruptible: true
   script: 
     - python -m pip install flawfinder
     - flawfinder --context --html ./src ./test > flawfinder.html
