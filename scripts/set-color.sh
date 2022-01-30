@@ -69,17 +69,21 @@ function _get_random_color {
 function _start_setting_colors {
    local interval=$2
 
-   echo "Setting colors to red"
-   _set_all_led_colors --red 255 --green 0 --blue 0 > /dev/null
+   echo -n "Setting colors to RED: "
+   _set_all_led_colors --red 255 --green 0 --blue 0
    sleep $interval
+   echo
+   
 
-   echo "Setting colors to green"
+   echo -n "Setting colors to GREEN: "
    _set_all_led_colors --red 0 --green 255 --blue 0
    sleep $interval
+   echo
 
-   echo "Setting colors to blue"
+   echo -n "Setting colors to BLUE: "
    _set_all_led_colors --red 0 --green 0 --blue 255
    sleep $interval
+   echo
 }
 
 
