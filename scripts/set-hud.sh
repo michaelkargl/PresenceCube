@@ -18,24 +18,20 @@ function _create_message_body {
 }
 
 SERVER_URL='http://192.168.8.119'
+HUD_URL="$SERVER_URL/hud"
 INTERVAL=5
 
 for i in $(seq 5 15)
 do
-    top="Runlevel: $i"
-    bottom="Time: $(date +'%H:%M:%S')"
-    center_value="$i"
-    center_label="Counter"
-
     _body=$(_create_message_body \
-        --top "$top" \
-        --center-value "$center_value" \
-        --center-label "$center_label" \
-        --bottom "$bottom"
+        --top "Runlevel: $i" \
+        --center-value "$i" \
+        --center-label "Counter" \
+        --bottom "Time: $(date +'%H:%M:%S')"
     );
 
     echo -n "Issuing hud update: $_body: "
-    curl --silent --request POST -d "$_body" "$SERVER_URL/hud"
+    curl --silent --request POST -d "$_body" "$HUD_URL"
     echo
 
     sleep $INTERVAL
