@@ -5,6 +5,7 @@
 //TODO: Refactor LED controller and remove webserver.h
 #include "webserver.h"
 
+#define LOGGER_TAG "WebController"
 
 class WebController {
     public:
@@ -40,6 +41,31 @@ class WebController {
             httpd_req_t *request,
             char *payload_buffer, uint8_t payload_buffer_size,
             char *error_buffer, uint8_t error_buffer_size);
+
+        /**
+         * @brief Provides an application specific way to send http reqponses.
+         * 
+         * @param request The request to respond to
+         * @param status_code The HTTP status code to send
+         * @param payload An optional payload to send
+         */
+        static void send_response(httpd_req_t *request, const char* status_code, const char* payload);
+
+        /**
+         * @brief Sends the data to the client in chunks of specified size.
+         * 
+         * @param request The request to respond to
+         * @param status_code The HTTP status code to send
+         * @param data The data to send in chunks
+         * @param chunk_count How many parts the data is chunked into
+         */
+        void send_chunked_response(
+            httpd_req_t *request, 
+            const char* status_code, 
+            const unsigned char* data,
+            const uint32_t data_length,
+            const uint8_t chunk_count
+        );
 
     private:
         /**
@@ -140,4 +166,49 @@ cJSON* WebController::try_get_json_request(
         payload_buffer, payload_buffer_size,
         error_buffer, error_buffer_size
     );
+}
+
+void WebController::send_response(httpd_req_t *request, const char* status_code, const char* payload) {
+    ESP_ERROR_CHECK(httpd_resp_set_hdr(request, "Access-Control-Allow-Origin", "*"));
+    ESP_ERROR_CHECK(httpd_resp_set_status(request, status_code));
+    ESP_ERROR_CHECK(httpd_resp_send(request, payload, HTTPD_RESP_USE_STRLEN));
+}
+
+void WebController::send_chunked_response(
+    httpd_req_t *request, 
+    const char* status_code, 
+    const unsigned char* data,
+    const uint32_t data_length,
+    const uint8_t chunk_count
+) {
+    auto chunk_size = data_length / chunk_count;
+    auto unsent_bytes = data_length;
+    char buffer[chunk_size];
+    
+    ESP_LOGD(LOGGER_TAG, "Data begin: %p", data);
+    ESP_LOGD(LOGGER_TAG, "Data end: %p", &data[data_length-1]);
+
+    for (auto i = 0; unsent_bytes > 0; i++) {
+        ESP_LOGD(LOGGER_TAG, "Entering loop %i with %i unsent elements", i, unsent_bytes);
+        auto data_fits_chunk = unsent_bytes >= chunk_size;
+        auto copy_span = data_fits_chunk ? chunk_size : unsent_bytes; 
+        
+        auto chunk_start = data_length - unsent_bytes;
+        auto chunk_end = chunk_start + copy_span;
+        auto copy_start_position = &data[chunk_start];
+        auto copy_end_position = &data[chunk_end];
+        
+        ESP_LOGD(LOGGER_TAG, "Copying %i elements startign from position %i(%p) to position %i(%p)", 
+            data_length, 
+            chunk_start, copy_start_position,
+            chunk_end, copy_end_position);
+        memcpy(buffer, copy_start_position, copy_span);
+        
+        // flush
+        httpd_resp_send_chunk(request, buffer, copy_span);
+        unsent_bytes -= copy_span;
+    }
+
+    // marks the end of chunked response
+    httpd_resp_send_chunk(request, buffer, 0);
 }

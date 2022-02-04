@@ -52,7 +52,13 @@
         "*.tcc": "cpp",
         "gdew027w3t.h": "c",
         "new": "cpp",
-        "cstring": "c"
+        "cstring": "c",
+        "string": "c",
+        "freertos.h": "c",
+        "stdio.h": "c",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "epd.h": "c"
     },
     "idf.portWin": "COM21"
 }

@@ -1,10 +1,16 @@
 #include "display.hpp"
 
+#define SCREEN_PIXEL_BUFFER_SIZE 0
+
 class EpaperDisplay final : public IDisplay {
     private:
-        Epd* display = NULL;
+        Gdew027w3T* display = NULL;
+        // this heads up display doesn't buffer, yet needs it to implement the interface
+        uint8_t _pixel_buffer[SCREEN_PIXEL_BUFFER_SIZE];
     public:
-        EpaperDisplay(Epd* display) : display(display) {}
+        EpaperDisplay(Gdew027w3T* display) : display(display) {};
+        const Size2D getScreenSize() override;
+        const Position2D getScreenCenter() override;
     
     void drawText(
         const char* label, 
@@ -31,25 +37,6 @@ class EpaperDisplay final : public IDisplay {
         this->display->fillRect(x, y, width, height, color);
     }
 
-    const Position2D getScreenCenter() {
-        const Size2D screen_size = this->getScreenSize();
-        const Position2D center = {
-            screen_size.x / 2,
-            screen_size.y / 2
-        };
-
-        return center;
-    }
-
-    const Size2D getScreenSize() {
-        const Size2D size = {
-            this->display->width(),
-            this->display->height()
-        };
-
-        return size;
-    }
-
     const Size2D getFontSize(const uint8_t font_size_factor) {
         Size2D font_size = {
             this->base_font_size.x * font_size_factor,
@@ -63,7 +50,36 @@ class EpaperDisplay final : public IDisplay {
         this->display->fillScreen(color);
     }
 
+    const uint32_t getScreenPixelBufferSize() {
+        return sizeof(this->_pixel_buffer) / sizeof(this->_pixel_buffer[0]);
+    }
+
+    const uint8_t* getScreenPixelBuffer() {
+        return this->_pixel_buffer;
+    }
+
     void flushUpdates() {
         this->display->update();
     }
 };
+
+
+
+const Size2D EpaperDisplay::getScreenSize() {
+    const Size2D size = {
+        this->display->width(),
+        this->display->height()
+    };
+
+    return size;
+}
+
+const Position2D EpaperDisplay::getScreenCenter() {
+    const Size2D screen_size = this->getScreenSize();
+    const Position2D center = {
+        screen_size.x / 2,
+        screen_size.y / 2
+    };
+
+    return center;
+}

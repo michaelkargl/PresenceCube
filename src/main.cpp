@@ -47,8 +47,8 @@ extern "C" void app_main()
     const char* center_label = "Employees";
     _heads_up_display.updateCenterLabel(center_label, strlen(center_label));
     
-    const char* center_value = "12";
-    _heads_up_display.updateCenterValue(center_value, strlen(center_value));
+    const char* center_value = "AB";
+   _heads_up_display.updateCenterValue(center_value, strlen(center_value));
 
     const char* bottom_text = "Updated: 13:43";
     _heads_up_display.updateBottomText(bottom_text, strlen(bottom_text));

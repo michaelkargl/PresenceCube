@@ -64,6 +64,18 @@ class IDisplay {
         virtual void fillScreen(const uint16_t color);
 
         /**
+         * @brief Get the screens pixel buffer where each entry describes the color of the pixel
+         */
+        virtual const uint32_t getScreenPixelBufferSize() = 0;
+
+        /**
+         * @brief Gets the screens pixel buffer array. The pixel buffer is a digital representation of the 
+         * screen contents where each pixel is assigned a color.
+         * For example:buffer[x * y] = 255 for black pixel.
+         */
+        virtual const uint8_t * getScreenPixelBuffer() = 0;
+
+        /**
          * @brief Applies queued changes and sends paint commands to the physical display.
         */
         virtual void flushUpdates() = 0;
