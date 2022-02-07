@@ -58,7 +58,9 @@
         "stdio.h": "c",
         "string_view": "cpp",
         "initializer_list": "cpp",
-        "epd.h": "c"
+        "epd.h": "c",
+        "locale": "cpp",
+        "codecvt": "cpp"
     },
     "idf.portWin": "COM21"
 }

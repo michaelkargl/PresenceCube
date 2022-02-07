@@ -2,15 +2,16 @@
 #include "stdint.h"
 #include "position_2d.hpp"
 #include "size_2d.hpp"
-#include "epd.h"
-#include "gdew_colors.h"
 
+
+// TODO: Font size is highly dependent on the display and its framework => move to concrete implementations
 #define BASE_FONT_SIZE_X 6
 #define BASE_FONT_SIZE_Y 8
 
 class IDisplay {
     public:
         const Size2D base_font_size = { BASE_FONT_SIZE_X, BASE_FONT_SIZE_Y };
+        virtual ~IDisplay() { };
         virtual const Size2D getScreenSize() = 0;
         virtual const Position2D getScreenCenter() = 0;
         
@@ -47,6 +48,18 @@ class IDisplay {
          * @param color  16-bit 5-6-5 Color to fill with
          */
         virtual void drawFastHLine(const int x, const int y, const int height, uint16_t color) = 0;
+
+        /**
+         * Draw a circle
+         *
+         * Output will be clipped to the current clip window.
+         *
+         * @param x0 center X
+         * @param y0 center Y
+         * @param r radius
+         * @param color
+         */
+        virtual void drawCircle(int16_t x0, int16_t y0, int16_t radius, uint16_t color) = 0;
         
         /**
          *  @brief Fill a rectangle completely with one color
@@ -66,7 +79,7 @@ class IDisplay {
         /**
          * @brief Get the screens pixel buffer where each entry describes the color of the pixel
          */
-        virtual const uint32_t getScreenPixelBufferSize() = 0;
+        virtual uint32_t getScreenPixelBufferSize() = 0;
 
         /**
          * @brief Gets the screens pixel buffer array. The pixel buffer is a digital representation of the 

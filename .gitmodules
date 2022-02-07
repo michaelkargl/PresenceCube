@@ -35,3 +35,9 @@
 	path = lib/nvs_init
 	url = ../nvs_init.git
 
+[submodule "components/hagl_hal"]
+	path = components/hagl_hal
+	url = https://github.com/tuupola/hagl_esp_mipi.git
+[submodule "components/hagl"]
+	path = components/hagl
+	url = https://github.com/tuupola/hagl.git

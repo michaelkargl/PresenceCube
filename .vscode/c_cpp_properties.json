@@ -130,7 +130,8 @@
                 "/home/kami/workspace/embedded-space/zube-app/components/FT6X36-IDF/include",
                 "/home/kami/workspace/embedded-space/zube-app/components/epd_driver/include",
                 "/home/kami/workspace/embedded-space/zube-app/components/CalEPD/include",
-                "/home/kami/workspace/embedded-space/zube-app/lib/lib_esp-idf-st7789/esp-idf-st7789/main",
+                "/home/kami/workspace/embedded-space/zube-app/components/hagl_hal/include",
+                "/home/kami/workspace/embedded-space/zube-app/components/hagl/include",
                 "/home/kami/workspace/embedded-space/zube-app/lib/lib_esp-idf-st7789",
                 "/home/kami/.platformio/packages/tool-unity",
                 ""
@@ -260,7 +261,8 @@
                     "/home/kami/workspace/embedded-space/zube-app/components/FT6X36-IDF/include",
                     "/home/kami/workspace/embedded-space/zube-app/components/epd_driver/include",
                     "/home/kami/workspace/embedded-space/zube-app/components/CalEPD/include",
-                    "/home/kami/workspace/embedded-space/zube-app/lib/lib_esp-idf-st7789/esp-idf-st7789/main",
+                    "/home/kami/workspace/embedded-space/zube-app/components/hagl_hal/include",
+                    "/home/kami/workspace/embedded-space/zube-app/components/hagl/include",
                     "/home/kami/workspace/embedded-space/zube-app/lib/lib_esp-idf-st7789",
                     "/home/kami/.platformio/packages/tool-unity",
                     ""

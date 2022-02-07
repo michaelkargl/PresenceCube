@@ -13,7 +13,6 @@ extern "C" {
 #include "display/display.hpp"
 #include "display/display_init.h"
 #include "display/heads_up_display.hpp"
-#include "gdew_colors.h"
 #include "web/controllers/web_controller_registrar.hpp"
 #include "web/controllers/hud_controller.hpp"
 #include "string.h"
@@ -28,7 +27,6 @@ static esp_vfs_spiffs_conf_t spiffs_config = {
 
 static const struct ledc_rgb_led_t* _leds;
 static int _leds_count = 0;
-static HeadsUpDisplay _heads_up_display = NULL;
 
 
 extern "C" void app_main()
@@ -40,22 +38,22 @@ extern "C" void app_main()
     initialize_spiffs(&spiffs_config);
 
     // TODO: Move into separate initializer module
-    ESP_LOGI(TAG, "Initializing E-Ink display...");
-    new(&_heads_up_display) HeadsUpDisplay(initialize_display());
+    ESP_LOGI(TAG, "Initializing E display...");
+    IHeadsUpDisplay *_heads_up_display = new HeadsUpDisplay(initialize_display());
 
-    _heads_up_display.drawBackground();
+    _heads_up_display->drawBackground(0x2222);
     const char* center_label = "Employees";
-    _heads_up_display.updateCenterLabel(center_label, strlen(center_label));
+    _heads_up_display->updateCenterLabel(center_label, strlen(center_label));
     
-    const char* center_value = "AB";
-   _heads_up_display.updateCenterValue(center_value, strlen(center_value));
+    const char* center_value = "01";
+   _heads_up_display->updateCenterValue(center_value, strlen(center_value));
 
     const char* bottom_text = "Updated: 13:43";
-    _heads_up_display.updateBottomText(bottom_text, strlen(bottom_text));
+    _heads_up_display->updateBottomText(bottom_text, strlen(bottom_text));
 
     const char* top_text = "Runlevel: 3";
-    _heads_up_display.updateTopText(top_text, strlen(top_text));
-    _heads_up_display.flushUpdates();
+    _heads_up_display->updateTopText(top_text, strlen(top_text));
+    _heads_up_display->flushUpdates();
 
     ESP_LOGI(TAG, "Setting up LED channels...");
     ESP_ERROR_CHECK(initialize_led_control());
@@ -80,7 +78,7 @@ extern "C" void app_main()
 
     httpd_handle_t web_server = start_webserver();
     WebControllerRegistrar registrar(web_server);
-    registrar.registerController(new HudController(&_heads_up_display));
+    registrar.registerController(new HudController(_heads_up_display));
     
     uint32_t endpint_count = 0;
     registrar.registerEndpoints(get_led_controller_endpoints(&endpint_count), endpint_count);

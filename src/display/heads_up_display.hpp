@@ -1,7 +1,5 @@
 #pragma once
 #include "heads_up_display.i.h"
-#include <gdew027w3T.h>
-#include "epd.h"
 #include "esp_log.h"
 #include "position_2d.hpp"
 #include "size_2d.hpp"
@@ -56,21 +54,7 @@ class HeadsUpDisplay : public IHeadsUpDisplay {
         const uint8_t* getScreenPixels() override;
         const uint32_t getScreenPixelSize() override;
         const Size2D getScreenSize() override;
-
-    void drawBackground() {
-        ESP_LOGI(this->_loggingTag, "Drawing circles...");
-        const Size2D screen_size = this->getScreenSize();
-
-        for (int16_t x = 0; x < screen_size.x; x += 10) {
-            this->_display->drawFastVLine(x, 0, screen_size.y, EPD_DARKGREY);
-        }
-
-        for (int16_t y = 0; y < screen_size.y; y += 10) {
-            this->_display->drawFastHLine(0, y, screen_size.x, EPD_DARKGREY);
-        }
-
-        this->markScreenDirty();
-    }
+        void drawBackground(uint16_t color) override;
 
     /**
      * @brief Updates the label displayed at the center
@@ -284,12 +268,28 @@ void HeadsUpDisplay::clearSection(const uint8_t font_size_factor, const Position
     Position2D sectionPosition = { 0, elementPosition.y };
     Size2D sectionSize = { screen_size.x, font_size.y };
 
+    const uint16_t white = 0x0000;
     this->_display->fillRectangle(
         sectionPosition.x, sectionPosition.y,
         sectionSize.x, sectionSize.y, 
-        EPD_WHITE
+        white
     );
 
+    this->markScreenDirty();
+}
+
+void HeadsUpDisplay::drawBackground(uint16_t color)
+    {
+    ESP_LOGI(this->_loggingTag, "Drawing circles...");
+    const Size2D screen_size = this->getScreenSize();
+    Position2D center = this->_display->getScreenCenter();
+    
+    const uint8_t circle_count = 20;
+    
+    for (uint16_t i = 1; i < circle_count; i++) {    
+        int16_t radius = i * (screen_size.x / circle_count);
+        this->_display->drawCircle(center.x, center.y, radius, color);
+    }
     this->markScreenDirty();
 }
 
