@@ -15,7 +15,7 @@ void create_wifi_station()
 {
     ESP_LOGI(_LOGGING_TAG, "Initializing non-volatile storage...");
     initialize_non_volatile_storage();
-    
+
     wifi_config_t wifi_config = {
         .sta = {
             .ssid = WIFI_SSID,

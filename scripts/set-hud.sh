@@ -1,33 +1,31 @@
+ip_address=$2
+
 function _create_message_body {
-    local top=$2
-    local center_value=$4
-    local center_label=$6
-    local bottom=$8
+    local runlevel=$2
+    local employees=$4
+    local color=$6
 
     jq --null-input --compact-output \
-        --arg top "$top" \
-        --arg center_value "$center_value" \
-        --arg center_label "$center_label" \
-        --arg bottom "$bottom" \
+        --arg top "$runlevel" \
+        --arg bottom "$employees" \
+        --argjson rgb888 $color \
         '{
-            "centerValue": $center_value,
-            "centerLabel": $center_label,
             "top": $top,
-            "bottom": $bottom
+            "bottom": $bottom,
+            "rgb888": $rgb888
         }';
 }
 
-SERVER_URL='http://192.168.8.119'
+SERVER_URL="http://$ip_address"
 HUD_URL="$SERVER_URL/hud"
 INTERVAL=5
 
 for i in $(seq 5 15)
 do
     _body=$(_create_message_body \
-        --top "Runlevel: $i" \
-        --center-value "$i" \
-        --center-label "Counter" \
-        --bottom "Time: $(date +'%H:%M:%S')"
+        --runlevel "R$i" \
+        --employees "E$i" \
+        --color $RANDOM \
     );
 
     echo -n "Issuing hud update: $_body: "

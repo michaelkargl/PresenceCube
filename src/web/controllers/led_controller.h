@@ -1,7 +1,8 @@
-#pragma once
+#ifndef _LED_CONTROLLER
+#define _LED_CONTROLLER
+
 #include "rgb_ledc_types.h"
 #include "esp_http_server.h"
-
 
 struct led_controller_endpoints_t
 {
@@ -10,4 +11,7 @@ struct led_controller_endpoints_t
 };
 
 void initialize_led_controller(const struct ledc_rgb_led_t *led, int leds_size);
-const httpd_uri_t* get_led_controller_endpoints(uint32_t* endpoint_count);
+const httpd_uri_t *get_led_controller_endpoints();
+const uint8_t get_led_controller_endpoint_count();
+
+#endif /* _LED_CONTROLLER */

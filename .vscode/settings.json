@@ -60,7 +60,23 @@
         "initializer_list": "cpp",
         "epd.h": "c",
         "locale": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "math_util.h": "c",
+        "cstdint": "cpp",
+        "cwchar": "cpp",
+        "size_2d.hpp": "c",
+        "hagl_extensions.h": "c",
+        "hagl.h": "c",
+        "memory": "cpp",
+        "sstream": "cpp",
+        "hagl_extensions.hpp": "c",
+        "info_hud.h": "c",
+        "font6x9.h": "c",
+        "wstring.h": "c",
+        "wchar.h": "c",
+        "hagl_string_extensions.h": "c",
+        "hagl_hal.h": "c",
+        "hud_controller.h": "c"
     },
     "idf.portWin": "COM21"
 }
