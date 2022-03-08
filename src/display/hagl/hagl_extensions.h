@@ -2,6 +2,28 @@
 #define _HAGL_EXTENSIONS
 
 #include "hagl.h"
+#include "stdbool.h"
+
+
+/**
+ * @brief parses a rgb hex color to rgb ("FF00FF" => 255,0,255)
+ * @param hex_string hex number of length 6 (each channel with leading 0)
+ * @param r output red
+ * @param g output green
+ * @param b output blue
+ * @return true if color successfully parsed, otherwise false
+ */
+bool hagl_hex_string_to_rgb(const char* hex_string, uint8_t *r, uint8_t *g, uint8_t *b);
+
+
+
+/**
+ * @brief parses a hex color string to a hagl color
+ * @param hex_string hex number of length 6 (each channel with leading 0)
+ * @return color_t hagl color
+ */
+color_t hagl_color_from_hex_string(const char* hex_string);
+
 
 /**
  * @brief returns a random hagl compatible color

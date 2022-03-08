@@ -2,12 +2,14 @@
 #include "hagl.h"
 #include "hagl/hagl_extensions.h"
 
+
 #include "font6x9.h"
 #define FONT font6x9
 #define FONT_WIDTH 6
 #define FONT_HEIGHT 9
 #define FONT_SCALING 6
 #define WHITE 0xFFFF
+
 
 void info_hud_initialize()
 {
@@ -20,10 +22,12 @@ void info_hud_deinitialize()
     hagl_close();
 }
 
-void info_hud_draw_background(uint16_t color)
+
+void info_hud_draw_background(const char* hex_string)
 {
     const uint16_t center_x = DISPLAY_WIDTH / 2;
     const uint16_t center_y = DISPLAY_HEIGHT / 2;
+    const color_t color = hagl_color_from_hex_string(hex_string);
 
     for (uint16_t i = 1; i < DISPLAY_HEIGHT; i += 1)
     {

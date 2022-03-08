@@ -11,15 +11,30 @@ function _create_message_body {
     local employees=$4
     local color=$6
 
+    # use --argjson for numbers
+    # --argjson rgb888 "$color"
     jq --null-input --compact-output \
         --arg top "$runlevel" \
         --arg bottom "$employees" \
-        --argjson rgb888 $color \
+        --arg rgb888 "$color" \
         '{
             "top": $top,
             "bottom": $bottom,
-            "rgb888": $rgb888
+            "rgbhex": $rgb888
         }';
+}
+
+
+function random_byte {
+    echo "$((RANDOM % 0x100))"
+}
+
+function random_hex_color {
+    local red=$(random_byte)
+    local green=$(random_byte)
+    local blue=$(random_byte)
+    # 2 hex digits per channel
+    printf '%02x%02x%02x' $red $green $blue
 }
 
 SERVER_URL="http://$ip_address"
@@ -31,7 +46,7 @@ do
     _body=$(_create_message_body \
         --runlevel "R$i" \
         --employees "E$i" \
-        --color $RANDOM \
+        --color "$(random_hex_color)" \
     );
 
     echo -n "Issuing hud update: $_body: "

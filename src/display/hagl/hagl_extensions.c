@@ -1,8 +1,28 @@
 #include "hagl_extensions.h"
 #include "stdlib.h"
+#include "stdio.h"
 #include "esp_log.h"
 
 #define _LOGGER_TAG "hagl_extensions"
+
+
+bool hagl_hex_string_to_rgb(const char* hex_string, uint8_t *r, uint8_t *g, uint8_t *b) {
+    const uint8_t expected_number_count = 3;
+    // 
+    return sscanf(hex_string, "%02hhx%02hhx%02hhx", r, g, b) == expected_number_count;
+}
+
+
+color_t hagl_color_from_hex_string(const char* hex_string) {
+    uint8_t r, g, b;
+
+    if ( !hagl_hex_string_to_rgb(hex_string, &r, &g, &b) ){
+        r = g = b = 0;
+    }
+    
+    return hagl_color(r, g, b);
+}
+
 
 color_t hagl_color_random() {
     return hagl_color(

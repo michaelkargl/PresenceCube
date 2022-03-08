@@ -22,7 +22,7 @@ static const httpd_uri_t _endpoints[] = {
 void initialize_hud_controller()
 {
     info_hud_initialize();
-    info_hud_draw_background(0x11);
+    info_hud_draw_background("ff0000");
     info_hud_update_top("R0", 2);
     info_hud_update_bottom("E1", 2);
 }
@@ -69,15 +69,13 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
     ESP_LOGI(LOGGER_TAG, "Received json request: %s", cJSON_Print(json));
     // -------------------------------------------------------
     ESP_LOGI(LOGGER_TAG, "Testing for color changes...");
-    if (cJSON_HasObjectItem(json, "rgb888"))
+    if (cJSON_HasObjectItem(json, "rgbhex"))
     {
-        cJSON *item = cJSON_GetObjectItem(json, "rgb888");
-
-        ESP_LOGI(LOGGER_TAG, "Received rgb888 color");
-        if (cJSON_IsNumber(item))
+        cJSON *item = cJSON_GetObjectItem(json, "rgbhex");
+        if (cJSON_IsString(item))
         {
-            ESP_LOGI(LOGGER_TAG, "Updating background => RGB88 %i", item->valueint);
-            info_hud_draw_background((uint16_t)item->valueint);
+            ESP_LOGI(LOGGER_TAG, "Updating background to %s", item->valuestring);
+            info_hud_draw_background(item->valuestring);
         }
     }
     // -------------------------------------------------------
