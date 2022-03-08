@@ -9,11 +9,15 @@
 #define ERROR_BUFFER_SIZE 128
 
 esp_err_t POST_hud_handler(httpd_req_t *req);
+static esp_err_t OPTIONS_handler(httpd_req_t *req);
 
 static const httpd_uri_t _endpoints[] = {
     {.uri = "/hud",
      .method = HTTP_POST,
-     .handler = POST_hud_handler}};
+     .handler = POST_hud_handler},
+    {.uri = "/hud",
+     .method = HTTP_OPTIONS,
+     .handler = OPTIONS_handler}};
 
 void initialize_hud_controller()
 {
@@ -31,6 +35,18 @@ httpd_uri_t *get_hud_controller_endpoints()
 uint8_t get_hud_controller_endpoint_count()
 {
     return (uint8_t)(sizeof(_endpoints) / sizeof(_endpoints[0]));
+}
+
+static esp_err_t OPTIONS_handler(httpd_req_t *request)
+{
+    // answer CORS requests
+    ESP_ERROR_CHECK(httpd_resp_set_hdr(request, "Access-Control-Allow-Origin", "*"));
+    ESP_ERROR_CHECK(httpd_resp_set_hdr(request, "Access-Control-Max-Age", "600"));
+    ESP_ERROR_CHECK(httpd_resp_set_hdr(request, "Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS"));
+    ESP_ERROR_CHECK(httpd_resp_set_hdr(request, "Access-Control-Allow-Headers", "*"));
+    ESP_ERROR_CHECK(httpd_resp_set_status(request, HTTPD_204));
+    ESP_ERROR_CHECK(httpd_resp_send(request, "", 0));
+    return ESP_OK;
 }
 
 esp_err_t POST_hud_handler(httpd_req_t *req)
@@ -89,7 +105,7 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
         }
     }
     // -------------------------------------------------------
-    cJSON_free(json);
+    cJSON_Delete(json);
 
     httpd_resp_set_status(req, HTTPD_200);
     return httpd_resp_send(req, "OK", HTTPD_RESP_USE_STRLEN);

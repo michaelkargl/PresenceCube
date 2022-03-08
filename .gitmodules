@@ -1,24 +1,9 @@
-[submodule "lib/lib_esp-idf-st7789/esp-idf-st7789"]
-	path = lib/lib_esp-idf-st7789/esp-idf-st7789
-	url = https://github.com/nopnop2002/esp-idf-st7789.git
 [submodule "circuits/zube/zube/digikey-kicad-library"]
 	path = circuits/zube/zube/digikey-kicad-library
 	url = https://github.com/Digi-Key/digikey-kicad-library.git
 [submodule "circuits/zube/zube/SparkFun-KiCad-Libraries"]
 	path = circuits/zube/zube/SparkFun-KiCad-Libraries
 	url = https://github.com/sparkfun/SparkFun-KiCad-Libraries.git
-[submodule "components/Adafruit-GFX"]
-	path = components/Adafruit-GFX
-	url = https://github.com/martinberlin/Adafruit-GFX-Library-ESP-IDF.git
-[submodule "components/CalEPD"]
-	path = components/CalEPD
-	url = https://github.com/martinberlin/CalEPD.git
-[submodule "components/FT6X36-IDF"]
-	path = components/FT6X36-IDF
-	url = https://github.com/martinberlin/FT6X36-IDF.git
-[submodule "components/epd_driver"]
-	path = components/epd_driver
-	url = https://github.com/martinberlin/epdiy-rotation.git
 [submodule "lib/webserver"]
 	path = lib/webserver
 	url = ../webserver.git

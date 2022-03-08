@@ -76,7 +76,9 @@
         "wchar.h": "c",
         "hagl_string_extensions.h": "c",
         "hagl_hal.h": "c",
-        "hud_controller.h": "c"
+        "hud_controller.h": "c",
+        "stdbool.h": "c",
+        "delay_service.h": "c"
     },
     "idf.portWin": "COM21"
 }

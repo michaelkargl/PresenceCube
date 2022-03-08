@@ -1,5 +1,11 @@
 ip_address=$2
 
+if [ $# -lt 2 ]; then
+   echo 'Argument error:'
+   echo 'Usage: set-hud --ip <hostname|ip-address>'
+   exit 1
+fi
+
 function _create_message_body {
     local runlevel=$2
     local employees=$4

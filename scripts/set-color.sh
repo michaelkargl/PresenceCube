@@ -1,7 +1,13 @@
 #!/bin/bash
-red=$2
-green=$4
-blue=$6
+
+if [ $# -lt 2 ]; then
+	echo 'Missing arguments:'
+        echo 'Usage: set-color -ip <hostname | ip-address>'
+        exit 1
+fi
+
+IP_ADDRESS="$2"
+SERVER_URL="http://$IP_ADDRESS"
 
 
 # Builds the body for setting remote led colors
@@ -73,7 +79,6 @@ function _start_setting_colors {
    _set_all_led_colors --red 255 --green 0 --blue 0
    sleep $interval
    echo
-   
 
    echo -n "Setting colors to GREEN: "
    _set_all_led_colors --red 0 --green 255 --blue 0
@@ -87,5 +92,5 @@ function _start_setting_colors {
 }
 
 
-SERVER_URL='http://192.168.8.119'
+
 _start_setting_colors -interval 3
