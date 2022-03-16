@@ -270,3 +270,7 @@ bom/
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/platformio,kicad,rider,jetbrains+all,visualstudiocode,c
+
+
+# Reenable kicad schema libraries (.lib)
+!circuits/**/*.lib
