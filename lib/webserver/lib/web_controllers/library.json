@@ -1,0 +1,13 @@
+{
+    "name": "web-controllers",
+    "version": "1.0.0",
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "include"
+    },
+    "dependencies": {
+    }
+}

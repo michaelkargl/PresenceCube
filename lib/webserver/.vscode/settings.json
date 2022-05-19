@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "home_controller.h": "c",
+        "wifi_init.h": "c"
+    }
+}

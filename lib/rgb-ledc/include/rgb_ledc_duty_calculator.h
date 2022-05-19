@@ -1,0 +1,19 @@
+#pragma once
+#include "stdint.h"
+#include "rgb_ledc_types.h"
+
+/**
+ * @brief Get the maximum possible duty cycle for a specific LED configuration
+ * @param led
+ * @return int 
+ */
+int get_max_duty(const struct ledc_led_t *led);
+
+/**
+ * @brief Translates a percentage value to a LED specific duty cycle
+ * 
+ * @param led The led configuration to use as a basis of calculation
+ * @param percent The percentage to translate into a duty cycle
+ * @return int 
+ */
+int _calculate_duty(const struct ledc_led_t *led, int8_t percent);

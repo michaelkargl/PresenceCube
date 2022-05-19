@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "ledc.h": "c",
+        "future": "c",
+        "task.h": "c",
+        "rgb_ledc.h": "c",
+        "rgb_ledc_duty_calculator.h": "c",
+        "rgb_ledc_init.h": "c",
+        "rgb_ledc_types.h": "c",
+        "rgb_ledc_init_types.h": "c",
+        "math_util.h": "c",
+        "*.tcc": "c",
+        "cmath": "c",
+        "random": "c"
+    }
+}

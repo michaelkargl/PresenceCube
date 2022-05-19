@@ -1,0 +1,12 @@
+{
+    "name": "webserver",
+    "version": "1.0.0",
+    "srcDir": "./src",
+    "build": {
+        "srcFilter": [
+            "+<*.c>",
+            "-<main.c>"
+        ],
+        "includeDir": "include"
+    }
+}
