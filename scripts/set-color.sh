@@ -39,7 +39,9 @@ function _set_led_color {
                                       --green $green \
                                       --blue $blue);
    local url="$SERVER_URL/led"
+   echo -n "Setting color '$body' => '$url': "
    curl --silent --request POST -d "$body" "$url"
+   echo
 }
 
 
@@ -75,17 +77,14 @@ function _get_random_color {
 function _start_setting_colors {
    local interval=$2
 
-   echo -n "Setting colors to RED: "
    _set_all_led_colors --red 255 --green 0 --blue 0
    sleep $interval
    echo
 
-   echo -n "Setting colors to GREEN: "
    _set_all_led_colors --red 0 --green 255 --blue 0
    sleep $interval
    echo
 
-   echo -n "Setting colors to BLUE: "
    _set_all_led_colors --red 0 --green 0 --blue 255
    sleep $interval
    echo
