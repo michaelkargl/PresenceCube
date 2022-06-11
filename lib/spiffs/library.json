@@ -1,11 +1,13 @@
 {
-    "name": "wifi-init",
+    "name": "spiffs",
     "version": "1.0.0",
+    "platforms": [ "espressif32" ],
     "srcDir": ".",
     "build": {
         "srcFilter": [
             "+<*.c>"
         ],
-        "includeDir": "include"
-    }
+        "includeDir": "./"
+    },
+    "dependencies": {}
 }

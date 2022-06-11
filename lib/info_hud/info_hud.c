@@ -1,6 +1,6 @@
 #include "info_hud.h"
 #include "hagl.h"
-#include "hagl/hagl_extensions.h"
+#include "hagl_extensions.h"
 
 
 #include "font6x9.h"

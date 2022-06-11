@@ -12,6 +12,6 @@ struct led_controller_endpoints_t
 
 void initialize_led_controller(const struct ledc_rgb_led_t *led, int leds_size);
 const httpd_uri_t *get_led_controller_endpoints();
-const uint8_t get_led_controller_endpoint_count();
+uint8_t get_led_controller_endpoint_count();
 
 #endif /* _LED_CONTROLLER */

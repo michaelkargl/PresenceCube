@@ -10,7 +10,7 @@ struct hud_controller_endpoints_t
 };
 
 void initialize_hud_controller();
-httpd_uri_t *get_hud_controller_endpoints();
+const httpd_uri_t *get_hud_controller_endpoints();
 uint8_t get_hud_controller_endpoint_count();
 
 #endif /* _HUD_CONTROLLER */

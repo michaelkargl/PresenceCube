@@ -1,6 +1,7 @@
 {
     "name": "webserver",
     "version": "1.0.0",
+    "platforms": [ "espressif32" ],
     "srcDir": "./src",
     "build": {
         "srcFilter": [
@@ -8,5 +9,8 @@
             "-<main.c>"
         ],
         "includeDir": "include"
+    },
+    "dependencies": {
+        "nvs-init": "1.0.0"
     }
 }

@@ -3,21 +3,21 @@ menu "Light Control"
 	menu "RGBA East"
 		config RGBA_EAST_RED_CHANNEL_PIN
 			int "Red PWM channel pin"
-			range 0 34
+			range 0 46
 			default 13
 			help 
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 				
 		config RGBA_EAST_GREEN_CHANNEL_PIN
 			int "Green PWM channel pin"
-			range 0 34
+			range 0 46
 			default 14
 			help 
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 
 		config RGBA_EAST_BLUE_CHANNEL_PIN
 			int "Blue PWM channel pin"
-			range 0 34
+			range 0 46
 			default 15
 			help
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
@@ -26,21 +26,21 @@ menu "Light Control"
 	menu "RGBA West"
 		config RGBA_WEST_RED_CHANNEL_PIN
 			int "Red PWM channel pin"
-			range 0 34
+			range 0 46
 			default 25
 			help 
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 				
 		config RGBA_WEST_GREEN_CHANNEL_PIN
 			int "Green PWM channel pin"
-			range 0 34
+			range 0 46
 			default 32
 			help 
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 
 		config RGBA_WEST_BLUE_CHANNEL_PIN
 			int "Blue PWM channel pin"
-			range 0 34
+			range 0 46
 			default 33
 			help
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.

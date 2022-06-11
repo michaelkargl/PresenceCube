@@ -1,7 +1,7 @@
 #include "hud_controller.h"
 #include "webserver.h"
-#include "display/info_hud.h"
-#include "display/hagl/hagl_extensions.h"
+#include "info_hud.h"
+#include "hagl_extensions.h"
 #include "esp_log.h"
 
 #define LOGGER_TAG "hud_controller"
@@ -27,7 +27,7 @@ void initialize_hud_controller()
     info_hud_update_bottom("E1", 2);
 }
 
-httpd_uri_t *get_hud_controller_endpoints()
+const httpd_uri_t *get_hud_controller_endpoints()
 {
     return _endpoints;
 }

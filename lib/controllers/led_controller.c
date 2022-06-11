@@ -5,7 +5,7 @@
 #include "delay_service.h"
 #include "cJSON.h"
 #include "stdbool.h"
-#include "display/info_hud.h"
+#include "info_hud.h"
 
 #define REQUEST_BODY_BUFFER_SIZE 50
 #define REQUEST_ERROR_MESSAGE_BUFFER_SIZE 50
@@ -39,7 +39,7 @@ const httpd_uri_t *get_led_controller_endpoints()
     return _home_controller_endpoints;
 }
 
-const uint8_t get_led_controller_endpoint_count()
+uint8_t get_led_controller_endpoint_count()
 {
     return (uint8_t)(sizeof(_home_controller_endpoints) / sizeof(_home_controller_endpoints[0]));
 }

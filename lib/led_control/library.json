@@ -1,5 +1,5 @@
 {
-    "name": "nvs-init",
+    "name": "led_control",
     "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "srcDir": ".",
@@ -7,6 +7,9 @@
         "srcFilter": [
             "+<*.c>"
         ],
-        "includeDir": "include"
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "rgb-ledc": "1.0.0"
     }
 }

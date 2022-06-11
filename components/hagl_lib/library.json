@@ -1,0 +1,15 @@
+{
+    "name": "hagl_lib",
+    "version": "0.0.1",
+    "platforms": [ "espressif32" ],
+    "srcDir": "../hagl/src",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "../hagl/include"
+    },
+    "dependencies": {
+        "hagl_hal_lib": "0.0.1"
+    }
+}

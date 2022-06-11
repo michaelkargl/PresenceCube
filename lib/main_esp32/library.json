@@ -1,0 +1,20 @@
+{
+    "name": "main_esp32",
+    "version": "0.0.1",
+    "platforms": [ "espressif32" ],
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "hagl_extensions": "0.0.1",
+        "delay_service": "0.0.1",
+        "web_controllers": "0.0.1",
+        "rgb-ledc": "1.0.0",
+        "spiffs": "1.0.0",
+        "webserver": "1.0.0"
+    }
+}

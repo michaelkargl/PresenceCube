@@ -1,6 +1,7 @@
 {
     "name": "rgb-ledc",
     "version": "1.0.0",
+    "platforms": [ "espressif32" ],
     "srcDir": "./src",
     "build": {
         "srcFilter": [

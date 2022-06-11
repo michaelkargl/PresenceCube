@@ -1,12 +1,13 @@
 {
-    "name": "nvs-init",
-    "version": "1.0.0",
+    "name": "delay_service",
+    "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "srcDir": ".",
     "build": {
         "srcFilter": [
             "+<*.c>"
         ],
-        "includeDir": "include"
-    }
+        "includeDir": "./"
+    },
+    "dependencies": {}
 }
