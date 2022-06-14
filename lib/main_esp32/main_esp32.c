@@ -1,4 +1,4 @@
-#include "esp_log.h"
+#include "logger.h"
 #include "spiffs.h"
 #include "led_controller.h"
 #include "hud_controller.h"
@@ -26,7 +26,7 @@ int app_main()
 {
     initialize_spiffs(&spiffs_config);
 
-    ESP_LOGI(TAG, "Setting up LED channels...");
+    log_information(TAG, "Setting up LED channels...");
     ESP_ERROR_CHECK(initialize_led_control());
     _leds = get_led_control_leds();
     _leds_count = get_led_control_initialized_led_count();
@@ -38,20 +38,20 @@ int app_main()
     set_leds_color_percent(_leds, _leds_count, 0, 100, 0);
     _delay_ms(1000);
 
-    ESP_LOGI(TAG, "Setting up wifi connection...");
+    log_information(TAG, "Setting up wifi connection...");
     create_wifi_station();
 
-    ESP_LOGI(TAG, "Setting up web server...");
-    ESP_LOGI(TAG, "Initializing controllers...");
+    log_information(TAG, "Setting up web server...");
+    log_information(TAG, "Initializing controllers...");
     initialize_led_controller(_leds, _leds_count);
     initialize_hud_controller();
 
-    ESP_LOGI(TAG, "Initializing / starting webserver...");
+    log_information(TAG, "Initializing / starting webserver...");
     webserver_start();
     webserver_register_endpoints(get_led_controller_endpoints(), get_led_controller_endpoint_count());
     webserver_register_endpoints(get_hud_controller_endpoints(), get_hud_controller_endpoint_count());
 
-    ESP_LOGI(TAG, "Setup done.");
+    log_information(TAG, "Setup done.");
     set_leds_color_percent(_leds, _leds_count, 0, 0, 0);
 
     heap_caps_print_heap_info(MALLOC_CAP_DEFAULT);

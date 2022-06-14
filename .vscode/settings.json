@@ -84,7 +84,12 @@
         "main_esp32.h": "c",
         "bitmap.h": "c",
         "nvs_flash.h": "c",
-        "event_groups.h": "c"
+        "event_groups.h": "c",
+        "logger.h": "c",
+        "log_level_tostring.h": "c",
+        "log_level.h": "c",
+        "cmath": "c",
+        "complex": "c"
     },
     "idf.portWin": "COM21",
     "idf.adapterTargetName": "esp32"

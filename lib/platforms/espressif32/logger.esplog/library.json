@@ -1,0 +1,14 @@
+{
+ "name": "logger.esplog",
+ "version": "0.0.1",
+ "platforms": [ "espressif32" ],
+ "frameworks": [ "espidf" ],
+ "build": {
+    "srcDir": "./",
+    "includeDir": "./",
+    "srcFilter": "+<*.c> -<.git/>"
+ },
+ "dependencies": {
+   "logger.interface": "0.0.1"
+ }
+}

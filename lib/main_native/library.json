@@ -10,5 +10,6 @@
         "includeDir": "./"
     },
     "dependencies": {
+        "logger.printf": "0.0.1"
     }
 }

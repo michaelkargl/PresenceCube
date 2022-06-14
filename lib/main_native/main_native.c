@@ -1,7 +1,7 @@
 #include "main_native.h"
-#include "stdio.h"
+#include "logger.h"
 
 int main() {
-    printf("Running native main\n");
+    log_information("main", "Running native main\n");
     return 0;
 }

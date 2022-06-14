@@ -10,9 +10,10 @@
             "includePath": [
                 "/home/kami/workspace/zube/presence-cube/include",
                 "/home/kami/workspace/zube/presence-cube/src",
-                "/home/kami/workspace/zube/presence-cube/lib/main_native",
                 "/home/kami/workspace/zube/presence-cube/lib/main_esp32",
                 "/home/kami/workspace/zube/presence-cube/lib/wifi",
+                "/home/kami/workspace/zube/presence-cube/lib/platforms/espressif32/logger.esplog",
+                "/home/kami/workspace/zube/presence-cube/lib/platforms/any/logger.interface",
                 "/home/kami/workspace/zube/presence-cube/lib/spiffs",
                 "/home/kami/workspace/zube/presence-cube/lib/controllers",
                 "/home/kami/workspace/zube/presence-cube/lib/info_hud",
@@ -141,6 +142,8 @@
                 "/home/kami/.platformio/packages/framework-espidf/components/wifi_provisioning/include",
                 "/home/kami/workspace/zube/presence-cube/components/hagl_hal/include",
                 "/home/kami/workspace/zube/presence-cube/components/hagl/include",
+                "/home/kami/workspace/zube/presence-cube/lib/platforms/any/logger.utils",
+                "/home/kami/workspace/zube/presence-cube/lib/platforms",
                 ""
             ],
             "browse": {
@@ -148,9 +151,10 @@
                 "path": [
                     "/home/kami/workspace/zube/presence-cube/include",
                     "/home/kami/workspace/zube/presence-cube/src",
-                    "/home/kami/workspace/zube/presence-cube/lib/main_native",
                     "/home/kami/workspace/zube/presence-cube/lib/main_esp32",
                     "/home/kami/workspace/zube/presence-cube/lib/wifi",
+                    "/home/kami/workspace/zube/presence-cube/lib/platforms/espressif32/logger.esplog",
+                    "/home/kami/workspace/zube/presence-cube/lib/platforms/any/logger.interface",
                     "/home/kami/workspace/zube/presence-cube/lib/spiffs",
                     "/home/kami/workspace/zube/presence-cube/lib/controllers",
                     "/home/kami/workspace/zube/presence-cube/lib/info_hud",
@@ -279,6 +283,8 @@
                     "/home/kami/.platformio/packages/framework-espidf/components/wifi_provisioning/include",
                     "/home/kami/workspace/zube/presence-cube/components/hagl_hal/include",
                     "/home/kami/workspace/zube/presence-cube/components/hagl/include",
+                    "/home/kami/workspace/zube/presence-cube/lib/platforms/any/logger.utils",
+                    "/home/kami/workspace/zube/presence-cube/lib/platforms",
                     ""
                 ]
             },
