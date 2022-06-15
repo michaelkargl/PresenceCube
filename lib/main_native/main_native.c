@@ -2,6 +2,6 @@
 #include "logger.h"
 
 int main() {
-    log_information("main", "Running native main\n");
+    log_information("main", "Running %s main\n", "native");
     return 0;
 }

@@ -89,7 +89,8 @@
         "log_level_tostring.h": "c",
         "log_level.h": "c",
         "cmath": "c",
-        "complex": "c"
+        "complex": "c",
+        "task.h": "c"
     },
     "idf.portWin": "COM21",
     "idf.adapterTargetName": "esp32"

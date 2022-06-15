@@ -1,4 +1,4 @@
-#include "esp_log.h"
+#include "logger.h"
 #include "esp_http_server.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -57,15 +57,15 @@ esp_err_t app_main()
     );
 
     while ( true ) {
-        ESP_LOGI(_LOGGING_TAG, "Switching led colors to red");
+        log_information(_LOGGING_TAG, "Switching led colors to red\n");
         set_led_color_percent(&led, 100, 0, 0);
         _delay_ms(switch_interval_ms);
         
-        ESP_LOGI(_LOGGING_TAG, "Switching led colors to green");
+        log_information(_LOGGING_TAG, "Switching led colors to green\n");
         set_led_color_percent(&led, 0, 100, 0);
         _delay_ms(switch_interval_ms);
         
-        ESP_LOGI(_LOGGING_TAG, "Switching led colors to blue");
+        log_information(_LOGGING_TAG, "Switching led colors to blue\n");
         set_led_color_percent(&led, 0, 0, 100);
         _delay_ms(switch_interval_ms);
     }

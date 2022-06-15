@@ -1,17 +1,46 @@
 #include "log_level_tostring.h"
 #include "logger.h"
 #include "stdio.h"
+#include "stdarg.h"
 
-void log_message(log_level level, const char* context_name, const char* message) {
+/**
+ * @brief prints the context portion of a log message
+ * @return the hara
+ * @example "[main: INFO]: "
+ */
+static void _print_log_context(log_level level, const char* log_context) {
     char level_string[6];
     log_level_to_string(level, level_string, sizeof(level_string));
-    printf("[%s %s]: %s\n", context_name, level_string, message);
+    printf("[%s %s]: ", log_context, level_string);
 }
 
-void log_information(const char* context_name, const char* message) {
-    log_message(Information_log_level, context_name, message); 
+static void _log_message(
+    log_level level,
+    const char* log_context,
+    const char *message_format,
+    va_list variadic_arguments
+)
+{
+    _print_log_context(level, log_context);
+    vprintf(message_format, variadic_arguments);    
 }
 
-void log_debug(const char* context_name, const char* message) { 
-    log_message(Debug_log_level, context_name, message);
+void log_information(const char *context_name, const char *message_format, ...)
+{
+    va_list message_args;
+    va_start(message_args, message_format);
+
+    _log_message(Information_log_level, context_name, message_format, message_args);
+
+    va_end(message_args);
+}
+
+void log_debug(const char *context_name, const char *message_format, ...)
+{
+    va_list message_args;
+    va_start(message_args, message_format);
+
+    _log_message(Debug_log_level, context_name, message_format, message_args);
+
+    va_end(message_args);
 }
