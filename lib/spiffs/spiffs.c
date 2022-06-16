@@ -36,6 +36,7 @@ void initialize_spiffs(esp_vfs_spiffs_conf_t* configuration) {
 
 	size_t total = 0, used = 0;
 	ret = esp_spiffs_info(NULL, &total,&used);
+	
 	if (ret != ESP_OK) {
 		log_error(TAG,"Failed to get SPIFFS partition information (%s)\n",esp_err_to_name(ret));
 	} else {

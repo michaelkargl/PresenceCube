@@ -2,6 +2,7 @@
 #include "wifi_init.h"
 #include "nvs_init.h"
 
+// TODO: move configuration into separate header file
 #define WIFI_SSID CONFIG_ESP_WIFI_SSID
 #define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
 

@@ -1,6 +1,11 @@
 #pragma once
+
+// TODO: eventually move this dependency into the concrete implementation project
 #include "driver/ledc.h"
 
+// TODO: create custom ledc_channel_config_t dto
+// TODO: create custom ledc_timer_config_t dto
+// TODO: create mapping helper to map between dto and domain object
 
 struct ledc_led_t
 {

@@ -2,8 +2,11 @@
 #include "logger.h"
 #include "math_util.h"
 #include "rgb_ledc_duty_calculator.h"
+// TODO: replace esp specific error handling with custom logic
+#include "esp_err.h"
 
 // Prototypes
+// TODO: replace concrete esp specific types with custom dtos to separate domain from infrastructure
 static void _set_color_soft(const ledc_channel_config_t *channel, int32_t duty, int32_t fade_time_ms);
 static void _set_color_hard(const ledc_channel_config_t *channel, int32_t duty);
 static void _set_led_color(const struct ledc_led_t *led, int32_t duty, int32_t fade_time_ms);
@@ -14,7 +17,7 @@ static void _set_rgb_led_color(
     int32_t duty_blue);
 
 // Globals
-static const char *TAG = "ledc";
+static const char *TAG = "rgb_ledc";
 
 static void _set_led_color(
     const struct ledc_led_t *led,
@@ -121,6 +124,7 @@ static void _set_color_hard(const ledc_channel_config_t *channel, int32_t duty)
         duty));
 
     // activate changes
+    // TODO: move the setting of ledc into an adapter that can translate between dto<->domain and esp_err<->custom_err codes
     ESP_ERROR_CHECK(ledc_update_duty(channel->speed_mode, channel->channel));
 }
 
@@ -131,6 +135,8 @@ static void _set_color_soft(const ledc_channel_config_t *channel, int32_t duty, 
 
     log_debug(TAG, "Softly setting duty cycle of channel %d from %d => %d over %d ms\n",
              channel->channel, channel->duty, duty, fade_time_ms);
+
+    // TODO: move the setting of ledc into an adapter that can translate between dto<->domain and esp_err<->custom_err codes
     ESP_ERROR_CHECK(ledc_set_fade_with_time(channel->speed_mode, channel->channel, duty, fade_time_ms));
     ESP_ERROR_CHECK(ledc_fade_start(channel->speed_mode, channel->channel, LEDC_FADE_NO_WAIT));
 }

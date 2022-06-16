@@ -1,11 +1,15 @@
 #include "rgb_ledc_init.h"
-#include "esp_err.h"
 #include "logger.h"
 #include "rgb_ledc_duty_calculator.h"
 #include "string.h"
+// TODO: replace esp specific error handling with custom logic
+#include "esp_err.h"
 
 static const char *TAG = "rgb_ledc_init";
 
+
+// TODO: replace ledc_led_t with custom dto
+// TODO: map to domain object for instances where you need to call external services
 void configure_led(const struct ledc_led_t *led)
 {
     log_information(TAG, "Configuring LED '%s'\n", led->name);

@@ -7,6 +7,7 @@
 #include "logger.h"
 #include "wifi_init.h"
 
+// TODO: move configuration into separate header file
 #define WIFI_SSID CONFIG_WIFI_SSID
 #define WIFI_PASSWORD CONFIG_WIFI_PASSWORD
 

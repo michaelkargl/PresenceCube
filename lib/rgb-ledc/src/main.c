@@ -10,6 +10,7 @@
 static const char *_LOGGING_TAG = "main";
 
 // Macros prefixed with CONFIG_ are set by meunconfig config manager
+// TODO: move configuration into separate header file
 #define LED_PIN_RED 25
 #define LED_PIN_GREEN 32
 #define LED_PIN_BLUE 33

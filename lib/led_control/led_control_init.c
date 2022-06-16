@@ -24,6 +24,7 @@ static struct ledc_rgb_led_t _new_rgb_led_west()
     };
 
     const struct ledc_rgb_gpio_pins_t _pins = {
+        // TODO: move configuration into separate header file
         .red = CONFIG_RGBA_WEST_RED_CHANNEL_PIN,
         .green = CONFIG_RGBA_WEST_GREEN_CHANNEL_PIN,
         .blue = CONFIG_RGBA_WEST_BLUE_CHANNEL_PIN};
@@ -49,6 +50,7 @@ static struct ledc_rgb_led_t _new_rgb_led_east()
     };
 
     const struct ledc_rgb_gpio_pins_t _pins = {
+        // TODO: move configuration into separate header file
         .red = CONFIG_RGBA_EAST_RED_CHANNEL_PIN,
         .green = CONFIG_RGBA_EAST_GREEN_CHANNEL_PIN,
         .blue = CONFIG_RGBA_EAST_BLUE_CHANNEL_PIN};

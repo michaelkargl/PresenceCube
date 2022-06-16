@@ -4,6 +4,7 @@
 #include "hagl_extensions.h"
 #include "logger.h"
 
+// TODO: move configuration into separate header file
 #define LOGGER_TAG "hud_controller"
 #define REQUEST_PAYLOAD_BUFFER_SIZE 128
 #define ERROR_BUFFER_SIZE 128
@@ -54,6 +55,7 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
     char payload_buffer[REQUEST_PAYLOAD_BUFFER_SIZE];
     char error_buffer[ERROR_BUFFER_SIZE];
 
+    // TODO: move parsing of incoming json-string to request dto into separate module
     cJSON *json = webserver_try_get_json_request(
         req,
         payload_buffer, sizeof(payload_buffer) / sizeof(payload_buffer[0]),
@@ -66,7 +68,10 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
+
     log_information(LOGGER_TAG, "Received json request: %s\n", cJSON_Print(json));
+    
+    // TODO: move the mutation of the hud into a separate command handler
     // -------------------------------------------------------
     log_information(LOGGER_TAG, "Testing for color changes...\n");
     if (cJSON_HasObjectItem(json, "rgbhex"))
@@ -78,6 +83,8 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
             info_hud_draw_background(item->valuestring);
         }
     }
+    
+    // TODO: move the mutation of the hud into a separate command handler
     // -------------------------------------------------------
     log_information(LOGGER_TAG, "Testing for top changes...\n");
     if (cJSON_HasObjectItem(json, "top"))
@@ -90,6 +97,8 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
             info_hud_update_top(item->valuestring, strlen(item->valuestring));
         }
     }
+    
+    // TODO: move the mutation of the hud into a separate command handler
     // -------------------------------------------------------
     log_information(LOGGER_TAG, "Testing for bottom changes...\n");
     if (cJSON_HasObjectItem(json, "bottom"))

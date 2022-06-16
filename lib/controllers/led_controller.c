@@ -6,6 +6,8 @@
 #include "stdbool.h"
 #include "info_hud.h"
 
+
+// TODO: move configuration into a separate configuration header
 #define REQUEST_BODY_BUFFER_SIZE 50
 #define REQUEST_ERROR_MESSAGE_BUFFER_SIZE 50
 
@@ -61,10 +63,12 @@ static esp_err_t OPTIONS_handler(httpd_req_t *request)
 
 static esp_err_t GET_leds_handler(httpd_req_t *request)
 {
+    // TODO: move the querying of information into query handler module
     // https://stackoverflow.com/questions/45709054/create-json-object-using-cjson-h
     cJSON *led_array = cJSON_CreateArray();
     cJSON *element;
 
+    // moves the response body building into separate module
     for (int i = 0; i < _leds_size; i++)
     {
         cJSON_AddItemToArray(led_array, element = cJSON_CreateObject());
@@ -92,6 +96,7 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
     char error_buffer[REQUEST_ERROR_MESSAGE_BUFFER_SIZE];
     esp_err_t status_code = ESP_OK;
 
+    // TODO: move the processing of incoming request text to dto into separate module
     cJSON *json = webserver_try_get_json_request(
         request,
         body_buffer, sizeof(body_buffer) / sizeof(body_buffer[0]),
@@ -131,6 +136,8 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
         goto end;
     }
 
+
+    // TODO: move the issuing of logic into command handler
     set_led_color_8bit(
         &_leds[id->valueint],
         red->valueint,
