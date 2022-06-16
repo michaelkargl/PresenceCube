@@ -1,5 +1,5 @@
 #include "webserver.h"
-#include "esp_log.h"
+#include "logger.h"
 #include "esp_err.h"
 
 static const char *_LOGGER_TAG = "webserver";
@@ -12,7 +12,7 @@ static httpd_handle_t _server = NULL;
  */
 cJSON *webserver_try_parse_json(char *json_string, char *error_buffer, uint8_t error_buffer_size)
 {
-    ESP_LOGD(_LOGGER_TAG, "Trying to parse json message: %s", json_string);
+    log_debug(_LOGGER_TAG, "Trying to parse json message: %s\n", json_string);
     cJSON *json = cJSON_Parse(json_string);
     if (json == NULL)
     {
@@ -26,15 +26,15 @@ cJSON *webserver_try_parse_json(char *json_string, char *error_buffer, uint8_t e
                 "An error occured while parsing request JSON body: %s",
                 error_ptr);
 
-            ESP_LOGE(_LOGGER_TAG, "%s", error_buffer);
-            ESP_LOGE(_LOGGER_TAG, "Erroneous json: %s", error_ptr);
+            log_error(_LOGGER_TAG, "%s\n", error_buffer);
+            log_error(_LOGGER_TAG, "Erroneous json: %s\n", error_ptr);
         }
 
-        ESP_LOGD(_LOGGER_TAG, "Message parsing failed with unknown reason");
+        log_debug(_LOGGER_TAG, "Message parsing failed with unknown reason\n");
         return NULL;
     }
 
-    ESP_LOGD(_LOGGER_TAG, "Json successfully parsed.");
+    log_debug(_LOGGER_TAG, "Json successfully parsed.\n");
     return json;
 }
 
@@ -43,7 +43,7 @@ esp_err_t webserver_read_request_body(
     char *body_buffer, uint8_t body_buffer_size,
     char *error_buffer, uint8_t error_buffer_size)
 {
-    ESP_LOGD(_LOGGER_TAG, "Trying to read requet body...");
+    log_debug(_LOGGER_TAG, "Trying to read requet body...\n");
     memset(error_buffer, 0, error_buffer_size);
     memset(body_buffer, 0, body_buffer_size);
 
@@ -56,12 +56,12 @@ esp_err_t webserver_read_request_body(
             error_buffer_size,
             "Retrieving the message body failed with status %i.", body_read_successfully);
 
-        ESP_LOGE(_LOGGER_TAG, "%s", error_buffer);
-        ESP_LOGE(_LOGGER_TAG, "This might be due to Field not found / Invalid request / Null arguments.");
+        log_error(_LOGGER_TAG, "%s\n", error_buffer);
+        log_error(_LOGGER_TAG, "This might be due to Field not found / Invalid request / Null arguments.\n");
         return ESP_FAIL;
     }
 
-    ESP_LOGD(_LOGGER_TAG, "Request body successfully read: %s", body_buffer);
+    log_debug(_LOGGER_TAG, "Request body successfully read: %s\n", body_buffer);
     return ESP_OK;
 }
 
@@ -69,7 +69,7 @@ esp_err_t webserver_test_request_size_within_bounds(
     httpd_req_t *request, uint8_t request_body_buffer_size,
     char *error_buffer, uint8_t error_buffer_size)
 {
-    ESP_LOGD(_LOGGER_TAG, "Testing if request body fits buffer size.");
+    log_debug(_LOGGER_TAG, "Testing if request body fits buffer size.\n");
     if (request->content_len > request_body_buffer_size)
     {
         snprintf(
@@ -78,11 +78,11 @@ esp_err_t webserver_test_request_size_within_bounds(
             "Request body size of %i exceeds buffer limit of %i.",
             request->content_len, request_body_buffer_size);
 
-        ESP_LOGE(_LOGGER_TAG, "%s", error_buffer);
+        log_error(_LOGGER_TAG, "%s\n", error_buffer);
         return ESP_FAIL;
     }
 
-    ESP_LOGD(_LOGGER_TAG, "Request body fits.");
+    log_debug(_LOGGER_TAG, "Request body fits.\n");
     return ESP_OK;
 }
 
@@ -94,45 +94,45 @@ httpd_handle_t webserver_start()
 {
     if (_server != NULL)
     {
-        ESP_LOGW(_LOGGER_TAG, "Trying to reinitialize running webserver %p. Ignoring.", _server);
+        log_warning(_LOGGER_TAG, "Trying to reinitialize running webserver %p. Ignoring.\n", _server);
         return ESP_OK;
     }
 
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    ESP_LOGI(_LOGGER_TAG, "Configuring web server...");
-    ESP_LOGI(_LOGGER_TAG, "Maximum allowed numbers of endpoints: %i", config.max_uri_handlers);
+    log_information(_LOGGER_TAG, "Configuring web server...\n");
+    log_information(_LOGGER_TAG, "Maximum allowed numbers of endpoints: %i\n", config.max_uri_handlers);
 
     const bool purge_least_recently_used_connection = true;
     config.lru_purge_enable = purge_least_recently_used_connection;
 
-    ESP_LOGI(_LOGGER_TAG, "Starting server on port: '%d'", config.server_port);
+    log_information(_LOGGER_TAG, "Starting server on port: '%d'\n", config.server_port);
 
     ESP_ERROR_CHECK(httpd_start(&_server, &config));
 
-    ESP_LOGI(_LOGGER_TAG, "Server started");
+    log_information(_LOGGER_TAG, "Server started\n");
     return _server;
 }
 
 esp_err_t webserver_stop()
 {
-    ESP_LOGI(_LOGGER_TAG, "Stopping and deallocating http server: %p", _server);
+    log_information(_LOGGER_TAG, "Stopping and deallocating http server: %p\n", _server);
     return httpd_stop(_server);
 }
 
 esp_err_t webserver_register_endpoint(const httpd_uri_t *endpoint)
 {
     const char* logger_tag = "webserver_register_endpoint";
-    ESP_LOGI(logger_tag, "Registering uri handler %s method %i", endpoint->uri, endpoint->method);
-    ESP_LOGD(logger_tag, "Uri handler pointer: %p", endpoint->handler);
+    log_information(logger_tag, "Registering uri handler %s method %i\n", endpoint->uri, endpoint->method);
+    log_debug(logger_tag, "Uri handler pointer: %p\n", endpoint->handler);
 
     esp_err_t status = httpd_register_uri_handler(_server, endpoint);
-    ESP_LOGI(logger_tag, "Registration status of %s: %i", endpoint->uri, status);
+    log_information(logger_tag, "Registration status of %s: %i\n", endpoint->uri, status);
 
     return status;
 }
 
 esp_err_t webserver_register_endpoints(const httpd_uri_t* endpoints, const uint32_t endpoint_count) {
-    ESP_LOGI("webserver_register_endpoints", "Registering %i endpoints...", endpoint_count);
+    log_information("webserver_register_endpoints", "Registering %i endpoints...\n", endpoint_count);
     for(int i = 0; i < endpoint_count; i++) {
         webserver_register_endpoint(&endpoints[i]);
     }

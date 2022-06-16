@@ -9,7 +9,6 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-   "logger.abstract": "0.0.1",
    "logger.utils": "0.0.1"
  }
 }

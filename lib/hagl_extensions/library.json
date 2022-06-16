@@ -10,6 +10,7 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "hagl_lib": "0.0.1"
+        "hagl_lib": "0.0.1",
+        "logger.interface": "0.0.1"
     }
 }

@@ -3,7 +3,8 @@
 #include "rgb_ledc_init.h"
 #include "rgb_ledc.h"
 #include "driver/ledc.h"
-#include "esp_log.h"
+#include "logger.h"
+#include "esp_err.h"
 
 #define RGB_LED_COUNT 2
 
@@ -12,7 +13,7 @@ static struct ledc_rgb_led_t _leds[RGB_LED_COUNT];
 
 static struct ledc_rgb_led_t _new_rgb_led_west()
 {
-    ESP_LOGI(LOGGER_TAG, "Initializing LED: West");
+    log_information(LOGGER_TAG, "Initializing LED: West\n");
 
     const ledc_timer_config_t _low_speed_ledc_timer = {
         .duty_resolution = LEDC_TIMER_13_BIT, // 13bit = 2^13 = 8192 levels within 1 cycle
@@ -37,7 +38,7 @@ static struct ledc_rgb_led_t _new_rgb_led_west()
 
 static struct ledc_rgb_led_t _new_rgb_led_east()
 {
-    ESP_LOGI(LOGGER_TAG, "Initializing LED: East");
+    log_information(LOGGER_TAG, "Initializing LED: East\n");
 
     const ledc_timer_config_t _low_speed_ledc_timer = {
         .duty_resolution = LEDC_TIMER_13_BIT, // 13bit = 2^13 = 8192 levels within 1 cycle
@@ -62,7 +63,7 @@ static struct ledc_rgb_led_t _new_rgb_led_east()
 
 esp_err_t initialize_led_control()
 {
-    ESP_LOGI(LOGGER_TAG, "Initializing LEDs for led-control");
+    log_information(LOGGER_TAG, "Initializing LEDs for led-control\n");
 
     _leds[0] = _new_rgb_led_east();
     _leds[1] = _new_rgb_led_west();

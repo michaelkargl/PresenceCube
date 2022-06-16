@@ -2,7 +2,7 @@
 #include "webserver.h"
 #include "info_hud.h"
 #include "hagl_extensions.h"
-#include "esp_log.h"
+#include "logger.h"
 
 #define LOGGER_TAG "hud_controller"
 #define REQUEST_PAYLOAD_BUFFER_SIZE 128
@@ -66,39 +66,39 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    ESP_LOGI(LOGGER_TAG, "Received json request: %s", cJSON_Print(json));
+    log_information(LOGGER_TAG, "Received json request: %s\n", cJSON_Print(json));
     // -------------------------------------------------------
-    ESP_LOGI(LOGGER_TAG, "Testing for color changes...");
+    log_information(LOGGER_TAG, "Testing for color changes...\n");
     if (cJSON_HasObjectItem(json, "rgbhex"))
     {
         cJSON *item = cJSON_GetObjectItem(json, "rgbhex");
         if (cJSON_IsString(item))
         {
-            ESP_LOGI(LOGGER_TAG, "Updating background to %s", item->valuestring);
+            log_information(LOGGER_TAG, "Updating background to %s\n", item->valuestring);
             info_hud_draw_background(item->valuestring);
         }
     }
     // -------------------------------------------------------
-    ESP_LOGI(LOGGER_TAG, "Testing for top changes...");
+    log_information(LOGGER_TAG, "Testing for top changes...\n");
     if (cJSON_HasObjectItem(json, "top"))
     {
         cJSON *item = cJSON_GetObjectItem(json, "top");
 
         if (!cJSON_IsNull(item))
         {
-            ESP_LOGI(LOGGER_TAG, "Updating bottom section => %s (%i)", item->valuestring, strlen(item->valuestring));
+            log_information(LOGGER_TAG, "Updating bottom section => %s (%i)\n", item->valuestring, strlen(item->valuestring));
             info_hud_update_top(item->valuestring, strlen(item->valuestring));
         }
     }
     // -------------------------------------------------------
-    ESP_LOGI(LOGGER_TAG, "Testing for bottom changes...");
+    log_information(LOGGER_TAG, "Testing for bottom changes...\n");
     if (cJSON_HasObjectItem(json, "bottom"))
     {
         cJSON *item = cJSON_GetObjectItem(json, "bottom");
 
         if (!cJSON_IsNull(item))
         {
-            ESP_LOGI(LOGGER_TAG, "Updating bottom section => %s (%i)", item->valuestring, strlen(item->valuestring));
+            log_information(LOGGER_TAG, "Updating bottom section => %s (%i)\n", item->valuestring, strlen(item->valuestring));
             info_hud_update_bottom(item->valuestring, strlen(item->valuestring));
         }
     }

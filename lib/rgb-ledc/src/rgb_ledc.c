@@ -1,5 +1,5 @@
 #include "rgb_ledc.h"
-#include "esp_log.h"
+#include "logger.h"
 #include "math_util.h"
 #include "rgb_ledc_duty_calculator.h"
 
@@ -53,10 +53,10 @@ void set_leds_color_percent(
     for ( int i = 0; i < leds_size; i++ ) {
         const struct ledc_rgb_led_t led = leds[i];
         if (led.is_initialized) {
-            ESP_LOGI(TAG, "Toggling led %s to color (%i,%i,%i)", led.name, percent_red, percent_blue, percent_green);
+            log_information(TAG, "Toggling led %s to color (%i,%i,%i)\n", led.name, percent_red, percent_blue, percent_green);
             set_led_color_percent(&led, percent_red, percent_green, percent_blue);
         } else {
-            ESP_LOGW(TAG, "Ignoring request to toggle led %s. Led is uninitialized!", led.name);
+            log_warning(TAG, "Ignoring request to toggle led %s. Led is uninitialized!\n", led.name);
         }
     }
 }
@@ -70,7 +70,7 @@ void set_led_color_percent(
     percent_red = ranged_value(percent_red, 0, 100);
     percent_green = ranged_value(percent_green, 0, 100);
     percent_blue = ranged_value(percent_blue, 0, 100);
-    ESP_LOGD(TAG, "Setting led %s to color: %i, %i, %i percent", led->name, percent_red, percent_green, percent_blue);
+    log_debug(TAG, "Setting led %s to color: %i, %i, %i percent\n", led->name, percent_red, percent_green, percent_blue);
     
     if ( led->is_common_anode) {
         // less gpio backpressure = more flow through the led
@@ -114,7 +114,7 @@ static void _set_color_hard(const ledc_channel_config_t *channel, int32_t duty)
         return;
 
     // configure channel updates
-    ESP_LOGD(TAG, "Switching duty cycle of channel %d from %d => %d", channel->channel, channel->duty, duty);
+    log_debug(TAG, "Switching duty cycle of channel %d from %d => %d\n", channel->channel, channel->duty, duty);
     ESP_ERROR_CHECK(ledc_set_duty(
         channel->speed_mode,
         channel->channel,
@@ -129,7 +129,7 @@ static void _set_color_soft(const ledc_channel_config_t *channel, int32_t duty, 
     if (duty < 0)
         return;
 
-    ESP_LOGD(TAG, "Softly setting duty cycle of channel %d from %d => %d over %d ms",
+    log_debug(TAG, "Softly setting duty cycle of channel %d from %d => %d over %d ms\n",
              channel->channel, channel->duty, duty, fade_time_ms);
     ESP_ERROR_CHECK(ledc_set_fade_with_time(channel->speed_mode, channel->channel, duty, fade_time_ms));
     ESP_ERROR_CHECK(ledc_fade_start(channel->speed_mode, channel->channel, LEDC_FADE_NO_WAIT));

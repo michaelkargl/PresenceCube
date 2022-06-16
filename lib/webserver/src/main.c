@@ -4,7 +4,7 @@
 #include "home_controller.h"
 #include "esp_wifi.h"
 #include "nvs_init.h"
-#include "esp_log.h"
+#include "logger.h"
 #include "wifi_init.h"
 
 #define WIFI_SSID CONFIG_WIFI_SSID

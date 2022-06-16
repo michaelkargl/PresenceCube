@@ -10,6 +10,7 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "rgb-ledc": "1.0.0"
+        "rgb-ledc": "1.0.0",
+        "logger.interface": "0.0.1"
     }
 }

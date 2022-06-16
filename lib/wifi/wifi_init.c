@@ -1,5 +1,5 @@
 #include "wifi_init.h"
-#include "esp_log.h"
+#include "logger.h"
 #include "esp_wifi.h"
 #include "esp_netif.h"
 
@@ -23,7 +23,7 @@ static esp_err_t _setup_wifi_event_loop()
     _wifi_event_group = xEventGroupCreate();
     if (_wifi_event_group == NULL)
     {
-        ESP_LOGE(_LOGGING_TAG, "Failed to setup event groups. Insufficient memory.");
+        log_error(_LOGGING_TAG, "Failed to setup event groups. Insufficient memory.\n");
         return ESP_ERR_NO_MEM;
     }
 
@@ -47,52 +47,52 @@ static void handle_wifi_event(
 {
     if (event_base == WIFI_EVENT)
     {
-        ESP_LOGD(_LOGGING_TAG, "Received WIFI_EVENT event_id %i", event_id);
+        log_debug(_LOGGING_TAG, "Received WIFI_EVENT event_id %i\n", event_id);
         switch (event_id)
         {
         case WIFI_EVENT_STA_START:
         {
-            ESP_LOGI(_LOGGING_TAG, "Station initialization started. Connecting...");
+            log_information(_LOGGING_TAG, "Station initialization started. Connecting...\n");
             esp_wifi_connect();
             break;
         }
         case WIFI_EVENT_STA_DISCONNECTED:
         {
-            ESP_LOGI(_LOGGING_TAG, "Station disconnected...");
+            log_information(_LOGGING_TAG, "Station disconnected...\n");
             xEventGroupSetBits(_wifi_event_group, WIFI_FAIL_BIT);
             break;
         }
         case WIFI_EVENT_STA_CONNECTED:
         {
-            ESP_LOGI(_LOGGING_TAG, "WIFI station connected!");
+            log_information(_LOGGING_TAG, "WIFI station connected!\n");
             break;
         }
         default:
         {
-            ESP_LOGD(_LOGGING_TAG, "Received event_id %i", event_id);
-            ESP_LOGD(_LOGGING_TAG, "Unable to react. Not implemented.");
+            log_debug(_LOGGING_TAG, "Received event_id %i\n", event_id);
+            log_debug(_LOGGING_TAG, "Unable to react. Not implemented.\n");
             break;
         }
         }
     }
     else if (event_base == IP_EVENT)
     {
-        ESP_LOGD(_LOGGING_TAG, "Received IP_EVENT ");
+        log_debug(_LOGGING_TAG, "Received IP_EVENT\n");
         switch (event_id)
         {
         case IP_EVENT_STA_GOT_IP:
         {
-            ESP_LOGI(_LOGGING_TAG, "Received station address.");
+            log_information(_LOGGING_TAG, "Received station address.\n");
             ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
-            ESP_LOGI(_LOGGING_TAG, "IP:" IPSTR, IP2STR(&event->ip_info.ip));
+            log_information(_LOGGING_TAG, "IP:" IPSTR, IP2STR(&event->ip_info.ip));
 
             xEventGroupSetBits(_wifi_event_group, WIFI_CONNECTED_BIT);
             break;
         }
         default:
         {
-            ESP_LOGD(_LOGGING_TAG, "Received event_id %i", event_id);
-            ESP_LOGD(_LOGGING_TAG, "Unable to react. Not implemented.");
+            log_debug(_LOGGING_TAG, "Received event_id %i\n", event_id);
+            log_debug(_LOGGING_TAG, "Unable to react. Not implemented.\n");
             break;
         }
         }
@@ -101,7 +101,7 @@ static void handle_wifi_event(
 
 static void _register_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
 {
-    ESP_LOGI(_LOGGING_TAG, "Registering wifi handlers");
+    log_information(_LOGGING_TAG, "Registering wifi handlers\n");
 
     ESP_ERROR_CHECK(esp_event_handler_instance_register(
         WIFI_EVENT,
@@ -117,15 +117,15 @@ static void _register_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
         NULL,
         &wifi_handlers->got_ip));
 
-    ESP_LOGI(_LOGGING_TAG, "AnyId wifi handler => %p", wifi_handlers->any_id);
-    ESP_LOGI(_LOGGING_TAG, "GotIP wifi handler => %p", wifi_handlers->got_ip);
+    log_information(_LOGGING_TAG, "AnyId wifi handler => %p\n", wifi_handlers->any_id);
+    log_information(_LOGGING_TAG, "GotIP wifi handler => %p\n", wifi_handlers->got_ip);
 }
 
 static void _unregister_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
 {
-    ESP_LOGI(_LOGGING_TAG, "Unregistering wifi handlers");
-    ESP_LOGD(_LOGGING_TAG, "AnyId wifi handler => %p", wifi_handlers->any_id);
-    ESP_LOGD(_LOGGING_TAG, "GotIP wifi handler => %p", wifi_handlers->got_ip);
+    log_information(_LOGGING_TAG, "Unregistering wifi handlers\n");
+    log_debug(_LOGGING_TAG, "AnyId wifi handler => %p\n", wifi_handlers->any_id);
+    log_debug(_LOGGING_TAG, "GotIP wifi handler => %p\n", wifi_handlers->got_ip);
 
     ESP_ERROR_CHECK(esp_event_handler_instance_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, wifi_handlers->got_ip));
     ESP_ERROR_CHECK(esp_event_handler_instance_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, wifi_handlers->any_id));
@@ -133,7 +133,7 @@ static void _unregister_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
 
 static EventBits_t _await_tcpip_connection()
 {
-    ESP_LOGD(_LOGGING_TAG, "Awaiting TCP/IP connection.");
+    log_debug(_LOGGING_TAG, "Awaiting TCP/IP connection.\n");
 
     // Waiting until either the connection is established or failed.
     // Event bits are set from the wifi event state machine (see above)
@@ -170,7 +170,7 @@ esp_err_t init_tcpip_networking(wifi_config_t *wifi_config)
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
-    ESP_LOGI(_LOGGING_TAG, "wifi_init_sta finished.");
+    log_information(_LOGGING_TAG, "wifi_init_sta finished.\n");
 
     _wifi_connection_state = _await_tcpip_connection();
 

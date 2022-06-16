@@ -12,6 +12,7 @@
     "dependencies": {
         "webserver": "1.0.0",
         "led_control": "1.0.0",
-        "delay_service": "0.0.1"
+        "delay_service": "0.0.1",
+        "logger.interface": "0.0.1"
     }
 }

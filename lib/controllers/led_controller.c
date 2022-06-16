@@ -1,5 +1,4 @@
 #include "led_controller.h"
-#include "esp_log.h"
 #include "webserver.h"
 #include "rgb_ledc.h"
 #include "delay_service.h"

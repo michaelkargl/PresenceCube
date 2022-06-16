@@ -1,6 +1,6 @@
 #include "rgb_ledc_init.h"
 #include "esp_err.h"
-#include "esp_log.h"
+#include "logger.h"
 #include "rgb_ledc_duty_calculator.h"
 #include "string.h"
 
@@ -8,16 +8,16 @@ static const char *TAG = "rgb_ledc_init";
 
 void configure_led(const struct ledc_led_t *led)
 {
-    ESP_LOGI(TAG, "Configuring LED '%s'", led->name);
+    log_information(TAG, "Configuring LED '%s'\n", led->name);
     ESP_ERROR_CHECK(ledc_timer_config(&led->timer));
 
-    ESP_LOGI(TAG, "Configuring LED Channel %i", led->channel.intr_type);
+    log_information(TAG, "Configuring LED Channel %i\n", led->channel.intr_type);
     ESP_ERROR_CHECK(ledc_channel_config(&led->channel));
 }
 
 void configure_rgb_led(const struct ledc_rgb_led_t *led)
 {
-    ESP_LOGI(TAG, "Configuring RGB LED '%s'", led->name);
+    log_information(TAG, "Configuring RGB LED '%s'\n", led->name);
     configure_led(&led->red);
     configure_led(&led->green);
     configure_led(&led->blue);

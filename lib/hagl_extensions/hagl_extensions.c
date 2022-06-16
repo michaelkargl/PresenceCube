@@ -1,7 +1,7 @@
 #include "hagl_extensions.h"
 #include "stdlib.h"
 #include "stdio.h"
-#include "esp_log.h"
+#include "logger.h"
 
 #define _LOGGER_TAG "hagl_extensions"
 
@@ -45,14 +45,14 @@ void draw_blitted_character(
     uint8_t new_font_size_y,
     color_t color
 ) {
-    ESP_LOGD(_LOGGER_TAG, "Allocating bitmap buffer");
+    log_debug(_LOGGER_TAG, "Allocating bitmap buffer\n");
     bitmap_t bitmap; // dont forget to free mallocated space
     bitmap.buffer = (uint8_t *) malloc(font_size_x * font_size_y * sizeof(color_t));
 
-    ESP_LOGD(_LOGGER_TAG, "Retrieving bitmap glyph for '%c'.", character);
+    log_debug(_LOGGER_TAG, "Retrieving bitmap glyph for '%c'.\n", character);
     hagl_get_glyph(character, color, &bitmap, font);
 
-    ESP_LOGD(_LOGGER_TAG, "Scaled rendering");
+    log_debug(_LOGGER_TAG, "Scaled rendering\n");
     hagl_scale_blit(
         x,
         y,
@@ -76,7 +76,7 @@ void draw_scaled_text(
     uint8_t font_size_y,
     uint8_t scale_factor
 ) {
-    ESP_LOGI(_LOGGER_TAG, "Drawing text '%s'(%i) with scale %i and color %i", text, text_length, scale_factor, color);
+    log_information(_LOGGER_TAG, "Drawing text '%s'(%i) with scale %i and color %i\n", text, text_length, scale_factor, color);
     uint8_t scaled_font_width = scale_factor * font_size_x;
     uint8_t scaled_font_height = scale_factor * font_size_y;
     for (uint16_t i = 0; i < text_length; i++) {

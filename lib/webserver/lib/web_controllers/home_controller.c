@@ -1,7 +1,4 @@
 #include "home_controller.h"
-#include "esp_log.h"
-
-static const char *_LOGGER_TAG = "home_controller";
 
 static esp_err_t GET_hello_handler(httpd_req_t *req);
 

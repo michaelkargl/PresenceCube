@@ -90,7 +90,8 @@
         "log_level.h": "c",
         "cmath": "c",
         "complex": "c",
-        "task.h": "c"
+        "task.h": "c",
+        "esp_log_internal.h": "c"
     },
     "idf.portWin": "COM21",
     "idf.adapterTargetName": "esp32"

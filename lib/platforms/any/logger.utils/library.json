@@ -5,5 +5,8 @@
  "srcDir": "./",
  "build": {
     "includeDir": "./"
+ },
+ "dependencies": {
+   "logger.interface": "0.0.1"
  }
 }
