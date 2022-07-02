@@ -1,13 +1,16 @@
 {
-    "name": "hagl_hal_lib",
-    "version": "0.0.1",
+    "name": "spiffs",
+    "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
-    "srcDir": "../hagl_hal/src",
+    "srcDir": ".",
     "build": {
         "srcFilter": [
             "+<*.c>"
         ],
-        "includeDir": "../hagl_hal/include"
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "logger": "*"
     }
 }

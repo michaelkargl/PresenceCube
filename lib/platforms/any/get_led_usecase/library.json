@@ -1,0 +1,14 @@
+{
+ "name": "get_led_usecase",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "srcDir": "./",
+ "build": {
+    "includeDir": "./"
+ },
+ "dependencies": {
+   "logger": "*",
+   "led_domain": "*"
+ }
+}

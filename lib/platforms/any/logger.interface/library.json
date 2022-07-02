@@ -1,9 +1,0 @@
-{
- "name": "logger.interface",
- "version": "0.0.1",
- "platforms": [ "*" ],
- "frameworks": [ "*" ],
- "build": {
-    "includeDir": "./"
- }
-}

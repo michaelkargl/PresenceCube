@@ -1,13 +1,14 @@
 {
-    "name": "hagl_hal_lib",
+    "name": "delay_service",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
-    "srcDir": "../hagl_hal/src",
+    "srcDir": ".",
     "build": {
         "srcFilter": [
             "+<*.c>"
         ],
-        "includeDir": "../hagl_hal/include"
-    }
+        "includeDir": "./"
+    },
+    "dependencies": {}
 }

@@ -1,0 +1,17 @@
+{
+    "name": "main_native",
+    "version": "0.0.1",
+    "platforms": [ "native" ],
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "logger.printf": "0.0.1",
+        "get_led_infrastructure": "*",
+        "led_domain": "*"
+    }
+}

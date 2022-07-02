@@ -1,0 +1,24 @@
+{
+    "name": "main_esp32",
+    "version": "0.0.1",
+    "platforms": [ "espressif32" ],
+    "frameworks": [ "espidf" ],
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "logger_esplog": "*",
+        "spiffs": "*",
+        "wifi_init": "*",
+        "led_control": "*",
+        "rgb_ledc": "*",
+        "delay_service": "*",
+        "webserver": "*",
+        "web_controllers": "*",
+        "get_led_infrastructure": "*"
+    }
+}

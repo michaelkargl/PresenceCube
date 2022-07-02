@@ -1,0 +1,20 @@
+{
+    "name": "web_controllers",
+    "version": "0.0.1",
+    "platforms": [ "espressif32" ],
+    "frameworks": "*",
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "webserver": "*",
+        "led_control": "*",
+        "delay_service": "*",
+        "logger": "*",
+        "info_hud": "*"
+    }
+}

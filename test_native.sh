@@ -1,0 +1,1 @@
+./run_pio.sh test --environment native-test -vv

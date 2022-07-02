@@ -1,6 +1,7 @@
 # build
-if ./run_pio.sh run --environment native
+_environment='native-dev'
+if ./run_pio.sh run --environment "$_environment"
 then
     # run
-    ./.pio/build/native/program
+    ./.pio/build/$_environment/program
 fi

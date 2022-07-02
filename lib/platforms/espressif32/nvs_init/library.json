@@ -1,0 +1,16 @@
+{
+    "name": "nvs_init",
+    "version": "1.0.0",
+    "platforms": [ "espressif32" ],
+    "frameworks": [ "espidf" ],
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "include"
+    },
+    "dependencies": {
+        "logger": "*"
+    }
+}

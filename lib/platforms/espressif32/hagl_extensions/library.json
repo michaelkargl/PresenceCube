@@ -1,0 +1,17 @@
+{
+    "name": "hagl_extensions",
+    "version": "0.0.1",
+    "platforms": [ "espressif32" ],
+    "frameworks": "*",
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "hagl_lib": "*",
+        "logger": "*"
+    }
+}

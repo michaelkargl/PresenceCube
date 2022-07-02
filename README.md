@@ -85,3 +85,12 @@ The most direct way of testing the devices functionality are to use the provided
 ./scripts/set-hud.sh --ip <cube-ip>
 ./scripts/set-color.sh --ip <cube-ip>
 ```
+
+
+## Troubleshooting
+
+Here are a few common errors maintainers have been facing :)
+
+1. [🐞 Issue: After freshly cloning the project, I am unable to build / flash / upload it to the device](#83)
+1. [🐞 Issue: Unable to upload / flash to the device: [upload] Error 134 no device found](#84)
+1. [🐞 Bug: PlatformIO headers are not detected](#75)

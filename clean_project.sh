@@ -1,0 +1,1 @@
+./run_pio.sh run --target clean

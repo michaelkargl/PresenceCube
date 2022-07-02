@@ -1,0 +1,12 @@
+{
+ "name": "logger_utils",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "srcDir": "./",
+ "build": {
+    "includeDir": "./"
+ },
+ "dependencies": {
+   "logger": "*"
+ }
+}

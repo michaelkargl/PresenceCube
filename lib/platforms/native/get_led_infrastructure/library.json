@@ -1,5 +1,5 @@
 {
- "name": "logger.printf",
+ "name": "get_led_infrastructure",
  "version": "0.0.1",
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
@@ -9,6 +9,6 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-   "logger_utils": "0.0.1"
+   "get_led_usecase": "*"
  }
 }

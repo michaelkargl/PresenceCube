@@ -1,0 +1,17 @@
+{
+    "name": "wifi_init",
+    "version": "1.0.0",
+    "platforms": [ "espressif32" ],
+    "frameworks": [ "espidf" ],
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "logger": "*",
+        "nvs_init": "*"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "math_util",
+    "version": "1.0.0",
+    "platforms": "*",
+    "frameworks": "*",
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [
+            "+<*.c>"
+        ],
+        "includeDir": "include"
+    }
+}
