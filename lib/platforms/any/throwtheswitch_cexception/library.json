@@ -1,0 +1,15 @@
+{
+    "name": "throwtheswitch_cexception",
+    "license": "MIT",
+    "author": "Mark VanderVoord",
+    "version": "1.3.3",
+    "srcDir": ".",
+    "build": {
+        "includeDir": ".",
+        "srcFilter": "+<*.c>"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ThrowTheSwitch/CException.git#v1.3.3"
+    }
+}

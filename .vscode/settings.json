@@ -107,7 +107,8 @@
         "thread": "cpp",
         "esp_netif.h": "c",
         "unity.h": "c",
-        "unity_learning.unit.tests.h": "c"
+        "unity_learning.unit.tests.h": "c",
+        "cexception.h": "c"
     },
     "idf.portWin": "COM21",
     "idf.adapterTargetName": "esp32"
