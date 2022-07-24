@@ -14,6 +14,7 @@
 #include "hud_controller.h"
 
 #include "get_led_query_handler.h"
+#include "CException.h"
 
 
 static const char *TAG = "main";
@@ -29,17 +30,44 @@ static const struct ledc_rgb_led_t *_leds;
 static int _leds_count = 0;
 
 
-void initialize_modules() {
+// prototypes
+static void _initialize_modules();
+static void _deinitialize_modules();
+static void _handle_uncaught_errors(error_code_t error);
+
+
+static void _handle_uncaught_errors(error_code_t error) {
+    log_error(TAG, "Uncaught error received: %i\n", error);
+    
+    log_error(TAG, "Deinitializing resources...\n");
+    _deinitialize_modules();
+    
+    log_error(TAG, "Exiting with status: %i\n", error);
+    exit(error);
+}
+
+static void _initialize_modules() {
+    log_information(TAG, "Initializing modules...\n");
     get_led_query_handler_init();
+    uncaught_error_handler_init(_handle_uncaught_errors);
+}
+
+static void _deinitialize_modules() {
+    log_information(TAG, "Deinitializing modules...\n");
+    get_led_query_handler_deinit();
+    uncaught_error_handler_deinit();
 }
 
 int app_main()
 {
+    _initialize_modules();
 
     initialize_spiffs(&spiffs_config);
 
     log_information(TAG, "Setting up LED channels...\n");
     
+    Throw(543);
+
     ESP_ERROR_CHECK(initialize_led_control());
     _leds = get_led_control_leds();
     _leds_count = get_led_control_initialized_led_count();

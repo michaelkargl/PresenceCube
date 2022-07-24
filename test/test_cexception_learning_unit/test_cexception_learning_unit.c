@@ -59,7 +59,7 @@ void test_divice_numbers_variablemutationsareapplied() {
 }
 
 void test_nested_trycatch_statements() {
-    CEXCEPTION_T outer_ex, inner_ex;
+    volatile CEXCEPTION_T outer_ex, inner_ex;
 
     Try {        
         Try {
@@ -75,7 +75,7 @@ void test_nested_trycatch_statements() {
 }
 
 void test_divide_numbers_zerodivisor_throwsdividebyzeroexception() {
-    CEXCEPTION_T e;
+   volatile CEXCEPTION_T e;
     Try {
         divide_numbers(1, 0);
         TEST_FAIL_MESSAGE("Should Have Thrown An Error");
@@ -91,7 +91,7 @@ void test_divide_numbers_zerodivisor_throwsdividebyzeroexception() {
 int main() {
     UNITY_BEGIN();
     
-    CEXCEPTION_T e;
+    volatile CEXCEPTION_T e;
     Try {
         RUN_TEST(test_divice_numbers_variablemutationsareapplied);
         RUN_TEST(test_divide_numbers_validinputs_passes);

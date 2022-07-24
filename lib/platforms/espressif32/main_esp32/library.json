@@ -19,6 +19,7 @@
         "delay_service": "*",
         "webserver": "*",
         "web_controllers": "*",
-        "get_led_infrastructure": "*"
+        "get_led_infrastructure": "*",
+        "throwtheswitch_cexception": "*"
     }
 }

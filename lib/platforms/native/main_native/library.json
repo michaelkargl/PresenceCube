@@ -12,6 +12,7 @@
     "dependencies": {
         "logger.printf": "0.0.1",
         "get_led_infrastructure": "*",
-        "led_domain": "*"
+        "led_domain": "*",
+        "throwtheswitch_cexception": "*"
     }
 }
