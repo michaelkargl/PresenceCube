@@ -59,7 +59,7 @@ build:
  interruptible: true
  script: 
    - "pip install -U platformio"
-   - "pio run"
+   - "./build_env.sh --environment native-dev"
 
 gitstats:
   stage: build
