@@ -1,9 +1,13 @@
 #include "unity.h"
 #include "CException.h"
-#include "uncaught_error_handler_globals.h"
+#include "uncaught_error_handler.h"
 
 static error_code_t _handled_error;
 static int exit_error_code = -1;
+
+// statement of trust that this variable is defined somewhere.
+// make that declaration available in this compilation unit
+extern void (*_uncaught_error_handler_exit_fn)(int);
 
 static void _fake_handle_uncaught_error(error_code_t code);
 static void _fake_exit_function(int error_code);

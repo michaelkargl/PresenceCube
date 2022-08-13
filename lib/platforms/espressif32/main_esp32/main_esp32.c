@@ -48,13 +48,11 @@ static void _handle_uncaught_errors(error_code_t error) {
 
 static void _initialize_modules() {
     log_information(TAG, "Initializing modules...\n");
-    get_led_query_handler_init();
     uncaught_error_handler_init(_handle_uncaught_errors);
 }
 
 static void _deinitialize_modules() {
     log_information(TAG, "Deinitializing modules...\n");
-    get_led_query_handler_deinit();
     uncaught_error_handler_deinit();
 }
 

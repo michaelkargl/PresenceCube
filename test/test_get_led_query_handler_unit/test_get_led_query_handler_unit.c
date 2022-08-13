@@ -1,14 +1,14 @@
 #include "unity.h"
 #include "stdint.h"
 #include "string.h"
-
 #include "get_led_query_handler.h"
-#include "get_led_query_handler_globals.h"
+
+// statement of trust that this variable has been defined in another unit.
+// make this declaration available in this compilation unit
+extern const led_domain_bag_t (*get_led_query_handler__led_register__get_leds)();
 
 void setUp(void) { }
-void tearDown(void) {
-    get_led_query_handler_deinit();
-}
+void tearDown(void) { }
 
 
 static led_domain_bag_t _fake_get_leds_result;
@@ -51,26 +51,7 @@ static void _expect_led_bag_equals(const led_domain_bag_t *expected_bag, const l
     }
 }
 
-// This tests the default state of uninitialized modules. To do this properly, this test
-// needs to be executed before all others.
-void test_get_led_query_handler_initialized__uninitialized__returns_false()
-{
-    TEST_ASSERT_FALSE(get_led_query_handler_initialized());
-}
-
-void test_get_led_query_handler_initialized__initialized__returns_true()
-{
-    get_led_query_handler_init();
-    TEST_ASSERT_TRUE(get_led_query_handler_initialized());
-}
-
-void test_get_led_query_handler_initialized__deinitialized__returns_false()
-{
-    get_led_query_handler_deinit();
-    TEST_ASSERT_FALSE(get_led_query_handler_initialized());
-}
-
-void test_handle_get_led_query__initialized__returns_a_list_of_leds()
+void test_handle_get_led_query__returns_a_list_of_leds()
 {
     led_domain_t leds[] = {
         {true, 12, 0, "t1"},
@@ -80,7 +61,6 @@ void test_handle_get_led_query__initialized__returns_a_list_of_leds()
         .leds = leds,
         .count = sizeof(leds) / sizeof(leds[0])};
 
-    get_led_query_handler_init();
     _use_fake_get_leds_function(_fake_get_leds);
     _set_fake_get_leds_function_result(expected_led_bag);
 
@@ -92,10 +72,7 @@ void test_handle_get_led_query__initialized__returns_a_list_of_leds()
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_handle_get_led_query__initialized__returns_a_list_of_leds);
-    RUN_TEST(test_get_led_query_handler_initialized__deinitialized__returns_false);
-    RUN_TEST(test_get_led_query_handler_initialized__initialized__returns_true);
-    RUN_TEST(test_get_led_query_handler_initialized__uninitialized__returns_false);
+    RUN_TEST(test_handle_get_led_query__returns_a_list_of_leds);
     return UNITY_END();
 }
 

@@ -10,6 +10,7 @@
             "includePath": [
                 "/home/kami/workspace/zube/zube-app/include",
                 "/home/kami/workspace/zube/zube-app/src",
+                "/home/kami/workspace/zube/zube-app/.pio/libdeps/native-test/Unity/src",
                 "/home/kami/workspace/zube/zube-app/lib/platforms/native/main_native",
                 "/home/kami/workspace/zube/zube-app/lib/platforms/native/get_led_infrastructure",
                 "/home/kami/workspace/zube/zube-app/lib/platforms/any/get_led_usecase",
@@ -24,7 +25,6 @@
                 "/home/kami/workspace/zube/zube-app/lib/platforms/any/math_util",
                 "/home/kami/workspace/zube/zube-app/lib/platforms/any/submodules",
                 "/home/kami/workspace/zube/zube-app/lib/platforms",
-                "/home/kami/workspace/zube/zube-app/.pio/libdeps/native-dev/Unity/src",
                 ""
             ],
             "browse": {
@@ -32,6 +32,7 @@
                 "path": [
                     "/home/kami/workspace/zube/zube-app/include",
                     "/home/kami/workspace/zube/zube-app/src",
+                    "/home/kami/workspace/zube/zube-app/.pio/libdeps/native-test/Unity/src",
                     "/home/kami/workspace/zube/zube-app/lib/platforms/native/main_native",
                     "/home/kami/workspace/zube/zube-app/lib/platforms/native/get_led_infrastructure",
                     "/home/kami/workspace/zube/zube-app/lib/platforms/any/get_led_usecase",
@@ -46,7 +47,6 @@
                     "/home/kami/workspace/zube/zube-app/lib/platforms/any/math_util",
                     "/home/kami/workspace/zube/zube-app/lib/platforms/any/submodules",
                     "/home/kami/workspace/zube/zube-app/lib/platforms",
-                    "/home/kami/workspace/zube/zube-app/.pio/libdeps/native-dev/Unity/src",
                     ""
                 ]
             },
@@ -54,7 +54,10 @@
                 "PLATFORMIO=60104",
                 "CEXCEPTION_USE_CONFIG_FILE",
                 "PLATFORM_NATIVE",
-                "BUILD_ENVIRONMENT=\"development\"",
+                "CEXCEPTION_USE_CONFIG_FILE",
+                "PLATFORM_TEST",
+                "UNITY_INCLUDE_PRINT_FORMATTED",
+                "BUILD_ENVIRONMENT=\"test\"",
                 ""
             ],
             "compilerPath": "/usr/bin/gcc",

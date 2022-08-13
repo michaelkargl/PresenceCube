@@ -52,15 +52,26 @@ pages:
       - $DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR
   only:
       - master
- 
+
 build:
  stage: build
+ image: python:latest
  allow_failure: false
  interruptible: true
  script: 
    - "pip install -U platformio"
    - "./build_env.sh --environment native-dev"
 
+tests:
+ stage: test
+ image: python:latest
+ allow_failure: false
+ interruptible: true
+ script:
+   - "pip install -U platformio"
+   - "./test_native.sh"
+
+    
 gitstats:
   stage: build
   image: masaedw/gitstats

@@ -1,11 +1,9 @@
 #pragma once
 #include "get_led_query.h"
 #include "get_led_query_response.h"
-
+#include "led_domain_bag.h"
 
 bool get_led_query_handler_initialized();
-void get_led_query_handler_init();
-void get_led_query_handler_deinit();
 
 /**
  * @brief Handles the input request and provides a response.

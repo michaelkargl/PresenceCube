@@ -1,5 +1,4 @@
 #include "uncaught_error_handler.h"
-#include "uncaught_error_handler_globals.h"
 #include "logger.h"
 #include "stdlib.h"
 #include "stdbool.h"
@@ -7,29 +6,15 @@
 
 static const char * const _logger_tag = "error_handling";
 static void (*_handle_uncaught_error_callback)(error_code_t) = 0;
+void (*_uncaught_error_handler_exit_fn)(int) = exit;
 
-
-bool _assert_module_initialized() {
-    bool uncaught_error_callback_handler_defined = _handle_uncaught_error_callback != 0;
-    bool exit_function_defined = _uncaught_error_handler_exit_fn != 0;
-    
-    bool initialized = uncaught_error_callback_handler_defined && exit_function_defined;
-    return initialized;
-}
-
-void _exit_application(error_code_t error) {
-    bool exit_function_defined = _uncaught_error_handler_exit_fn != 0;
-    if (!exit_function_defined) {
-        log_warning(_logger_tag, "No exit function configured. Using stdlib.exit as fallback exit strategy.\n");
-        exit(error);
-    }
-
-    _uncaught_error_handler_exit_fn(error);
+static bool _assert_module_initialized() {
+    bool uncaught_error_callback_handler_defined = _handle_uncaught_error_callback != 0;    
+    return uncaught_error_callback_handler_defined;
 }
 
 void uncaught_error_handler_deinit() {
     _handle_uncaught_error_callback = 0;
-    _uncaught_error_handler_exit_fn = 0;
 }
 
 void uncaught_error_handler_init(
@@ -37,7 +22,6 @@ void uncaught_error_handler_init(
 ) {
     log_information(_logger_tag, "Initializing error_handling\n");
     _handle_uncaught_error_callback = handle_uncaught_error_callback;
-    _uncaught_error_handler_exit_fn = exit;
 }
 
 void uncaught_error_handler_handle(error_code_t error_code) {
@@ -63,5 +47,5 @@ void uncaught_error_handler_handle(error_code_t error_code) {
         return;
     }
 
-    _exit_application(error_code);
+    _uncaught_error_handler_exit_fn(error_code);
 }
