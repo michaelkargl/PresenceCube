@@ -1,0 +1,9 @@
+{
+ "name": "usecases.abstractions",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "dependencies": {
+   "get_led_usecase": "*"
+ }
+}

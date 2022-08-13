@@ -12,7 +12,7 @@
         "includeDir": "include"
     },
     "dependencies": {
-        "logger": "*",
-        "math_util": "*"
+        "logging.abstractions": "*",
+        "domain.abstractions": "*"
     }
 }

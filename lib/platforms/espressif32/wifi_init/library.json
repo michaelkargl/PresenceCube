@@ -11,7 +11,7 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "logger": "*",
+        "logging.abstractions": "*",
         "nvs_init": "*"
     }
 }

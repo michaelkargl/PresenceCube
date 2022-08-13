@@ -8,7 +8,7 @@
     "includeDir": "./"
  },
  "dependencies": {
-   "logger": "*",
-   "led_domain": "*"
+  "logging.abstractions": "*",
+   "domain.abstractions": "*"
  }
 }

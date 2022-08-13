@@ -14,7 +14,7 @@
         "webserver": "*",
         "led_control": "*",
         "delay_service": "*",
-        "logger": "*",
+        "logging.abstractions": "*",
         "info_hud": "*"
     }
 }

@@ -63,8 +63,6 @@ int app_main()
     initialize_spiffs(&spiffs_config);
 
     log_information(TAG, "Setting up LED channels...\n");
-    
-    Throw(543);
 
     ESP_ERROR_CHECK(initialize_led_control());
     _leds = get_led_control_leds();

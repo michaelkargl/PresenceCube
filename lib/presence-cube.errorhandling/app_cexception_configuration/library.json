@@ -2,6 +2,6 @@
     "name": "app_cexception_config",
     "version": "0.0.1",
     "dependencies": {
-        "logger": "*"
+        "logging.abstractions": "*"
     }
 }

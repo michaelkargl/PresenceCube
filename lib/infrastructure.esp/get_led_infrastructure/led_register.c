@@ -1,6 +1,5 @@
 #include "led_register.h"
 
-// TODO: move to infrastructure
 
 const led_domain_t _registered_leds[2] = {
     {

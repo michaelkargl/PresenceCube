@@ -1,5 +1,5 @@
 {
-    "name": "main_esp32",
+    "name": "presence-cube.esp",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
@@ -11,15 +11,15 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "logger_esplog": "*",
+        "presence-cube.shared": "*",
+        "infrastructure.esp": "*",
+        "logging.esp": "*",
         "spiffs": "*",
         "wifi_init": "*",
         "led_control": "*",
         "rgb_ledc": "*",
         "delay_service": "*",
         "webserver": "*",
-        "web_controllers": "*",
-        "get_led_infrastructure": "*",
-        "throwtheswitch_cexception": "*"
+        "web_controllers": "*"
     }
 }

@@ -1,15 +1,14 @@
 {
  "name": "get_led_infrastructure",
  "version": "0.0.1",
- "platforms": [ "espressif32" ],
- "frameworks": [ "espidf" ],
+ "platforms": [ "native" ],
+ "frameworks": [ "*" ],
  "build": {
     "srcDir": "./",
     "includeDir": "./",
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-   "get_led_usecase": "*",
-   "led_control": "*"
+   "usecases.abstractions": "*"
  }
 }

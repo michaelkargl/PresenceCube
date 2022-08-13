@@ -1,0 +1,19 @@
+{
+ "name": "presence-cube.domain",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "build": {
+    "srcDir": "./",
+    "includeDir": "./",
+    "srcFilter": [
+      "+<math/*.c>"
+    ],
+    "flags": [
+      "-I math"
+    ]
+ },
+ "dependencies": {
+  "domain.abstractions": "*"
+ }
+}

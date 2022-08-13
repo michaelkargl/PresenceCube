@@ -1,12 +1,9 @@
 {
- "name": "logger_utils",
+ "name": "logging.abstractions",
  "version": "0.0.1",
  "platforms": [ "*" ],
- "srcDir": "./",
+ "frameworks": [ "*" ],
  "build": {
     "includeDir": "./"
- },
- "dependencies": {
-   "logger": "*"
  }
 }

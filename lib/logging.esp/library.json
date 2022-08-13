@@ -1,14 +1,14 @@
 {
- "name": "logger.printf",
+ "name": "logging.esp",
  "version": "0.0.1",
- "platforms": [ "native" ],
- "frameworks": [ "*" ],
+ "platforms": [ "espressif32" ],
+ "frameworks": [ "espidf" ],
  "build": {
     "srcDir": "./",
     "includeDir": "./",
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-   "logger_utils": "0.0.1"
+  "logging.shared": "*"
  }
 }

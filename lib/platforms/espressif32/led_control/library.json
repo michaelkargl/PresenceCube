@@ -12,6 +12,6 @@
     },
     "dependencies": {
         "rgb_ledc": "*",
-        "logger": "*"
+        "logging.abstractions": "*"
     }
 }

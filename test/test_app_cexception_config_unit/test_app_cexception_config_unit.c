@@ -27,7 +27,7 @@ void test_uncaughterror_uninitializedhandler_succeedswithwarnings() {
 void test_caughterror_fallbackhandlernotcalled() {
     uncaught_error_handler_init(_fake_handle_uncaught_error);
 
-    CEXCEPTION_T e;
+    volatile CEXCEPTION_T e;
     Try {
         Throw(ERROR_CODE_UNHANDLED);
     } Catch(e) {

@@ -1,5 +1,5 @@
 {
- "name": "logger_esplog",
+ "name": "infrastructure.esp",
  "version": "0.0.1",
  "platforms": [ "espressif32" ],
  "frameworks": [ "espidf" ],
@@ -9,6 +9,7 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-   "logger": "*"
+   "usecases.abstractions": "*",
+   "led_control": "*"
  }
 }

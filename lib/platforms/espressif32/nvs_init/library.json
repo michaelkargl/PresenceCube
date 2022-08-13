@@ -11,6 +11,6 @@
         "includeDir": "include"
     },
     "dependencies": {
-        "logger": "*"
+        "logging.abstractions": "*"
     }
 }

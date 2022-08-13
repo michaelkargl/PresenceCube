@@ -12,6 +12,6 @@
     },
     "dependencies": {
         "hagl_lib": "*",
-        "logger": "*"
+        "logging.abstractions": "*"
     }
 }

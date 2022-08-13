@@ -97,6 +97,7 @@ struct ledc_rgb_led_t new_rgb_ledc_led(
         .blue = led_blue
     };
 
+    log_debug(TAG, "Created new RGB-Led on GPIOs (%i, %i, %i).\n", pins.red, pins.green, pins.blue);
 
     strncpy(rgb_led.name, name, sizeof(rgb_led.name)/sizeof(rgb_led.name[0]));
     _turn_off_rgb_led(&rgb_led);

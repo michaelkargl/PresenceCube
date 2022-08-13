@@ -1,0 +1,13 @@
+{
+ "name": "domain.abstractions",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "build": {
+    "includeDir": "./",
+    "flags": [
+      "-I led_domain",
+      "-I math"
+    ]
+ }
+}
