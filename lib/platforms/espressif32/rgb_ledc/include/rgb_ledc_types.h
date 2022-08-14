@@ -7,6 +7,10 @@
 // TODO: create custom ledc_timer_config_t dto
 // TODO: create mapping helper to map between dto and domain object
 
+/**
+ * @brief Represents a single esp32 LEDC Led
+ * 
+ */
 struct ledc_led_t
 {
     char name[10];
@@ -17,10 +21,12 @@ struct ledc_led_t
 struct ledc_rgb_led_t  
 {
     bool is_initialized;
+    // TODO: can be moved to ledc_led_t => an RGB led consists of 3 smaller leds where each can also be CA or CC
     bool is_common_anode;
     char name[10];
     struct ledc_led_t red;
     struct ledc_led_t green;
     struct ledc_led_t blue;
+    // TODO: remove this and pass it along the set-led request (fading doesn't belong to the LED but the process of changing colors)
     int32_t fade_milliseconds;
 };

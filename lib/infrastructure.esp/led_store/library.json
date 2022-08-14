@@ -1,5 +1,5 @@
 {
- "name": "infrastructure.esp",
+ "name": "led_store",
  "version": "0.0.1",
  "platforms": [ "espressif32" ],
  "frameworks": [ "espidf" ],
@@ -7,9 +7,5 @@
     "srcDir": "./",
     "includeDir": "./",
     "srcFilter": "+<*.c> -<.git/>"
- },
- "dependencies": {
-   "usecases.abstractions": "*",
-   "led_store": "*"
  }
 }

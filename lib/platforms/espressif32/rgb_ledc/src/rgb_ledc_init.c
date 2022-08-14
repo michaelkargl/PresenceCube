@@ -29,10 +29,13 @@ void configure_rgb_led(const struct ledc_rgb_led_t *led)
     ledc_fade_func_install(0);
 }
 
+
+// TODO: move to ledc_control: this is a control mechanicm and does not have anthing to do with initialization
 static void _turn_off_led(struct ledc_led_t *led, bool is_common_anode) {
     led->channel.duty = is_common_anode ? get_max_duty(led) : 0;
 }
 
+// TODO: move to ledc_control: this is a control mechanicm and does not have anthing to do with initialization
 static void _turn_off_rgb_led(struct ledc_rgb_led_t *led) {
     _turn_off_led(&led->red, led->is_common_anode);
     _turn_off_led(&led->green, led->is_common_anode);
@@ -51,7 +54,7 @@ struct ledc_rgb_led_t new_rgb_ledc_led(
     struct ledc_led_t led_red = {
         .name = "red",
         .timer = _ledc_timer,
-        .channel = { 
+        .channel = {
             .channel = channels.red,
             .gpio_num = pins.red,
             .speed_mode = _ledc_timer.speed_mode,
