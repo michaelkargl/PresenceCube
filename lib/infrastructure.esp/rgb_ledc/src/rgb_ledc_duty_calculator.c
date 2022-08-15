@@ -16,6 +16,11 @@ int get_max_duty(const struct ledc_led_t *led)
 
 int _calculate_duty(const struct ledc_led_t *led, int8_t percent)
 {
+    if ( led->is_common_anode) {
+        // less gpio backpressure = more flow through the led
+        percent = 100 - percent;
+    }
+
     int max_duty = get_max_duty(led);
     int duty = floor((max_duty / (float)100) * percent);
     duty = ranged_value(duty, 0, max_duty);

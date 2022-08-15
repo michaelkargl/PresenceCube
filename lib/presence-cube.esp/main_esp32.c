@@ -4,8 +4,9 @@
 #include "wifi_init.h"
 #include "wifi_setup.h"
 
-#include "led_control_init.h"
+#include "rgb_ledc_init.h"
 #include "rgb_ledc.h"
+#include "led_store.h"
 
 #include "delay_service.h"
 
@@ -16,6 +17,14 @@
 #include "get_led_query_handler.h"
 #include "CException.h"
 
+
+#define LED_FADE_MILLISECONDS 4000
+#define R_ON 100
+#define G_ON 100
+#define B_ON 100
+#define R_OFF 0
+#define G_OFF 0
+#define B_OFF 0
 
 static const char *TAG = "main";
 
@@ -64,17 +73,18 @@ int app_main()
 
     log_information(TAG, "Setting up LED channels...\n");
 
-    ESP_ERROR_CHECK(initialize_led_control());
-    _leds = get_led_control_leds();
-    _leds_count = get_led_control_initialized_led_count();
+    ESP_ERROR_CHECK(led_store_initialize());
+    _leds = led_store__get_leds();
+    _leds_count = led_store__get_led_count();
+    configure_rgb_leds(_leds, _leds_count);
     log_information(TAG, "%i LEDS are registered.\n", _leds_count);
 
-    set_leds_color_percent(_leds, _leds_count, 100, 0, 0);
-    _delay_ms(1000);
-    set_leds_color_percent(_leds, _leds_count, 0, 0, 100);
-    _delay_ms(1000);
-    set_leds_color_percent(_leds, _leds_count, 0, 100, 0);
-    _delay_ms(1000);
+    set_leds_color_percent(_leds, _leds_count, R_ON, G_OFF, B_OFF, LED_FADE_MILLISECONDS);
+    _delay_ms(LED_FADE_MILLISECONDS);
+    set_leds_color_percent(_leds, _leds_count, R_OFF, G_OFF, B_ON, LED_FADE_MILLISECONDS);
+    _delay_ms(LED_FADE_MILLISECONDS);
+    set_leds_color_percent(_leds, _leds_count, R_OFF, G_ON, B_OFF, LED_FADE_MILLISECONDS);
+    _delay_ms(LED_FADE_MILLISECONDS);
 
     log_information(TAG, "Setting up wifi connection...\n");
     create_wifi_station();
@@ -90,7 +100,7 @@ int app_main()
     webserver_register_endpoints(get_hud_controller_endpoints(), get_hud_controller_endpoint_count());
 
     log_information(TAG, "Setup done.\n");
-    set_leds_color_percent(_leds, _leds_count, 0, 0, 0);
+    set_leds_color_percent(_leds, _leds_count, 0, 0, 0, LED_FADE_MILLISECONDS);
 
     heap_caps_print_heap_info(MALLOC_CAP_DEFAULT);
     return 0;

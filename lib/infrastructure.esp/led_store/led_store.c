@@ -3,6 +3,7 @@
 #include "string.h"
 #include "CException.h"
 
+
 #define RGBA_EAST_RED_GPIO_PIN (CONFIG_RGBA_EAST_RED_CHANNEL_PIN)
 #define RGBA_EAST_GREEN_GPIO_PIN (CONFIG_RGBA_EAST_GREEN_CHANNEL_PIN)
 #define RGBA_EAST_BLUE_GPIO_PIN (CONFIG_RGBA_EAST_BLUE_CHANNEL_PIN)
@@ -82,10 +83,11 @@ static struct ledc_rgb_led_t _build_ledc_rgb_led_west()
 
 // public functions
 
-void led_store_initialize()
+esp_err_t led_store_initialize()
 {
     _store_led(0, _build_ledc_rgb_led_east());
     _store_led(1, _build_ledc_rgb_led_west());
+    return ESP_OK;
 }
 
 uint8_t led_store__get_led_count()

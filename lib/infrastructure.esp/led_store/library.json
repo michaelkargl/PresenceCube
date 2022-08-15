@@ -7,5 +7,8 @@
     "srcDir": "./",
     "includeDir": "./",
     "srcFilter": "+<*.c> -<.git/>"
+ },
+ "dependencies": {
+   "infrastructure.esp.models": "*"
  }
 }

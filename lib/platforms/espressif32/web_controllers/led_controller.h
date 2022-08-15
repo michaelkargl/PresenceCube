@@ -1,8 +1,8 @@
 #ifndef _LED_CONTROLLER
 #define _LED_CONTROLLER
 
-#include "rgb_ledc_types.h"
 #include "esp_http_server.h"
+#include "ledc_rgb_led_t.h"
 
 struct led_controller_endpoints_t
 {

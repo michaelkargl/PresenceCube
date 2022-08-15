@@ -1,5 +1,5 @@
 #pragma once
-#include "rgb_ledc_types.h"
+#include "ledc_rgb_led_t.h"
 
 /**
  * @brief Set the led color for a single LED
@@ -13,7 +13,8 @@ void set_led_color_percent(
     const struct ledc_rgb_led_t *led,
     int percent_red,
     int percent_green,
-    int percent_blue);
+    int percent_blue,
+    uint32_t fade_milliseconds);
 
 /**
  * @brief Set the led color for multiple LEDs
@@ -29,7 +30,8 @@ void set_leds_color_percent(
     const int leds_size,
     int percent_red,
     int percent_green,
-    int percent_blue
+    int percent_blue,
+    uint32_t fade_milliseconds
 );
 
 /**
@@ -44,5 +46,6 @@ void set_led_color_8bit(
     const struct ledc_rgb_led_t *led,
     uint8_t red,
     uint8_t green,
-    uint8_t blue
+    uint8_t blue,
+    uint32_t fade_milliseconds
 );

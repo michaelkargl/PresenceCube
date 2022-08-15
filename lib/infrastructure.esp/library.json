@@ -10,6 +10,7 @@
  },
  "dependencies": {
    "get_led_infrastructure": "*",
+   "infrastructure.esp.models": "*",
    "led_store": "*"
  }
 }

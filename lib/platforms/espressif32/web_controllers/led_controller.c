@@ -9,6 +9,7 @@
 // TODO: move configuration into a separate configuration header
 #define REQUEST_BODY_BUFFER_SIZE 50
 #define REQUEST_ERROR_MESSAGE_BUFFER_SIZE 50
+#define LED_FADE_MILLISECONDS 4000
 
 static const struct ledc_rgb_led_t *_leds;
 static int _leds_size;
@@ -74,7 +75,6 @@ static esp_err_t GET_leds_handler(httpd_req_t *request)
         cJSON_AddNumberToObject(element, "id", i);
         cJSON_AddStringToObject(element, "name", _leds[i].name);
         cJSON_AddBoolToObject(element, "isInitialized", _leds[i].is_initialized);
-        cJSON_AddBoolToObject(element, "isCommonAnode", _leds[i].is_common_anode);
     }
 
     char *response_string = cJSON_Print(led_array);
@@ -141,7 +141,9 @@ static esp_err_t POST_led_handler(httpd_req_t *request)
         &_leds[id->valueint],
         red->valueint,
         green->valueint,
-        blue->valueint);
+        blue->valueint,
+        LED_FADE_MILLISECONDS
+    );
 
     _send_response(request, HTTPD_200, "OK");
 

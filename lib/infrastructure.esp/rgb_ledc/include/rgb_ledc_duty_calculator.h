@@ -1,6 +1,6 @@
 #pragma once
 #include "stdint.h"
-#include "rgb_ledc_types.h"
+#include "ledc_led_t.h"
 
 /**
  * @brief Get the maximum possible duty cycle for a specific LED configuration
