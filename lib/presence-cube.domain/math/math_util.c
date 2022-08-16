@@ -1,8 +1,14 @@
 #include "math_util.h"
+#include "CException.h"
+
 
 // TODO: rename limit_value
 int ranged_value(int value, int min_range, int max_range)
 {
+    if(min_range > max_range) {
+        Throw(LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
+    }
+
     char hits_lower_threshold = value <= min_range;
     if (hits_lower_threshold) {
         return min_range;
