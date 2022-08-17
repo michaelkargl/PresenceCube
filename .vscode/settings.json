@@ -133,7 +133,11 @@
         "ledc_rgb_led_builder_stub.h": "c",
         "build_ledc_rgb_led_stub.h": "c",
         "ledc_hal.h": "c",
-        "ledc_init.h": "c"
+        "ledc_init.h": "c",
+        "ledc_fade_func_install_stub.h": "c",
+        "ledc_channel_config_stub.h": "c",
+        "ledc_timer_config_stub.h": "c",
+        "soc_caps.h": "c"
     },
     "idf.portWin": "COM21",
     "idf.adapterTargetName": "esp32"

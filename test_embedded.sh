@@ -1,1 +1,1 @@
-./run_pio.sh test --environment espressif32-test -vv $@
+./run_pio.sh test --environment espressif32-test -vvv $@
