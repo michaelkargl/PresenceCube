@@ -38,10 +38,21 @@ void test__configure_led__given_uninitialized_led__throws_uninitialized_struct_e
     CEXCEPTION_T ex;
     Try {
         configure_led(&dummy_led);
-        TEST_FAIL_MESSAGE("Expected an exception but none was caught.");
+        TEST_FAIL_MESSAGE("Expected an 'uninitialized struct' exception but none was caught.");
     } Catch(ex) { }
 
-    TEST_ASSERT_EQUAL(UNINITIALIZED_DATA_ACCESS_ERROR, ex);
+    TEST_ASSERT_EQUAL(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, ex);
+    _assert_ledc_functions_called(ZERO_TIMES);
+}
+
+void test__configure_led__given_null_input__throws_argument_null_exception() {
+    CEXCEPTION_T ex;
+    Try {
+        configure_led(NULL);
+        TEST_FAIL_MESSAGE("Expected an 'argument null' exception but none was caught.");
+    } Catch (ex) { }
+
+    TEST_ASSERT_EQUAL(ERROR_CODE_ARGUMENT_NULL, ex);
     _assert_ledc_functions_called(ZERO_TIMES);
 }
 
@@ -57,6 +68,7 @@ int main() {
     UNITY_BEGIN();
 
     RUN_TEST(test__configure_led__given_uninitialized_led__throws_uninitialized_struct_exception);
+    RUN_TEST(test__configure_led__given_null_input__throws_argument_null_exception);
     RUN_TEST(test__configure_led__given_initialized_led__calls_ledc_functions);
 
     return UNITY_END();

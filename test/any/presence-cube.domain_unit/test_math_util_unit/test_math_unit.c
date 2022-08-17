@@ -71,7 +71,7 @@ static void _test_ranged_value__given_swapped_boundaries__throws(int lower_bound
         TEST_FAIL_MESSAGE("Expected exception to be thrown, but none received!");
     } Catch(ex) {}
 
-    TEST_ASSERT_EQUAL(ex, LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
+    TEST_ASSERT_EQUAL(ex, ERROR_CODE_LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
 }
 
 void test_ranged_value__given_swapped_boundaries__throws() {

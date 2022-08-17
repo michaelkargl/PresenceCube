@@ -12,9 +12,13 @@ esp_err_t (*_led_init__ledc_fade_func_install)(int interrupt_allocation_flags) =
 
 void configure_led(const struct ledc_led_t *led)
 {
+    if (led == NULL) {
+        Throw(ERROR_CODE_ARGUMENT_NULL);
+    }
+
     if (!led->is_initialized) {
         log_error(TAG, "Trying to configure uninitialized LED (address: %p).\n", led);
-        Throw(UNINITIALIZED_DATA_ACCESS_ERROR);
+        Throw(ERROR_CODE_UNINITIALIZED_DATA_ACCESS);
     }
     
     log_information(TAG, "Configuring LED '%s'\n", led->name);

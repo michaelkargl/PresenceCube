@@ -30,7 +30,7 @@ struct ledc_rgb_led_t (*_led_store__build_ledc_rgb_led)(
 static void _store_led(uint8_t index, struct ledc_rgb_led_t led)
 {
     if (index >= led_store__get_led_count()) {
-        Throw(INDEX_OUT_OF_RANGE);
+        Throw(ERROR_CODE_INDEX_OUT_OF_RANGE);
     }
     
     _leds[index] = led;

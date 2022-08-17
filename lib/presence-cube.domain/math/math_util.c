@@ -6,7 +6,7 @@
 int ranged_value(int value, int min_range, int max_range)
 {
     if(min_range > max_range) {
-        Throw(LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
+        Throw(ERROR_CODE_LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
     }
 
     char hits_lower_threshold = value <= min_range;
