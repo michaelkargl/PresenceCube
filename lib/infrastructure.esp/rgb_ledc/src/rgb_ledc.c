@@ -81,9 +81,9 @@ void set_led_color_percent(
     percent_blue = ranged_value(percent_blue, 0, 100);
     log_debug(TAG, "Setting led %s to color: %i, %i, %i percent\n", led->name, percent_red, percent_green, percent_blue);
     
-    int duty_red = _calculate_duty(&led->red, percent_red);
-    int duty_green = _calculate_duty(&led->green, percent_green);
-    int duty_blue = _calculate_duty(&led->blue, percent_blue);
+    int duty_red = calculate_duty(&led->red, percent_red);
+    int duty_green = calculate_duty(&led->green, percent_green);
+    int duty_blue = calculate_duty(&led->blue, percent_blue);
 
     _set_rgb_led_color(
         led,

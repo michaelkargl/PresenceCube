@@ -5,15 +5,15 @@
 /**
  * @brief Get the maximum possible duty cycle for a specific LED configuration
  * @param led
- * @return int 
+ * @return uint32_t 
  */
-int get_max_duty(const struct ledc_led_t *led);
+uint32_t get_max_duty(const struct ledc_led_t *led);
 
 /**
  * @brief Translates a percentage value to a LED specific duty cycle
  * 
  * @param led The led configuration to use as a basis of calculation
  * @param percent The percentage to translate into a duty cycle
- * @return int 
+ * @return uint32_t 
  */
-int _calculate_duty(const struct ledc_led_t *led, int8_t percent);
+uint32_t calculate_duty(const struct ledc_led_t *led, uint8_t percent);
