@@ -140,8 +140,9 @@
         "soc_caps.h": "c",
         "setjmp.h": "c",
         "configure_led_mock.h": "c",
-        "ledc_facade.h": "c"
+        "ledc_facade.h": "c",
+        "fff.h": "c",
+        "throwing_helpers.h": "c"
     },
-    "idf.portWin": "COM21",
-    "idf.adapterTargetName": "esp32"
+    "idf.portWin": "COM21"
 }

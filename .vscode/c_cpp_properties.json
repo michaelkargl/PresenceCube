@@ -44,7 +44,6 @@
                 "/home/kami/workspace/zube/zube-app/lib/presence-cube.errorhandling/app_cexception_configuration/src",
                 "/home/kami/workspace/zube/zube-app/lib/logging.abstractions",
                 "/home/kami/.platformio/packages/framework-espidf/components/esp_ringbuf/include",
-                "/home/kami/workspace/zube/zube-app/.pio/build/espressif32-dev/config",
                 "/home/kami/.platformio/packages/framework-espidf/components/newlib/platform_include",
                 "/home/kami/.platformio/packages/framework-espidf/components/freertos/include",
                 "/home/kami/.platformio/packages/framework-espidf/components/freertos/include/esp_additions/freertos",
@@ -163,10 +162,13 @@
                 "/home/kami/.platformio/packages/framework-espidf/components/wifi_provisioning/include",
                 "/home/kami/workspace/zube/zube-app/components/hagl_hal/include",
                 "/home/kami/workspace/zube/zube-app/components/hagl/include",
+                "/home/kami/workspace/zube/zube-app/lib/submodules/fff",
+                "/home/kami/workspace/zube/zube-app/lib/submodules/fff_lib",
                 "/home/kami/workspace/zube/zube-app/components/hagl/src",
                 "/home/kami/workspace/zube/zube-app/components/hagl_hal/src",
                 "/home/kami/workspace/zube/zube-app/lib/infrastructure.esp",
                 "/home/kami/workspace/zube/zube-app/lib/platforms",
+                "/home/kami/workspace/zube/zube-app/lib/submodules",
                 ""
             ],
             "browse": {
@@ -208,7 +210,6 @@
                     "/home/kami/workspace/zube/zube-app/lib/presence-cube.errorhandling/app_cexception_configuration/src",
                     "/home/kami/workspace/zube/zube-app/lib/logging.abstractions",
                     "/home/kami/.platformio/packages/framework-espidf/components/esp_ringbuf/include",
-                    "/home/kami/workspace/zube/zube-app/.pio/build/espressif32-dev/config",
                     "/home/kami/.platformio/packages/framework-espidf/components/newlib/platform_include",
                     "/home/kami/.platformio/packages/framework-espidf/components/freertos/include",
                     "/home/kami/.platformio/packages/framework-espidf/components/freertos/include/esp_additions/freertos",
@@ -327,10 +328,13 @@
                     "/home/kami/.platformio/packages/framework-espidf/components/wifi_provisioning/include",
                     "/home/kami/workspace/zube/zube-app/components/hagl_hal/include",
                     "/home/kami/workspace/zube/zube-app/components/hagl/include",
+                    "/home/kami/workspace/zube/zube-app/lib/submodules/fff",
+                    "/home/kami/workspace/zube/zube-app/lib/submodules/fff_lib",
                     "/home/kami/workspace/zube/zube-app/components/hagl/src",
                     "/home/kami/workspace/zube/zube-app/components/hagl_hal/src",
                     "/home/kami/workspace/zube/zube-app/lib/infrastructure.esp",
                     "/home/kami/workspace/zube/zube-app/lib/platforms",
+                    "/home/kami/workspace/zube/zube-app/lib/submodules",
                     ""
                 ]
             },

@@ -6,8 +6,6 @@
 
 # After committing this template, visit CI/CD > Jobs to see the script output.
 
-image: python:3.6
-
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SUBMODULE_UPDATE_STRATEGY: default
@@ -15,6 +13,11 @@ variables:
   DOCUSAURUS_PAGE_DIR: $CI_PROJECT_DIR/docs/zube
   DOCUSAURUS_BUILD_DIR: $DOCUSAURUS_PAGE_DIR/build
   DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR: $CI_PROJECT_DIR/public
+  PLATFORMIO_PIP_VERSION: '6.1.3'
+  FLAWFINDER_PIP_VERSION: '2.0.19'
+  PYTHON_DOCKER_VERSION: '3.8'
+
+image: python:$PYTHON_DOCKER_VERSION
 
 before_script:
   - 'echo "----------- Variables ---------------"'
@@ -55,20 +58,20 @@ pages:
 
 build:
  stage: build
- image: python:latest
+ image: python:$PYTHON_DOCKER_VERSION
  allow_failure: false
  interruptible: true
  script: 
-   - "pip install -U platformio"
+   - "pip install -U platformio==$PLATFORMIO_PIP_VERSION"
    - "./build_env.sh --environment native-dev"
 
 tests:
  stage: test
- image: python:latest
+ image: python:$PYTHON_DOCKER_VERSION
  allow_failure: false
  interruptible: true
  script:
-   - "pip install -U platformio"
+   - "pip install -U platformio==$PLATFORMIO_PIP_VERSION"
    - "./test_native.sh"
 
     
@@ -87,11 +90,11 @@ gitstats:
 
 flawfinder:
   stage: test
-  image: python:latest
+  image: python:$PYTHON_DOCKER_VERSION
   allow_failure: true
   interruptible: true
   script: 
-    - python -m pip install flawfinder
+    - python -m pip install flawfinder==$FLAWFINDER_PIP_VERSION
     - flawfinder --context --html ./src ./test > flawfinder.html
   artifacts:
     paths:

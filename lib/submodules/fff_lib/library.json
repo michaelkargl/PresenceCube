@@ -1,0 +1,16 @@
+{
+    "name": "fff_lib",
+    "description": "A testing micro framework for creating function test doubles",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/meekrosoft/fff.git"
+    },
+    "license": "https://github.com/meekrosoft/fff/blob/master/LICENSE",
+    "author": "https://github.com/meekrosoft",
+    "version": "1.0.1",
+    "platforms": [ "*" ],
+    "frameworks": [ "*" ],
+    "build": {
+        "includeDir": "../fff"
+    }
+}

@@ -4,3 +4,6 @@
 [submodule "components/hagl"]
 	path = components/hagl
 	url = https://github.com/tuupola/hagl.git
+[submodule "lib/submodules/fff"]
+	path = lib/submodules/fff
+	url = https://github.com/meekrosoft/fff.git
