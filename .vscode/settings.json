@@ -139,7 +139,8 @@
         "ledc_timer_config_stub.h": "c",
         "soc_caps.h": "c",
         "setjmp.h": "c",
-        "configure_led_mock.h": "c"
+        "configure_led_mock.h": "c",
+        "ledc_facade.h": "c"
     },
     "idf.portWin": "COM21",
     "idf.adapterTargetName": "esp32"
