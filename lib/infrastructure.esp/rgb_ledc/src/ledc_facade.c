@@ -57,7 +57,7 @@ static void _update_duty(const ledc_channel_config_t *channel, uint32_t duty, in
 void ledc_set_percent(const struct ledc_led_t *led, uint8_t percent, int fade_time_ms)
 {
     THROW_ARGUMENT_NULL_IF_NULL(led);
-    THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_REFERENCE(led);
+    THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(led);
 
     uint32_t duty_cycle = calculate_duty(led, percent);
     _update_duty(&led->channel, duty_cycle, fade_time_ms);

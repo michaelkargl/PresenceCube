@@ -50,16 +50,17 @@ void test_uncaughterror_caughtbyfallbackcallback() {
 // native
 int main() {
     UNITY_BEGIN();
+
     _run_order_sensitive_tests();
     RUN_TEST(test_uncaughterror_caughtbyfallbackcallback);
     RUN_TEST(test_caughterror_fallbackhandlernotcalled);
+    
     return UNITY_END();
 }
 
 static void _run_order_sensitive_tests() {
     // Keep this test first: it requires an uninitialized / unaltered application state to bring the most value
     RUN_TEST(test_uncaughterror_uninitializedhandler_succeedswithwarnings);
-
 }
 
 // esp-idf

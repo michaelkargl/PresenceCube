@@ -1,0 +1,14 @@
+{
+    "name": "presence-cube.testing.shared",
+    "version": "0.0.1",
+    "platforms": [ "*" ],
+    "frameworks": [ "*" ],
+    "build": {
+        "includeDir": "./includes"
+    },
+    "dependencies": {
+        "Unity": "*",
+        "fff_lib": "*",
+        "presence-cube.errorhandling": "*"
+    }
+}

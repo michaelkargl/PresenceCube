@@ -2,7 +2,7 @@
 #include "ledc_facade.h"
 #include "esp_err.h"
 #include "fff.h"
-#include "assertion_helpers/exceptions.h"
+#include "assertion_helpers.h"
 
 extern esp_err_t (*_ledc_facade__ledc_set_duty)(ledc_mode_t speed_mode, ledc_channel_t channel, uint32_t duty);
 extern esp_err_t (*_ledc_facade__ledc_update_duty)(ledc_mode_t speed_mode, ledc_channel_t channel);
@@ -15,7 +15,7 @@ FAKE_VALUE_FUNC(esp_err_t, ledc_update_duty, ledc_mode_t, ledc_channel_t);
 FAKE_VALUE_FUNC(esp_err_t, ledc_set_fade_with_time, ledc_mode_t, ledc_channel_t, uint32_t, int);
 FAKE_VALUE_FUNC(esp_err_t, ledc_fade_start, ledc_mode_t, ledc_channel_t, ledc_fade_mode_t);
 
-static const struct ledc_led_t _initialized_led = {.is_initialized = true};
+static const struct ledc_led_t _initialized_led = { .is_initialized = true };
 static const struct ledc_led_t _uninitialized_led = {};
 
 static void reset_fakes()
