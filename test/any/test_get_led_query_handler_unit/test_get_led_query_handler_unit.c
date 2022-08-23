@@ -45,7 +45,7 @@ static void _expect_led_bag_equals(const led_domain_bag_t *expected_bag, const l
         led_domain_t expected_led = expected_bag->leds[i];
 
         TEST_ASSERT_EQUAL(expected_led.id, actual_led.id);
-        TEST_ASSERT_EQUAL(expected_led.initialized, actual_led.initialized);
+        TEST_ASSERT_EQUAL(expected_led.is_initialized, actual_led.is_initialized);
         TEST_ASSERT_EQUAL(expected_led.brightness_percent, actual_led.brightness_percent);
         TEST_ASSERT_EQUAL_STRING(expected_led.display_name, actual_led.display_name);
     }

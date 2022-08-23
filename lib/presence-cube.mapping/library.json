@@ -1,0 +1,10 @@
+{
+    "name": "presence-cube.mapping",
+    "description": "Umbrella project library for mapping interface projects.",
+    "version": "0.0.1",
+    "platforms": "*",
+    "frameworks": "*",
+    "dependencies": {
+        "presence-cube.mapping.led.esp": "*"
+    }
+}

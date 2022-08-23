@@ -1,165 +1,162 @@
 #include "unity.h"
-#include "rgb_ledc_duty_calculator.h"
-#include "CException.h"
+#include "ledc_led_duty_calculator.h"
+#include "assertion_helpers.h"
 
-
-void test_get_max_duty__given_uninitialized_led__throws_uninitialized_data_access_exception() {
-    struct ledc_led_t led = { };
-    CEXCEPTION_T ex;
-    Try {
-        get_max_duty(&led);
-        TEST_FAIL_MESSAGE("Expected uninitialized data access exception but none was caught.");
-    } Catch(ex) { }
-
-    TEST_ASSERT_EQUAL(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, ex);
-}
-
-void test_get_max_duty__given_null_led__throws_uninitialized_data_access_exception() {
-    CEXCEPTION_T ex;
-    Try {
-        get_max_duty(NULL);
-        TEST_FAIL_MESSAGE("Expected null reference exception but none was caught.");
-    } Catch(ex) { }
-
-    TEST_ASSERT_EQUAL(ERROR_CODE_ARGUMENT_NULL, ex);
-}
-
-// --------------------------------------------------------------------------------------
-
-static void _test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle(
-    uint32_t resolution_in_bit, 
-    uint32_t expected
-) {
-    struct ledc_led_t led = {
-        .is_initialized = true,
-        .timer = {
-            .duty_resolution = resolution_in_bit
-        }
-    };
-    
-    uint32_t actual = get_max_duty(&led);
-
-    TEST_ASSERT_EQUAL(expected, actual);
+static uint32_t _percent_to_duty_cycle(int bit_resolution, float brightness_percent)
+{
+    uint32_t max_duty = pow(2, bit_resolution);
+    float duty = max_duty / 100.0f * brightness_percent;
+    return duty;
 }
 
 
-void test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle() {
-    _test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle(0, 1);
-    _test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle(1, 2);
-    _test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle(5, 32);
-    _test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle(10, 1024);
-    _test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle(LEDC_TIMER_BIT_MAX, pow(2, LEDC_TIMER_BIT_MAX));
+static struct ledc_led_t _build_ledc_led(uint8_t bit_resolution, float initial_brightness_percent)
+{
+    const uint32_t initial_duty = _percent_to_duty_cycle(bit_resolution, initial_brightness_percent);
+
+    return (struct ledc_led_t){
+        .timer = {.duty_resolution = bit_resolution},
+        .channel = {.duty = initial_duty},
+        .is_initialized = true};
+}
+
+// --------------------------------------------------------------------------------------------------
+
+void test_calculate_duty_cycle__given_uninitialized__throws()
+{
+    struct ledc_led_t uninitialized_led = { };
+    TEST_ASSERT_THROWS(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, {
+        calculate_duty_cycle(&uninitialized_led, 0);
+    });
+}
+
+void test_calculate_duty_cycle__given_null__throws()
+{
+    struct ledc_led_t *null_led = NULL;
+    TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
+        calculate_duty_cycle(null_led, 0);
+    });
 }
 
 // --------------------------------------------------------------------------------------
 
-void test_calculate_duty__given_uninitialized_led__throws_uninitialized_data_access_exception() {
-    struct ledc_led_t led = { };
-    CEXCEPTION_T ex;
-    Try {
-        calculate_duty(&led, 0);
-        TEST_FAIL_MESSAGE("Expected uninitialized data access exception but none was caught.");
-    } Catch(ex) { }
-
-    TEST_ASSERT_EQUAL(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, ex);
-}
-
-void test_calculate_duty__given_null_led__throws_uninitialized_data_access_exception() {
-    CEXCEPTION_T ex;
-    Try {
-        calculate_duty(NULL, 0);
-        TEST_FAIL_MESSAGE("Expected null reference exception but none was caught.");
-    } Catch(ex) { }
-
-    TEST_ASSERT_EQUAL(ERROR_CODE_ARGUMENT_NULL, ex);
-}
-
-// --------------------------------------------------------------------------------------
-
-static void _test_calculate_duty__given_led__returns_duty_cycle(
+static void _test_calculate_duty_cycle__given_led__returns_duty_cycle(
     bool is_common_anode,
     uint32_t resolution_in_bit,
     uint8_t percent,
-    uint32_t expected
-) {
+    uint32_t expected)
+{
     TEST_PRINTF(
         "%i percent brightness for a %i bit resolution %s led should result in a %i duty cycle.",
         percent,
         resolution_in_bit,
         is_common_anode ? "common anode" : "common cathode",
-        expected
-    );
+        expected);
 
-    struct ledc_led_t led = {
-        .is_initialized = true,
-        .is_common_anode = is_common_anode,
-        .timer = {
-            .duty_resolution = resolution_in_bit
-        }
-    };
-    
-    int actual = calculate_duty(&led, percent);
+    struct ledc_led_t led = _build_ledc_led(resolution_in_bit, percent);
+    led.is_common_anode = is_common_anode;
+
+    int actual = calculate_duty_cycle(&led, percent);
 
     TEST_ASSERT_EQUAL(expected, actual);
 }
 
-static void _test_calculate_duty__given_common_anode_led__returns_duty_cycle(
-    uint32_t resolution_in_bit, 
+static void _test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle(
+    uint32_t resolution_in_bit,
     uint8_t percent,
-    uint32_t expected
-) {
-    _test_calculate_duty__given_led__returns_duty_cycle(true, resolution_in_bit, percent, expected);
+    uint32_t expected)
+{
+    _test_calculate_duty_cycle__given_led__returns_duty_cycle(true, resolution_in_bit, percent, expected);
 }
 
-static void _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(
-    uint32_t resolution_in_bit, 
+static void _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(
+    uint32_t resolution_in_bit,
     uint8_t percent,
-    uint32_t expected
-) {
-    _test_calculate_duty__given_led__returns_duty_cycle(false, resolution_in_bit, percent, expected);
+    uint32_t expected)
+{
+    _test_calculate_duty_cycle__given_led__returns_duty_cycle(false, resolution_in_bit, percent, expected);
 }
 
-void test_calculate_duty__given_common_cathode_led__returns_duty_cycle() {
+void test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle()
+{
     // expected = floor(max_duty / 100 * percentage)
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 0, 0);
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 50, 512);
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 100, 1024);
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 120, 1024);
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 0, 0);
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 50, 512);
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 100, 1024);
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 120, 1024);
 }
 
-
-void test_calculate_duty__given_common_cathode_led_and_uneven_percentage__duty_cycle_is_rounded_down() {
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 13, (uint32_t)133.12);
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 77, (uint32_t)788.48);
-    _test_calculate_duty__given_common_cathode_led__returns_duty_cycle(10, 33, (uint32_t)337.92);
+void test_calculate_duty_cycle__given_common_cathode_led_and_uneven_percentage__duty_cycle_is_rounded_down()
+{
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 13, (uint32_t)133.12);
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 77, (uint32_t)788.48);
+    _test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle(10, 33, (uint32_t)337.92);
 }
 
-void test_calculate_duty__given_common_anode_led__returns_duty_cycle() {
+void test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle()
+{
     // expected = max_duty - duty_cycle_common_anode
-    _test_calculate_duty__given_common_anode_led__returns_duty_cycle(10, 0, 1024);
-    _test_calculate_duty__given_common_anode_led__returns_duty_cycle(10, 50, 512);
-    _test_calculate_duty__given_common_anode_led__returns_duty_cycle(10, 100, 0);
-    _test_calculate_duty__given_common_anode_led__returns_duty_cycle(10, 120, 0);
+    _test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle(10, 0, 1024);
+    _test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle(10, 50, 512);
+    _test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle(10, 100, 0);
+    _test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle(10, 120, 0);
 }
 
 // --------------------------------------------------------------------------------------
 
-int main() {
+void test_calculate_duty_percent__given_null__throws()
+{
+    struct ledc_led_t *null_led = NULL;
+    TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
+        calculate_duty_percent(null_led);
+    });
+}
+
+void test_calculate_duty_percent__given_uninitialized_input__throws()
+{
+    struct ledc_led_t unintitialized_led = { };
+    TEST_ASSERT_THROWS(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, {
+        calculate_duty_percent(&unintitialized_led);
+    });
+}
+
+void test_calculate_duty_percent__given_led__returns_percentage()
+{
+    const uint8_t bit_resolution = 4;
+    const uint8_t brightness_percent = 50;
+    struct ledc_led_t led = _build_ledc_led(bit_resolution, brightness_percent);
+
+    float duty_percent = calculate_duty_percent(&led);
+
+    TEST_ASSERT_EQUAL(brightness_percent, duty_percent);
+}
+
+// --------------------------------------------------------------------------------------
+
+void test_function_pointer_types_match_api() {
+    calculate_duty_percent_func_t _calculate_duty_percent = calculate_duty_cycle;
+}
+
+int main()
+{
     UNITY_BEGIN();
 
-    RUN_TEST(test_get_max_duty__given_initialized_led__returns_maximum_viable_duty_cycle);
-    RUN_TEST(test_get_max_duty__given_uninitialized_led__throws_uninitialized_data_access_exception);
-    RUN_TEST(test_get_max_duty__given_null_led__throws_uninitialized_data_access_exception);
-    
-    RUN_TEST(test_calculate_duty__given_uninitialized_led__throws_uninitialized_data_access_exception);
-    RUN_TEST(test_calculate_duty__given_null_led__throws_uninitialized_data_access_exception);
-    RUN_TEST(test_calculate_duty__given_common_anode_led__returns_duty_cycle);
-    RUN_TEST(test_calculate_duty__given_common_cathode_led__returns_duty_cycle);
-    RUN_TEST(test_calculate_duty__given_common_cathode_led_and_uneven_percentage__duty_cycle_is_rounded_down);
+    RUN_TEST(test_calculate_duty_cycle__given_uninitialized__throws);
+    RUN_TEST(test_calculate_duty_cycle__given_null__throws);
+    RUN_TEST(test_calculate_duty_cycle__given_common_anode_led__returns_duty_cycle);
+    RUN_TEST(test_calculate_duty_cycle__given_common_cathode_led__returns_duty_cycle);
+    RUN_TEST(test_calculate_duty_cycle__given_common_cathode_led_and_uneven_percentage__duty_cycle_is_rounded_down);
+
+    RUN_TEST(test_calculate_duty_percent__given_null__throws);
+    RUN_TEST(test_calculate_duty_percent__given_uninitialized_input__throws);
+    RUN_TEST(test_calculate_duty_percent__given_led__returns_percentage);
+
+    RUN_TEST(test_function_pointer_types_match_api);
 
     return UNITY_END();
 }
 
-int app_main() {
+int app_main()
+{
     return main();
 }

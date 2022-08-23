@@ -1,19 +1,16 @@
 {
- "name": "presence-cube.domain",
+ "name": "presence-cube.domain.abstractions",
  "version": "0.0.1",
  "platforms": [ "*" ],
  "frameworks": [ "*" ],
  "build": {
-    "srcDir": "./",
     "includeDir": "./",
-    "srcFilter": [
-      "+<math/*.c>"
-    ],
     "flags": [
       "-I math"
     ]
  },
  "dependencies": {
-  "presence-cube.domain.abstractions": "*"
+  "presence-cube.repositories.abstractions": "*",
+  "led_domain": "*"
  }
 }

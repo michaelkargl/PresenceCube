@@ -9,6 +9,6 @@
     "includeDir": "./"
  },
  "dependencies": {
-   "domain.abstractions": "*"
+   "presence-cube.domain.abstractions": "*"
  }
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "stddef.h"
 #include "error_codes.h"
 #include "logger.h"
 
@@ -34,9 +35,9 @@
 #define THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(variable)                                                         \
     do                                                                                                                           \
     {                                                                                                                            \
-        bool is_null = variable == NULL;                                                                                         \
-        bool uninitialized = !variable->is_initialized;                                                                       \
-        if (is_null || uninitialized)                                                                                         \
+        /* TODO: standardize the is_initialized field via a macro (similar to prototype inheritance) */                          \
+        bool uninitialized = variable == NULL || !variable->is_initialized;                                                      \
+        if (uninitialized)                                                                                                       \
         {                                                                                                                        \
             log_error(__func__, "UninitializedAccessException: reference '" #variable "' must not be null or uninitialized.\n"); \
             Throw(ERROR_CODE_UNINITIALIZED_DATA_ACCESS);                                                                         \

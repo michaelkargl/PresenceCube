@@ -1,8 +1,8 @@
 {
- "name": "presence-cube.usecases.get_led.native",
+ "name": "presence-cube.usecases.get_led.esp",
  "version": "0.0.1",
- "platforms": [ "native" ],
- "frameworks": [ "*" ],
+ "platforms": [ "espressif32" ],
+ "frameworks": [ "espidf" ],
  "srcDir": "./",
  "build": {
     "includeDir": "./"

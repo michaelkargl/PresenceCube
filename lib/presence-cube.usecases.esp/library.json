@@ -1,0 +1,10 @@
+{
+ "name": "presence-cube.usecases.esp",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "dependencies": {
+   "presence-cube.usecases.abstractions": "*",
+   "presence-cube.usecases.get_led.native": "*"
+ }
+}

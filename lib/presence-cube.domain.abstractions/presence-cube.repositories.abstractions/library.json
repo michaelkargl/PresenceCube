@@ -1,0 +1,14 @@
+{
+    "name": "presence-cube.repositories.abstractions",
+    "description": "Infrastructure Abstractions Umbrella",
+    "platforms": [ "*" ],
+    "frameworks": [ "*" ],
+    "version": "0.0.1",
+    "build": {
+        "includeDir": "./",
+        "srcFilter": "+<*.h>"
+    },
+    "dependencies": {
+        "presence-cube.domain.abstractions": "*"
+    }
+}

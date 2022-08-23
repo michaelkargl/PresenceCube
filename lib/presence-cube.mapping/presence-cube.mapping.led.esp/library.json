@@ -1,0 +1,17 @@
+{
+    "name": "presence-cube.mapping.led.esp",
+    "description": "Project for mappings concerning LEDs.",
+    "version": "0.0.1",
+    "platforms": "espressif32",
+    "frameworks": "espidf",
+    "srcDir": "./",
+    "build": {
+        "includeDir": "./",
+        "srcFilter": "+<*.c> +<*.h>"
+    },
+    "dependencies": {
+        "led_domain": "*",
+        "infrastructure.esp.models": "*",
+        "rgb_ledc": "*"
+    }
+}

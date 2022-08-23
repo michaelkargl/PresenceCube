@@ -144,7 +144,14 @@
         "fff.h": "c",
         "throwing_helpers.h": "c",
         "assertion_helpers.h": "c",
-        "ledc_facade_funcs.h": "c"
+        "ledc_facade_funcs.h": "c",
+        "get_led_repository.h": "c",
+        "condition_variable": "cpp",
+        "map_ledc_led__led_domain.h": "c",
+        "stddef.h": "c",
+        "exception_assertion_helper.h": "c",
+        "ledc_led_duty_calculator.h": "c",
+        "ledc_led_duty_calculator_func.h": "c"
     },
     "idf.portWin": "COM21"
 }
