@@ -12,9 +12,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/espressif32-test/firmware.elf",
-            "projectEnvName": "espressif32-test",
-            "toolchainBinDir": "/home/kami/.platformio/packages/toolchain-xtensa-esp32s2/bin",
+            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/native-test/program",
+            "projectEnvName": "native-test",
+            "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
                 "type": "PlatformIO",
@@ -25,18 +25,18 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/espressif32-test/firmware.elf",
-            "projectEnvName": "espressif32-test",
-            "toolchainBinDir": "/home/kami/.platformio/packages/toolchain-xtensa-esp32s2/bin",
+            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/native-test/program",
+            "projectEnvName": "native-test",
+            "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/espressif32-test/firmware.elf",
-            "projectEnvName": "espressif32-test",
-            "toolchainBinDir": "/home/kami/.platformio/packages/toolchain-xtensa-esp32s2/bin",
+            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/native-test/program",
+            "projectEnvName": "native-test",
+            "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
         }

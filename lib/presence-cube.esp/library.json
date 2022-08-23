@@ -1,5 +1,6 @@
 {
     "name": "presence-cube.esp",
+    "description": "Composition root of the esp32 platform branch of the presence-cube project. This project is responsible for wiring up the dependency tree and providing the applications entry point.",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],

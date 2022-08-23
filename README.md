@@ -2,6 +2,19 @@
 
 A multipurpose, edge connected cube
 
+> ## Note from the future
+> 
+> This README is wildly out-of-date and in dire need of refactoring. Over the course of the current milestone (%"🧪 Improve testability and cross platform support") this will be gradually change => #108
+
+* [Testing](./test)
+* Library Management
+  * [Libraries](./lib)
+  * [Components](./components)
+* [Electrical Circuitry](./circuits/)
+* [Configuration](./config)
+
+<!-- old readme below -->
+
 ## Brief
 
 The functionality of the cube is intended to be a form of information cube. It is edge-connected and capable of receiving commands via MQTT. These commands can span from simple "display text x" to "switch into mode y"

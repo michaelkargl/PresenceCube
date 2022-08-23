@@ -1,3 +1,4 @@
+# Testing
 
 This directory is intended for PlatformIO Unit Testing and project tests.
 
@@ -9,3 +10,44 @@ in the development cycle.
 
 More information about PlatformIO Unit Testing:
 - https://docs.platformio.org/page/plus/unit-testing.html
+
+## Technologies
+
+- [ThrowTheSwitch/Unity](https://github.com/ThrowTheSwitch/Unity)
+- [meekrosoft/fff](https://github.com/meekrosoft/fff)
+
+## Structure
+
+The project structure follows the PlatformIO Best Practices
+- https://docs.platformio.org/en/latest/advanced/unit-testing/index.html
+
+with invariances:
+
+1. One test per "module under test"
+1. One test per folder
+1. Test folders and files are prefixed with `test_`
+1. Test folders and files are suffixed with test type abbreviation `unit`,`integration`,`learning`
+1. test hierarchy resembles project stucture as close as possible (#106)
+  - > Given: `lib/<project>/<sub-folders>/<unit-to-test>.c`\
+    > Pattern: `test/<platform>/<project-name>/<sub-folders>/test_<module-name>__<test-type>/test_<module-name>__<test-type>.c`\
+  - > Example: `lib/math_project/unit_calculators/voltage_calculator.c`\
+    > Test: `lib/espressif32/math_project/unit_calculators/test_voltage_calculator__unit/test_voltage_calculator__unit.c`
+  - 
+
+## Execution
+
+Tests are executed via [PlatformIO CLI](https://docs.platformio.org/en/latest/core/userguide/cmd_test.html). Helper scripts have been created to abstract away platform details as possible.
+
+```bash
+# run all tests
+./test_<platform>.sh
+# run only a subset of all tests
+./test_<platform>.sh --filter *voltage_calc*
+```
+
+## Continuous Integration
+
+Tests are automatically executed on in our CI pipeline.
+
+- Currently, only native tests are executed
+- _Including embedded tests is possible though => #107_

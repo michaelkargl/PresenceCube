@@ -1,5 +1,6 @@
 {
     "name": "presence-cube.native",
+    "description": "Composition root of the native platform branch of the presence-cube project. This project is responsible for wiring up the dependency tree and providing the applications entry point.",
     "version": "0.0.1",
     "platforms": [ "native" ],
     "srcDir": ".",
@@ -11,6 +12,7 @@
     },
     "dependencies": {
         "logging.native": "*",
+        "presence-cube.usecases.native": "*",
         "infrastructure.native": "*",
         "presence-cube.shared": "*"
     }

@@ -7,6 +7,7 @@
 
 static const char* _logger_context = "get_led_query_handler";
 
+
 /**
  * @brief This function pointer acts as mediator between get_led_query_handler
  *        and the led_register.get_leds residing in a different bounded context.

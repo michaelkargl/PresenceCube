@@ -1,14 +1,14 @@
 {
- "name": "get_led_infrastructure",
+ "name": "presence-cube.usecases.get_led.native",
  "version": "0.0.1",
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
+ "srcDir": "./",
  "build": {
-    "srcDir": "./",
-    "includeDir": "./",
-    "srcFilter": "+<*.c> -<.git/>"
+    "includeDir": "./"
  },
  "dependencies": {
+   "logging.abstractions": "*",   
    "presence-cube.usecases.get_led.abstractions": "*"
  }
 }
