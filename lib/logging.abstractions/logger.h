@@ -42,3 +42,4 @@ void log_warning(const char* context_name, const char* message_format, ...);
  * @see printf
  */
 void log_error(const char* context_name, const char* message_format, ...);
+#define LOG_ERROR(format, ...) log_error(__func__, format"\n" __VA_OPT__(,) __VA_ARGS__);

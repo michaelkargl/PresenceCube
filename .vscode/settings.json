@@ -151,7 +151,8 @@
         "stddef.h": "c",
         "exception_assertion_helper.h": "c",
         "ledc_led_duty_calculator.h": "c",
-        "ledc_led_duty_calculator_func.h": "c"
+        "ledc_led_duty_calculator_func.h": "c",
+        "esp_compiler.h": "c"
     },
     "idf.portWin": "COM21"
 }

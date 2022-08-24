@@ -17,7 +17,7 @@
         {                                                                      \
             do                                                                 \
                 code_block while (0);                                          \
-            TEST_PRINTF("Expected exception %i, but none caught.", exception); \
+            TEST_PRINTF("Expected "#code_block" to throw %x-exception, but none caught.", exception); \
             TEST_FAIL();                                                       \
         }                                                                      \
         Catch(ex) {}                                                           \

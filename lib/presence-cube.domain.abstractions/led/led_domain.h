@@ -14,5 +14,5 @@ typedef struct {
      */
     uint8_t id;
     uint8_t brightness_percent;
-    const char display_name[5];
+    char display_name[5];
 } led_domain_t;
