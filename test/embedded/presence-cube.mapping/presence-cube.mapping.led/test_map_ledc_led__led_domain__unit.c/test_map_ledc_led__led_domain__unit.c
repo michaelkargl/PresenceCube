@@ -38,53 +38,69 @@ void test__map_ledc_led__to__led_domain__given_null__throws()
     });
 }
 
-void test__map_ledc_led_array__to__led_domain_array__given_null_array__throws()
+void test__map_ledc_led_array__to__led_domain_bag__given_null_array__throws()
 {
     const led_domain_t dummy_source[1];
-    const struct ledc_led_t dummy_target[1];
+    led_domain_bag_t target_bag = {
+        .leds = (const struct ledc_led_t[1]) {},
+        .count = 1
+    };
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_ledc_led_array__to__led_domain_array(
+        map_ledc_led_array__to__led_domain_bag(
             NULL, ARRAY_LENGTH(dummy_source),
-            dummy_target, ARRAY_LENGTH(dummy_target)
+            &target_bag
         );
     });
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_ledc_led_array__to__led_domain_array(
+        map_ledc_led_array__to__led_domain_bag(
             dummy_source, ARRAY_LENGTH(dummy_source),
-            NULL, ARRAY_LENGTH(dummy_target)
+            NULL
+        );
+    });
+
+    TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
+        target_bag.leds = NULL;
+        map_ledc_led_array__to__led_domain_bag(
+            dummy_source, ARRAY_LENGTH(dummy_source),
+            NULL
         );
     });
 }
 
-void test__map_ledc_led_array__to__led_domain_array__given_smaller_target_array__throws() {
+void test__map_ledc_led_array__to__led_domain_bag__given_smaller_target_array__throws() {
     const led_domain_t large_source[2];
-    struct ledc_led_t small_target[1];
-
-    TEST_ASSERT_THROWS(ERROR_CODE_INSUFFICIENT_BUFFER, {
-        map_ledc_led_array__to__led_domain_array(
-            large_source, ARRAY_LENGTH(large_source),
-            small_target, ARRAY_LENGTH(small_target)
-        );
-    });
-}
-
-void test__map_ledc_led_array__to__led_domain_array__given_larger_target_array__partly_maps() {
-    const led_domain_t large_target[2];
-    struct ledc_led_t small_source[1] = {
-        _build_2level_led(true)
+    led_domain_bag_t smaller_bag = {
+        .leds = (const struct ledc_led_t[1]) {},
+        .count = 1
     };
 
     TEST_ASSERT_THROWS(ERROR_CODE_INSUFFICIENT_BUFFER, {
-        map_ledc_led_array__to__led_domain_array(
+        map_ledc_led_array__to__led_domain_bag(
+            large_source, ARRAY_LENGTH(large_source),
+            &smaller_bag
+        );
+    });
+}
+
+void test__map_ledc_led_array__to__led_domain_bag__given_larger_target_array__partly_maps() {
+    struct ledc_led_t small_source[] = { _build_2level_led(true) };
+    led_domain_bag_t larger_bag = {
+        .leds = (const struct ledc_led_t[2]) {},
+        .count = 1
+    };
+
+    TEST_ASSERT_THROWS(ERROR_CODE_INSUFFICIENT_BUFFER, {
+        map_ledc_led_array__to__led_domain_bag(
             small_source, ARRAY_LENGTH(small_source),
-            large_target, ARRAY_LENGTH(large_target)
+            &larger_bag
         );
     });
 
-    TEST_ASSERT_EQUAL(small_source[0].id, large_target[0].id);
-    TEST_ASSERT_FALSE(large_target[1].is_initialized);
+    TEST_ASSERT_EQUAL(ARRAY_LENGTH(small_source), larger_bag.count);
+    TEST_ASSERT_EQUAL(small_source[0].id, larger_bag.leds[0].id);
+    TEST_ASSERT_FALSE(larger_bag.leds[1].is_initialized);
 }
 
 void test_map_ledc_led__to__led_domain()
@@ -108,8 +124,8 @@ int main()
     RUN_TEST(test__map_ledc_led__to__led_domain__given_null__throws);
     RUN_TEST(test_map_ledc_led__to__led_domain);
 
-    RUN_TEST(test__map_ledc_led_array__to__led_domain_array__given_null_array__throws);
-    RUN_TEST(test__map_ledc_led_array__to__led_domain_array__given_smaller_target_array__throws);
+    RUN_TEST(test__map_ledc_led_array__to__led_domain_bag__given_null_array__throws);
+    RUN_TEST(test__map_ledc_led_array__to__led_domain_bag__given_smaller_target_array__throws);
 
     return UNITY_END();
 }
