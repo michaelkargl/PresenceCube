@@ -12,11 +12,12 @@
 #define RGBA_WEST_GREEN_GPIO_PIN (CONFIG_RGBA_EAST_GREEN_CHANNEL_PIN)
 #define RGBA_WEST_BLUE_GPIO_PIN (CONFIG_RGBA_EAST_BLUE_CHANNEL_PIN)
 
-#define RGB_LED_COUNT 2
+
+#define LED_STORE__RGB_LED_COUNT CONFIG_CUBE_HARDWARE_RGB_LED_COUNT
 
 
 
-static struct ledc_rgb_led_t _leds[RGB_LED_COUNT];
+static struct ledc_rgb_led_t _leds[LED_STORE__RGB_LED_COUNT];
 
 struct ledc_rgb_led_t (*_led_store__build_ledc_rgb_led)(
     const char name[10],
@@ -85,6 +86,7 @@ static struct ledc_rgb_led_t _build_ledc_rgb_led_west()
 
 esp_err_t led_store_initialize()
 {
+    // TODO: this can be made a compile time constant (there are no moving parts)
     _store_led(0, _build_ledc_rgb_led_east());
     _store_led(1, _build_ledc_rgb_led_west());
     return ESP_OK;

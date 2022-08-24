@@ -6,7 +6,9 @@
 
 #include "rgb_ledc_init.h"
 #include "rgb_ledc.h"
+
 #include "led_store.h"
+#include "get_led_repository.h"
 
 #include "delay_service.h"
 
@@ -35,6 +37,7 @@ static esp_vfs_spiffs_conf_t spiffs_config = {
     .format_if_mount_failed = true};
 
 
+static const rgb_led_domain_bag_t* _led_bag;
 static const struct ledc_rgb_led_t *_leds;
 static int _leds_count = 0;
 
@@ -74,6 +77,12 @@ int app_main()
     log_information(TAG, "Setting up LED channels...\n");
 
     ESP_ERROR_CHECK(led_store_initialize());
+    _led_bag = get_leds();
+    log_information(TAG, "%i LEDS are registered.\n", _led_bag->count);
+    for(uint8_t i = 0; i < _led_bag->count; i++) {
+        log_information(TAG, "LED %i: %s\n", _led_bag->leds[i].id, _led_bag->leds[i].display_name);
+    }
+
     _leds = led_store__get_leds();
     _leds_count = led_store__get_led_count();
     configure_rgb_leds(_leds, _leds_count);

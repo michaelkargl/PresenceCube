@@ -1,25 +1,25 @@
+#include "stddef.h"
 #include "get_led_repository.h"
 
 // TODO: move to infrastructure
 
-const led_domain_t _registered_leds[2] = {
-    {
-        .is_initialized = true,
-        .id = 0,
-        .brightness_percent = 0,
-        .display_name = "left",
-    },
-    {
-        .is_initialized = true,
-        .id = 1,
-        .brightness_percent = 0,
-        .display_name = "right",
+const rgb_led_domain_bag_t _registered_leds = {
+    .is_initialized = true,
+    .count = 2,
+    .leds = (rgb_led_domain_t[2]){
+        {
+            .id = 0,
+            .is_initialized = true,
+            .display_name = "left"
+        },
+        {
+            .id = 0,
+            .is_initialized = true,
+            .display_name = "right"
+        }
     }
 };
 
-const led_domain_bag_t get_leds() {
-    return (led_domain_bag_t) {
-        .leds = _registered_leds,
-        .count = sizeof(_registered_leds) / sizeof(led_domain_t)
-    };
+const rgb_led_domain_bag_t* get_leds() {
+    return &_registered_leds;
 }

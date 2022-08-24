@@ -1,7 +1,10 @@
-_environment='native-dev'
+_target_environment='native-dev'
 
-if ./build_env.sh --environment "$_environment"
+# developer obviously does development => switch default environment
+pwsh ./scripts/Set-DefaultEnv.ps1 -Environment $_target_environment
+
+if ./build_env.sh --environment "$_target_environment"
 then
     # run
-    ./.pio/build/$_environment/program
+    ./.pio/build/$_target_environment/program
 fi

@@ -1,4 +1,4 @@
 #pragma once
-#include "led_domain_bag.h"
+#include "rgb_led_domain.h"
 
-const led_domain_bag_t get_leds();
+const rgb_led_domain_bag_t* get_leds();

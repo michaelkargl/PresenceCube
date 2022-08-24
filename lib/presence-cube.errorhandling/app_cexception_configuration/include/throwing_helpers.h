@@ -3,12 +3,20 @@
 #include "error_codes.h"
 #include "logger.h"
 
-#define THROW_ARGUMENT_NULL(variable)                                                             \
-    do                                                                                            \
-    {                                                                                             \
-        log_error(__func__, "ArgumentNullException: Argument '" #variable "' cannot be null.\n"); \
-        Throw(ERROR_CODE_ARGUMENT_NULL);                                                          \
-    } while (0)
+#define THROW(exception, message_printf_format, ...)                      \
+    do                                                                    \
+    {                                                                     \
+        LOG_ERROR(message_printf_format "\n" __VA_OPT__(, ) __VA_ARGS__); \
+        Throw(exception);                                                 \
+    } while (0);
+
+#define THROW_ARGUMENT_NULL(variable)                                                                 \
+    do                                                                                                \
+        {                                                                                             \
+            log_error(__func__, "ArgumentNullException: Argument '" #variable "' cannot be null.\n"); \
+            Throw(ERROR_CODE_ARGUMENT_NULL);                                                          \
+        }                                                                                             \
+    while (0);
 
 /**
  * @brief Throws if the given reference is null.

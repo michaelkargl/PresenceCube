@@ -12,7 +12,6 @@
     },
     "dependencies": {
         "logging.native": "*",
-        "presence-cube.usecases.native": "*",
         "infrastructure.native": "*",
         "presence-cube.shared": "*"
     }

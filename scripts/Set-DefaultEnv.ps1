@@ -16,7 +16,7 @@
 [CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
-    [ValidateSet('native-dev', 'native-test', 'espressif32-dev')]
+    [ValidateSet('native-dev', 'native-test', 'espressif32-dev', 'espressif32-test')]
     [string] $Environment,
     # --------------------
     [Parameter()]

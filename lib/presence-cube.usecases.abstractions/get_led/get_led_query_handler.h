@@ -13,4 +13,4 @@ bool get_led_query_handler_initialized();
  * @return const get_led_query_response_t
  * @see https://github.com/jbogard/MediatR/wiki#requestresponse
  */
-const get_led_query_response_t handle_get_led_query(const get_led_query_t request);
+get_led_query_response_t handle_get_led_query(const get_led_query_t request);

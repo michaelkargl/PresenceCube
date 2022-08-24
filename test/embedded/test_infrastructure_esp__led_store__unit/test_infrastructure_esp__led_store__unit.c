@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "led_store.h"
 #include "build_ledc_rgb_led_stub.h"
+#include "assertion_helpers.h"
 
 #define TEST_ASSERT_EACH_TRUE_LEDC_RGB_LED(led_count, leds, condition) \
     do                                                            \
@@ -27,10 +28,11 @@ void setUp() {
     _led_store__build_ledc_rgb_led = stub__build_ledc_rgb_led;
 }
 
-void test_store_led__led_count__positive()
+
+void test_store_led__led_count__returns_configured_rgb_led_count()
 {
     uint8_t led_count = led_store__get_led_count();
-    TEST_ASSERT_GREATER_THAN(0, led_count);
+    TEST_ASSERT_EQUAL(CONFIG_CUBE_HARDWARE_RGB_LED_COUNT, led_count);
 }
 
 void test_store_led__uninitialized__every_led_uninitialized()
@@ -55,9 +57,11 @@ int main()
 {
     UNITY_BEGIN();
 
-    RUN_TEST(test_store_led__led_count__positive);
-    RUN_TEST(test_store_led__uninitialized__every_led_uninitialized);
-    RUN_TEST(test_store_led__initialized__every_led_initialized);
+    TEST_ASSERT_THROWS_NOT({
+        RUN_TEST(test_store_led__led_count__returns_configured_rgb_led_count);
+        RUN_TEST(test_store_led__uninitialized__every_led_uninitialized);
+        RUN_TEST(test_store_led__initialized__every_led_initialized);
+    });
 
     return UNITY_END();
 }

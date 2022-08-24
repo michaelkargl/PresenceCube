@@ -133,8 +133,10 @@ void test_calculate_duty_percent__given_led__returns_percentage()
 
 // --------------------------------------------------------------------------------------
 
-void test_function_pointer_types_match_api() {
-    calculate_duty_percent_func_t _calculate_duty_percent = calculate_duty_cycle;
+void test_function_pointer_types_match_api_functions() {
+    // functions should be assignable to their respective function pointers
+    TEST_ASSERT_NOT_NULL((calculate_duty_percent_func_t) calculate_duty_percent);
+    TEST_ASSERT_NOT_NULL((calculate_duty_cycle_func_t) calculate_duty_cycle);
 }
 
 int main()
@@ -151,7 +153,7 @@ int main()
     RUN_TEST(test_calculate_duty_percent__given_uninitialized_input__throws);
     RUN_TEST(test_calculate_duty_percent__given_led__returns_percentage);
 
-    RUN_TEST(test_function_pointer_types_match_api);
+    RUN_TEST(test_function_pointer_types_match_api_functions);
 
     return UNITY_END();
 }

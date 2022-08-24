@@ -1,7 +1,7 @@
 #pragma once
 #include "led_domain_bag.h"
-#include "ledc_led_t.h"
-
+#include "rgb_led_domain.h"
+#include "ledc_rgb_led_t.h"
 
 /**
  * @brief Maps the given @ref ledc_led_t to its domain representative @ref led_domain_t.
@@ -27,4 +27,35 @@ led_domain_t map_ledc_led__to__led_domain(const struct ledc_led_t *led);
 void map_ledc_led_array__to__led_domain_bag(
     const struct ledc_led_t source_leds[], uint8_t source_led_count,
     led_domain_bag_t *target_led_bag
+);
+
+
+
+/**
+ * @brief Maps the given source led to a target of type @ref rgb_led_domain_t
+ * 
+ * @param source_led the source led instance to map to target
+ * @param target_led a reference to the target who shall receive the mapping result
+ * @exception ERROR_CODE_ARGUMENT_NULL if either @ref source_led or @target_led is NULL
+ */
+void map_rgb_ledc_led__to__rgb_led_domain(
+    const struct ledc_rgb_led_t* source_led,
+    rgb_led_domain_t* target_led
+);
+
+
+
+/**
+ * @brief Maps the given led array into a domain bag of leds
+ *  
+ * @param source_leds an array of led instances to map to target.
+ * @param source_leds_size the size of the led array to map. 
+ * @param target_leds a reference to a bag of leds that shall receive the mapping results. This bag must be at least as big as @ref source_leds_size.
+ * 
+ * @exception ERROR_CODE_INSUFFICIENT_BUFFER if the @ref target_leds bag is too small to hold all the mappings of @ref source_leds.
+ * @exception ERROR_CODE_ARGUMENT_NULL if either @ref source_leds, @ref target_leds is NULL or the bag points to a NULL led array.
+ */
+void map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+    const struct ledc_rgb_led_t * source_leds, uint8_t source_leds_size,
+    rgb_led_domain_bag_t* target_leds
 );
