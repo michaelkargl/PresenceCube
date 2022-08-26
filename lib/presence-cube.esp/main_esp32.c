@@ -8,7 +8,6 @@
 #include "rgb_ledc.h"
 
 #include "led_store.h"
-#include "get_led_repository.h"
 
 #include "delay_service.h"
 
@@ -77,7 +76,7 @@ int app_main()
     log_information(TAG, "Setting up LED channels...\n");
 
     ESP_ERROR_CHECK(led_store_initialize());
-    _led_bag = get_leds();
+    _led_bag = handle_get_led_query((const get_led_query_t){});
     log_information(TAG, "%i LEDS are registered.\n", _led_bag->count);
     for(uint8_t i = 0; i < _led_bag->count; i++) {
         log_information(TAG, "LED %i: %s\n", _led_bag->leds[i].id, _led_bag->leds[i].display_name);
