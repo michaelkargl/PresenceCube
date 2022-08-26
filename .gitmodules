@@ -7,3 +7,6 @@
 [submodule "lib/submodules/fff"]
 	path = lib/submodules/fff
 	url = https://github.com/meekrosoft/fff.git
+[submodule "lib/submodules/cJSON/cJSON"]
+	path = lib/submodules/cJSON/cJSON
+	url = https://github.com/DaveGamble/cJSON

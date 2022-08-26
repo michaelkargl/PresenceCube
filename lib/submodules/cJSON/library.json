@@ -1,0 +1,18 @@
+{
+    "name": "cJSON",
+    "description": "Ultralightweight JSON parser in ANSI C",
+    "author": "DaveGamble",
+    "license": "https://github.com/DaveGamble/cJSON/blob/master/LICENSE",
+    "version": "1.17.5-b45f48e",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DaveGamble/cJSON.git"
+    },
+    "platforms": [ "*" ],
+    "frameworks": [ "*" ],
+    "srcDir": "./cJSON",
+    "build": {
+        "includeDir": "./cJSON",
+        "srcFilter": "+<**/cJSON*.c> +<**/cJSON*.h>"
+    }
+}

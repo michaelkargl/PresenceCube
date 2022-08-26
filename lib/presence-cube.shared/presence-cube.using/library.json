@@ -1,0 +1,14 @@
+{
+    "name": "presence-cube.using",
+    "version": "0.0.1",
+    "platforms": [ "*" ],
+    "frameworks": [ "*" ],
+    "build": {
+        "includeDir": "./",
+        "srcFilter": "+<*.h>"
+    },
+    "dependencies": {
+        "presence-cube.errorhandling": "*",
+        "cJSON": "*"
+    }
+}

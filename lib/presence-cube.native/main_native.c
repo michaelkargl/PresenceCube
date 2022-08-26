@@ -39,18 +39,6 @@ int main()
 
     _initialize_modules();
 
-    /*
-        TODO: results in undefined behavior:
-        [get_led_query_handler DEBUG]: Handling get led query
-        [main.native DEBUG]: Queried a list of 160 leds
-        [main.native DEBUG]:   Led 0: �UH��H���}�H�1.
-        [main.native DEBUG]:   Led 1: �Ǹ
-        [main.native DEBUG]:   Led 2:
-        ...
-        [main.native DEBUG]:   Led 178: H�=\����
-        [main.native DEBUG]:   Led 179: �5�
-        [main.native DEBUG]:   Led 180: ���UH��SH��hdH�%(
-     */
     get_led_query_response_t response = handle_get_led_query((get_led_query_t){});
 
     log_debug(_logger_context, "Queried a list of %i leds\n", response.led_bag.count);

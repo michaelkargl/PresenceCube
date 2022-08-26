@@ -156,7 +156,15 @@
         "array_assertion_helper.h": "c",
         "rgb_led_domain.h": "c",
         "mutex": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "set_led_response_dto_t.h": "c",
+        "unity_internals.h": "c",
+        "algorithm": "c",
+        "numeric": "c",
+        "using.h": "c",
+        "using_json.h": "c",
+        "using_func.h": "c",
+        "using_free.h": "c"
     },
     "idf.portWin": "COM21"
 }

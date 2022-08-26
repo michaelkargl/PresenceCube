@@ -11,6 +11,7 @@
  * @see printf
  */
 void log_information(const char* context_name, const char* message_format, ...);
+#define LOG_INFORMATION(format, ...) log_information(__func__, format"\n" __VA_OPT__(,) __VA_ARGS__);
 
 /**
  * @brief logs a debug message
@@ -21,6 +22,7 @@ void log_information(const char* context_name, const char* message_format, ...);
  * @see printf
  */
 void log_debug(const char* context_name, const char* message_format, ...);
+#define LOG_DEBUG(format, ...) log_debug(__func__, format"\n" __VA_OPT__(,) __VA_ARGS__);
 
 /**
  * @brief logs a warning message
@@ -31,7 +33,7 @@ void log_debug(const char* context_name, const char* message_format, ...);
  * @see printf
  */
 void log_warning(const char* context_name, const char* message_format, ...);
-
+#define LOG_WARNING(format, ...) log_warning(__func__, format"\n" __VA_OPT__(,) __VA_ARGS__);
 
 /**
  * @brief logs an error message
