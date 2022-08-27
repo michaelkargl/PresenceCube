@@ -1,0 +1,67 @@
+#include "json_serialize__get_led_query_response_t.h"
+#include "logger.h"
+#include "CException.h"
+#include "using_json.h"
+
+
+/**
+ * @brief
+ *
+ * @param response
+ * @return cJSON* a reference to a json array object. The caller is responsible for
+ *         it's disposal (by defualt cJSON_Delete).
+ */
+static cJSON *_serialize_get_led_query_response(get_led_query_response_t *response)
+{
+    // https://github.com/DaveGamble/cJSON#working-with-the-data-structure
+    // For every value type there is a cJSON_Create... function that can be used to
+    // create an item of that type. All of these will allocate a cJSON struct that
+    // can later be deleted with cJSON_Delete. Note that you have to delete them at
+    // some point, otherwise you will get a memory leak.
+    //
+    // Important: If you have added an item to an array or an object already, you
+    // mustn't delete it with __cJSON_Delete__. Adding it to an array or object transfers
+    // its ownership so that when that array or object is deleted, it gets deleted as
+    // well. You also could use cJSON_SetValuestring to change a cJSON_String's //
+    /// valuestring, and you needn't to free the previous valuestring manually.
+
+    cJSON *led_array = cJSON_CreateArray();
+
+    // TODO: error handling
+    // cJSON delete array on error
+    // test out if json objects can be deleted twice without error
+
+    for (int i = 0; i < response->led_bag.count; i++)
+    {
+        LOG_INFORMATION("Processing led bag led %i", i);
+        rgb_led_domain_t led = response->led_bag.leds[i];
+
+        cJSON *led_item = cJSON_CreateObject();
+        cJSON_AddNumberToObject(led_item, "id", led.id);
+        cJSON_AddStringToObject(led_item, "name", led.display_name);
+        cJSON_AddBoolToObject(led_item, "isInitialized", led.is_initialized);
+
+        cJSON_AddItemToArray(led_array, led_item);
+    }
+
+    return led_array;
+}
+
+char *json_stringify__get_led_query_response_t(get_led_query_response_t *response)
+{
+    THROW_ARGUMENT_NULL_IF_NULL(response);
+
+    // volatile int *var tells the compiler that the data at that address is volatile
+    // int *volatile var makes the pointer itself volatile
+    // remember the clockwise/spiral rule
+    char *volatile json = NULL;
+
+    cJSON *json_object = _serialize_get_led_query_response(response);
+    USING_JSON(json_object, {
+        // make sure to deallocate
+        json = cJSON_Print(json_object);
+        LOG_INFORMATION("Produced json %s", json);
+    });
+
+    return json;
+}

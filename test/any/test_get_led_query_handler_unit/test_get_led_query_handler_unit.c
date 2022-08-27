@@ -20,27 +20,6 @@ void tearDown(void) {
     RESET_FAKE(fff_get_leds);
 }
 
-static void _expect_led_bag_equals(
-    const rgb_led_domain_bag_t *expected_bag,
-    const rgb_led_domain_bag_t *actual_bag
-)
-{   
-    TEST_ASSERT_NOT_NULL(expected_bag);
-    TEST_ASSERT_NOT_NULL(actual_bag);
-
-    TEST_ASSERT_NOT_NULL(actual_bag->leds);
-    TEST_ASSERT_NOT_NULL(expected_bag->leds);
-
-    TEST_ASSERT_EQUAL(expected_bag->count, actual_bag->count);
-
-    for (uint8_t i = 0; i < actual_bag->count; i++)
-    {
-        rgb_led_domain_t actual_led = actual_bag->leds[i];
-        rgb_led_domain_t expected_led = expected_bag->leds[i];
-        TEST_ASSERT_EQUAL(expected_led.id, actual_led.id);
-    }
-}
-
 
 void test_handle_get_led_query__returns_a_list_of_leds()
 {

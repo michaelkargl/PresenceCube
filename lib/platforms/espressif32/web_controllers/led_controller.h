@@ -1,16 +1,6 @@
-#ifndef _LED_CONTROLLER
-#define _LED_CONTROLLER
+#pragma once
+#include "get_led_query_response.h"
+#include "set_led_request_dto_t.h"
 
-#include "esp_http_server.h"
-#include "ledc_rgb_led_t.h"
-
-struct led_controller_endpoints_t
-{
-    const httpd_uri_t *get_hello;
-    const httpd_uri_t *get_leds;
-};
-
-const httpd_uri_t *get_led_controller_endpoints();
-uint8_t get_led_controller_endpoint_count();
-
-#endif /* _LED_CONTROLLER */
+get_led_query_response_t led_controller__GET_leds_handler();
+void led_controller__POST_led_handler(struct set_led_request_dto_t *set_led_request);

@@ -1,7 +1,7 @@
 #pragma once
 #include "stdint.h"
 
-struct set_led_response_dto_t
+struct set_led_request_dto_t
 {
     uint8_t id;
     uint8_t red;

@@ -12,7 +12,7 @@
 #include "delay_service.h"
 
 #include "webserver.h"
-#include "led_controller.h"
+#include "led_endpoints.h"
 #include "hud_controller.h"
 
 #include "get_led_query_handler.h"
@@ -29,7 +29,7 @@
 #define CUBE_WIFI_ENABLED 1
 #define CUBE_WEBSERVER_ENABLED CUBE_WIFI_ENABLED & 1
 #define CUBE_LED_API_ENABLED CUBE_WEBSERVER_ENABLED & 1
-#define CUBE_HUD_API_ENABLED CUBE_WEBSERVER_ENABLED & 1
+#define CUBE_HUD_API_ENABLED CUBE_WEBSERVER_ENABLED & 0
 #define CUBE_STARTUP_LED_TEST 1
 
 static const char *TAG = "main";

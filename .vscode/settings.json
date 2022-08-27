@@ -164,7 +164,15 @@
         "using.h": "c",
         "using_json.h": "c",
         "using_func.h": "c",
-        "using_free.h": "c"
-    },
-    "idf.portWin": "COM21"
+        "using_free.h": "c",
+        "led_endpoints.h": "c",
+        "*.md": "cpp",
+        "controller.h": "c",
+        "json_serialize__get_led_query_response_t.h": "c",
+        "json_parse__set_led_request_dto_t.h": "c",
+        "set_led_request_dto_t.h": "c",
+        "endpoint_base.h": "c",
+        "json_parse_utils.h": "c",
+        "unity_config.h": "c"
+    }
 }

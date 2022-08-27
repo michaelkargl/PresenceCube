@@ -9,20 +9,19 @@
  *                   IMPORTANT: Since the error handling lib needs to release resources,
  *                              DO NOT prematurely return, jump or break out of this block.
  */
-#define TEST_ASSERT_THROWS(exception, code_block)                              \
-    do                                                                         \
-    {                                                                          \
-        volatile CEXCEPTION_T ex = ERROR_CODE_SUCCESS;                         \
-        Try                                                                    \
-        {                                                                      \
-            do                                                                 \
-                code_block while (0);                                          \
-            TEST_PRINTF("Expected "#code_block" to throw %x-exception, but none caught.", exception); \
-            TEST_FAIL();                                                       \
-        }                                                                      \
-        Catch(ex) {}                                                           \
-                                                                               \
-        TEST_ASSERT_EQUAL_MESSAGE(exception, ex, "Exceptions do not match.");  \
+#define TEST_ASSERT_THROWS(exception, code_block)                                                       \
+    do                                                                                                  \
+    {                                                                                                   \
+        volatile CEXCEPTION_T ex = ERROR_CODE_SUCCESS;                                                  \
+        Try                                                                                             \
+        {                                                                                               \
+            do                                                                                          \
+                code_block while (0);                                                                   \
+            TEST_PRINTF("Expected " #code_block " to throw %x-exception, but none caught.", exception); \
+            TEST_FAIL();                                                                                \
+        }                                                                                               \
+        Catch(ex) {}                                                                                    \
+        TEST_ASSERT_EQUAL_HEX_MESSAGE(exception, ex, "Exceptions do not match.");                           \
     } while (0);
 
 /**
