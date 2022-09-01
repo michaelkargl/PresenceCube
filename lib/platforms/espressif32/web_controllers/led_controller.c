@@ -9,7 +9,7 @@
 //
 
 // TODO: configure using menuconfig
-#define LED_FADE_MILLISECONDS 4000
+#define LED_FADE_MILLISECONDS CONFIG_PWM_FADE_INTERVAL
 
 // TODO: review naming
 // TODO: replace get_led_query_response_t with response dto
@@ -25,7 +25,7 @@ get_led_query_response_t led_controller__GET_leds_handler()
         THROW(ERROR_CODE_RESOURCE_NOT_FOUND, "No registered LEDs could be found");
     }
     
-    // TODO: test
+    // TODO: testt
     return response;
 }
 

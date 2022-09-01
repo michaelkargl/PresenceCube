@@ -18,7 +18,7 @@
 #include "get_led_query_handler.h"
 #include "CException.h"
 
-#define LED_FADE_MILLISECONDS 100
+#define LED_FADE_MILLISECONDS CONFIG_PWM_FADE_INTERVAL
 #define R_ON 100
 #define G_ON 100
 #define B_ON 100
@@ -26,10 +26,11 @@
 #define G_OFF 0
 #define B_OFF 0
 
+// TODO: expose feature toggles as menuconfig entries
 #define CUBE_WIFI_ENABLED 1
 #define CUBE_WEBSERVER_ENABLED CUBE_WIFI_ENABLED & 1
 #define CUBE_LED_API_ENABLED CUBE_WEBSERVER_ENABLED & 1
-#define CUBE_HUD_API_ENABLED CUBE_WEBSERVER_ENABLED & 0
+#define CUBE_HUD_API_ENABLED CUBE_WEBSERVER_ENABLED & 1
 #define CUBE_STARTUP_LED_TEST 1
 
 static const char *TAG = "main";
