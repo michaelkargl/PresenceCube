@@ -1,8 +1,8 @@
 ---
-id: doc1
+id: markdown-styleguide
 title: Style Guide
 sidebar_label: Style Guide
-slug: /
+slug: /styleguide
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
@@ -201,3 +201,28 @@ This is a caution
 This is a warning
 
 :::
+
+## MDX / Markdown + JSX
+
+import Highlight from '/src/components/highlight.jsx'
+import CanvasBanner from '/src/components/canvas-banner.jsx'
+
+<!-- 
+Imports and mdx needs to be separated by at least 1 empty line.
+React functions must be exported to be usable.
+Register components to the MDXProvider to make reusable components.
+-->
+
+export const HighlightRed = ({ children }) => (
+  <Highlight color="red">{children}</Highlight>
+);
+
+You can write <HighlightRed>**_JSX_**</HighlightRed> and use React components within your _Markdown_ thanks to [MDX](https://mdxjs.com/).
+
+<CanvasBanner marginTop="0" canvasHeight="160px">
+
+1. Apple
+1. Coco Nut
+1. Uni Corn
+
+</CanvasBanner>

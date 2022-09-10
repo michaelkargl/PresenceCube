@@ -1,6 +1,11 @@
 module.exports = {
-  someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
-  },
+  presenceBotSidebar: {
+    PresenceBot: [ 
+      'presence-bot',
+      'presence-ui',
+      'presence-cube',
+      'presence-twin',
+      'markdown-styleguide',
+    ],
+  }
 };
