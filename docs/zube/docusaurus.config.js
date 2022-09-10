@@ -37,11 +37,7 @@ module.exports = {
           items: [
             {
               label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              to: '/docs/styleguide',
             },
           ],
         },
@@ -76,7 +72,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} OhSnapArts.`,
     },
   },
   presets: [

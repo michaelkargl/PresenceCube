@@ -4,8 +4,7 @@ module.exports = {
       'presence-bot',
       'presence-ui',
       'presence-cube',
-      'presence-twin',
-      'markdown-styleguide',
+      'presence-twin'
     ],
   }
 };
