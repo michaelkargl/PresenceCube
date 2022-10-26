@@ -1,6 +1,10 @@
 {
-    "name": "app_cexception_config",
+    "name": "app_cexception_configuration",
     "version": "0.0.1",
+    "build": {
+        "includeDir": "./include",
+        "srcDir": "./src"
+    },
     "dependencies": {
         "logging.abstractions": "*"
     }

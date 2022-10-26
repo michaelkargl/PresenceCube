@@ -2,21 +2,26 @@
 #include "ledc_led_duty_calculator.h"
 #include "assertion_helpers.h"
 
-static uint32_t _percent_to_duty_cycle(int bit_resolution, float brightness_percent)
+static uint32_t _percent_to_duty_cycle(bool common_anode, int bit_resolution, float brightness_percent)
 {
+    brightness_percent = common_anode 
+        ? 100 - brightness_percent 
+        : brightness_percent;
+
     uint32_t max_duty = pow(2, bit_resolution);
     float duty = max_duty / 100.0f * brightness_percent;
+    
     return duty;
 }
 
-
-static struct ledc_led_t _build_ledc_led(uint8_t bit_resolution, float initial_brightness_percent)
+static struct ledc_led_t _build_ledc_led(bool common_anode, uint8_t bit_resolution, float initial_brightness_percent)
 {
-    const uint32_t initial_duty = _percent_to_duty_cycle(bit_resolution, initial_brightness_percent);
+    const uint32_t initial_duty = _percent_to_duty_cycle(common_anode, bit_resolution, initial_brightness_percent);
 
     return (struct ledc_led_t){
         .timer = {.duty_resolution = bit_resolution},
         .channel = {.duty = initial_duty},
+        .is_common_anode = common_anode,
         .is_initialized = true};
 }
 
@@ -24,7 +29,7 @@ static struct ledc_led_t _build_ledc_led(uint8_t bit_resolution, float initial_b
 
 void test_calculate_duty_cycle__given_uninitialized__throws()
 {
-    struct ledc_led_t uninitialized_led = { };
+    struct ledc_led_t uninitialized_led = {};
     TEST_ASSERT_THROWS(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, {
         calculate_duty_cycle(&uninitialized_led, 0);
     });
@@ -53,9 +58,7 @@ static void _test_calculate_duty_cycle__given_led__returns_duty_cycle(
         is_common_anode ? "common anode" : "common cathode",
         expected);
 
-    struct ledc_led_t led = _build_ledc_led(resolution_in_bit, percent);
-    led.is_common_anode = is_common_anode;
-
+    struct ledc_led_t led = _build_ledc_led(is_common_anode, resolution_in_bit, percent);
     int actual = calculate_duty_cycle(&led, percent);
 
     TEST_ASSERT_EQUAL(expected, actual);
@@ -108,15 +111,15 @@ void test_calculate_duty_percent__given_null__throws()
 {
     struct ledc_led_t *null_led = NULL;
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        calculate_duty_percent(null_led);
+        calculate_brightness_percent(null_led);
     });
 }
 
 void test_calculate_duty_percent__given_uninitialized_input__throws()
 {
-    struct ledc_led_t unintitialized_led = { };
+    struct ledc_led_t unintitialized_led = {};
     TEST_ASSERT_THROWS(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, {
-        calculate_duty_percent(&unintitialized_led);
+        calculate_brightness_percent(&unintitialized_led);
     });
 }
 
@@ -124,19 +127,31 @@ void test_calculate_duty_percent__given_led__returns_percentage()
 {
     const uint8_t bit_resolution = 4;
     const uint8_t brightness_percent = 50;
-    struct ledc_led_t led = _build_ledc_led(bit_resolution, brightness_percent);
+    struct ledc_led_t led = _build_ledc_led(false, bit_resolution, brightness_percent);
 
-    float duty_percent = calculate_duty_percent(&led);
+    float duty_percent = calculate_brightness_percent(&led);
 
+    TEST_ASSERT_EQUAL(brightness_percent, duty_percent);
+}
+
+void test_calculate_duty_percent__given_common_anode_led__returns_percentage() {
+    const uint8_t bit_resolution = 4;
+    const uint8_t brightness_percent = 25;
+    
+    struct ledc_led_t led = _build_ledc_led(true, bit_resolution, brightness_percent);
+    TEST_ASSERT_EQUAL(12, led.channel.duty);
+
+    float duty_percent = calculate_brightness_percent(&led);
     TEST_ASSERT_EQUAL(brightness_percent, duty_percent);
 }
 
 // --------------------------------------------------------------------------------------
 
-void test_function_pointer_types_match_api_functions() {
+void test_function_pointer_types_match_api_functions()
+{
     // functions should be assignable to their respective function pointers
-    TEST_ASSERT_NOT_NULL((calculate_duty_percent_func_t) calculate_duty_percent);
-    TEST_ASSERT_NOT_NULL((calculate_duty_cycle_func_t) calculate_duty_cycle);
+    TEST_ASSERT_NOT_NULL((calculate_duty_percent_func_t)calculate_brightness_percent);
+    TEST_ASSERT_NOT_NULL((calculate_duty_cycle_func_t)calculate_duty_cycle);
 }
 
 int main()
@@ -152,6 +167,7 @@ int main()
     RUN_TEST(test_calculate_duty_percent__given_null__throws);
     RUN_TEST(test_calculate_duty_percent__given_uninitialized_input__throws);
     RUN_TEST(test_calculate_duty_percent__given_led__returns_percentage);
+    RUN_TEST(test_calculate_duty_percent__given_common_anode_led__returns_percentage);
 
     RUN_TEST(test_function_pointer_types_match_api_functions);
 

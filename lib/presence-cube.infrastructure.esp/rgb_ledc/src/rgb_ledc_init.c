@@ -7,7 +7,7 @@
 #include "logger.h"
 #include "string.h"
 #include "ledc_init.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 static const char *TAG = "rgb_ledc_init";
 

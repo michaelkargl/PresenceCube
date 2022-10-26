@@ -1,6 +1,6 @@
 #pragma once
 #include "unity.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 /**
  * @brief Executes the given code block and asserts if it catches the expected exception

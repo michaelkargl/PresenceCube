@@ -1,0 +1,16 @@
+{
+ "name": "set_led_infrastructure.native",
+ "version": "0.0.1",
+ "platforms": [ "native" ],
+ "frameworks": [ "*" ],
+ "build": {
+    "srcDir": "./",
+    "includeDir": "./",
+    "srcFilter": "+<*.c>"
+ },
+ "dependencies": {
+   "presence-cube.repositories.abstractions": "*",
+   "logging.abstractions": "*",
+   "led_store.native": "*"
+ }
+}

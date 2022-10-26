@@ -1,0 +1,16 @@
+{
+ "name": "presence-cube.usecases.set_led",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "srcDir": "./",
+ "build": {
+    "includeDir": "./"
+ },
+ "dependencies": {
+   "presence-cube.shared": "*",   
+   "presence-cube.usecases.set_led.abstractions": "*",
+   "presence-cube.repositories.abstractions": "*",
+   "rgb_ledc": "*"
+ }
+}

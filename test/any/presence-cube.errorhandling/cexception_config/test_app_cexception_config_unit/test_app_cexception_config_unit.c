@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "CException.h"
+#include "exception_handling.h"
 #include "uncaught_error_handler.h"
 
 static error_code_t _handled_error;

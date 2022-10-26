@@ -46,7 +46,7 @@ void tearDown()
 
 void test_ledc_set_percent__with_zero_fade_time__sets_duty_directly()
 {
-    ledc_set_percent(&_initialized_led, 100, 0);
+    ledc_facade__set_percent(&_initialized_led, 100, 0);
 
     TEST_ASSERT_EQUAL(0, ledc_fade_start_fake.call_count);
     TEST_ASSERT_EQUAL(1, ledc_update_duty_fake.call_count);
@@ -54,7 +54,7 @@ void test_ledc_set_percent__with_zero_fade_time__sets_duty_directly()
 
 void test_ledc_set_percent__with_positive_fade_time__sets_duty_softly()
 {
-    ledc_set_percent(&_initialized_led, 100, 1000);
+    ledc_facade__set_percent(&_initialized_led, 100, 1000);
 
     TEST_ASSERT_EQUAL(1, ledc_fade_start_fake.call_count);
     TEST_ASSERT_EQUAL(0, ledc_set_duty_fake.call_count);
@@ -63,14 +63,14 @@ void test_ledc_set_percent__with_positive_fade_time__sets_duty_softly()
 void test_ledc_set_percent__with_uninitialized_led__throws_uninitialized_access_exception()
 {
     TEST_ASSERT_THROWS(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, {
-        ledc_set_percent(&_uninitialized_led, 100, 0);
+        ledc_facade__set_percent(&_uninitialized_led, 100, 0);
     });
 }
 
 void test_ledc_set_percent__with_null_led__throws_argument_null_exception()
 {
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        ledc_set_percent(NULL, 100, 0);
+        ledc_facade__set_percent(NULL, 100, 0);
     });
 }
 

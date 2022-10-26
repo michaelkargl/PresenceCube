@@ -1,0 +1,14 @@
+{
+ "name": "presence-cube.usecases.set_led.abstractions",
+ "version": "0.0.1",
+ "platforms": [ "*" ],
+ "frameworks": [ "*" ],
+ "srcDir": "./",
+ "build": {
+    "srcFilter": "+<*.h>",
+    "includeDir": "./"
+ },
+ "dependencies": {
+   "presence-cube.hal.abstractions": "*"
+ }
+}

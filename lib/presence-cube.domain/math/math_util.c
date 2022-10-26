@@ -1,5 +1,5 @@
 #include "math_util.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 
 // TODO: rename limit_value

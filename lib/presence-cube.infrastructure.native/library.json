@@ -4,6 +4,7 @@
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
  "dependencies": {
-   "get_led_infrastructure": "*"
+   "get_led_infrastructure": "*",
+   "rgb_ledc.native": "*"
  }
 }

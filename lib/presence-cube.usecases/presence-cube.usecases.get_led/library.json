@@ -1,13 +1,14 @@
 {
  "name": "presence-cube.usecases.get_led",
  "version": "0.0.1",
- "platforms": [ "native" ],
+ "platforms": [ "*" ],
  "frameworks": [ "*" ],
  "srcDir": "./",
  "build": {
     "includeDir": "./"
  },
  "dependencies": {
+   "presence-cube.shared": "*",
    "logging.abstractions": "*",   
    "presence-cube.usecases.get_led.abstractions": "*",
    "presence-cube.repositories.abstractions": "*"

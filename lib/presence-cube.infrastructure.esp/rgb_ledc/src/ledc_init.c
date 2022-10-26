@@ -1,7 +1,7 @@
 #include "ledc_init.h"
 #include "driver/ledc.h"
 #include "logger.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 #define TAG "ledc_init"
 
@@ -21,10 +21,10 @@ void configure_led(const struct ledc_led_t *led)
         Throw(ERROR_CODE_UNINITIALIZED_DATA_ACCESS);
     }
     
-    log_information(TAG, "Configuring LED '%s'\n", led->name);
+    log_information(TAG, "Configuring LED %u '%s'\n", led->id, led->name);
     ESP_ERROR_CHECK(_ledc_init__ledc_timer_config(&led->timer));
 
-    log_information(TAG, "Configuring LED Channel %i\n", led->channel.intr_type);
+    log_information(TAG, "Configuring LED %u Channel %i\n", led->id, led->channel.intr_type);
     ESP_ERROR_CHECK(_ledc_init__ledc_channel_config(&led->channel));
 
     _led_init__ledc_fade_func_install(0);

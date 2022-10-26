@@ -1,8 +1,7 @@
 {
-    "name": "presence-cube.errorhandling",
-    "version": "0.0.1",
-    "dependencies": {
-        "app_cexception_configuration": "*",
-        "throwtheswitch_cexception": "*"
-    }
+  "name": "presence-cube.errorhandling",
+  "version": "0.0.1",
+  "dependencies": {
+    "app_cexception_helpers": "*"
+  }
 }

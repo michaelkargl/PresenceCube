@@ -173,6 +173,17 @@
         "set_led_request_dto_t.h": "c",
         "endpoint_base.h": "c",
         "json_parse_utils.h": "c",
-        "unity_config.h": "c"
+        "unity_config.h": "c",
+        "set_led_command_handler.h": "c",
+        "set_led_command_response.h": "c",
+        "get_led_repository_func.h": "c",
+        "set_led_command.h": "c",
+        "rgb_ledc_adapter.h": "c",
+        "led_store_func.h": "c",
+        "rgb_ledc_adapter_func.h": "c",
+        "set_led_repository.h": "c",
+        "set_led_repository_func.h": "c",
+        "rgb_ledc_func.h": "c",
+        "exception_handling.h": "c"
     }
 }

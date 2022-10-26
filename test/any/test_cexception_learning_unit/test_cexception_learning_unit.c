@@ -1,6 +1,6 @@
 #include "unity.h"
 #include "stdio.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 #define FAKE_DIVIDE_BY_ZERO_ERROR_CODE 100
 #define FAKE_UNHANDLED_ERROR_CODE 999

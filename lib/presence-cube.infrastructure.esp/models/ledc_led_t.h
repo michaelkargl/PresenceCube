@@ -2,7 +2,6 @@
 #include "hal/ledc_types.h"
 #include "stdint.h"
 
-
 /**
  * @brief Represents a single esp32 LEDC Led
  * @param id uniquely identifies this instance within its parent scope

@@ -1,6 +1,6 @@
 #include "json_parse__set_led_request_dto_t.h"
 #include "json_parse_utils.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 
 struct set_led_request_dto_t json_parse__set_led_request_dto(cJSON *json)

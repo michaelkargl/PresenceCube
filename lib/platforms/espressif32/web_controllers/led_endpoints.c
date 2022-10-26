@@ -59,14 +59,14 @@ static esp_err_t GET_leds_handler(httpd_req_t *request)
     Try {
         get_led_query_response_t response = led_controller__GET_leds_handler();
 
-        char *response_string = json_stringify__get_led_query_response_t(&response);
+        const char *response_string = json_stringify__get_led_query_response_t(&response);
         THROW_ARGUMENT_NULL_IF_NULL(response_string);
         
         USING(response_string, {
             send_response(request, HTTPD_200, response_string);
         });
     } Catch(ex) {
-
+        
         // TODO: error responses could be handled in a separate module.
         //       send_error_response(CException_T ex) that triggers
         //       some sort of error handling middleware

@@ -1,6 +1,6 @@
 #include "unity.h"
 #include "math_util.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 
 static void _test_min_returns_min_value(int left, int right, int expected)

@@ -1,0 +1,7 @@
+{
+    "name": "app_cexception_helpers",
+    "version": "0.0.1",
+    "dependencies": {
+        "throwtheswitch_cexception": "*"
+    }
+}

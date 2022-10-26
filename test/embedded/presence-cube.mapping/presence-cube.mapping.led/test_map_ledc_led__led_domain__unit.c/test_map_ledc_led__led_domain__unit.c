@@ -237,7 +237,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag() {
         .leds = (rgb_led_domain_t[2]){},
         .count = 2
     };
-
+    
      map_rgb_ledc_led_array__to__rgb_led_domain_bag(
         source_leds,
         ARRAY_LENGTH(source_leds),
@@ -247,9 +247,10 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag() {
     TEST_ASSERT_NOT_NULL(target_bag.leds);
     for(uint8_t i = 0; i < target_bag.count; i++) {
         TEST_ASSERT_EQUAL(source_leds[i].id, target_bag.leds[i].id);
-        TEST_ASSERT_EQUAL(source_leds[1].red.id, target_bag.leds[1].red.id);
-        TEST_ASSERT_EQUAL(source_leds[1].green.id, target_bag.leds[1].green.id);
-        TEST_ASSERT_EQUAL(source_leds[1].blue.id, target_bag.leds[1].blue.id);
+        TEST_ASSERT_EQUAL(source_leds[i].red.id, target_bag.leds[i].red.id);
+        TEST_ASSERT_EQUAL(source_leds[i].green.id, target_bag.leds[i].green.id);
+        TEST_ASSERT_EQUAL(source_leds[i].blue.id, target_bag.leds[i].blue.id);
+        TEST_ASSERT_EQUAL_STRING(source_leds[i].name, target_bag.leds[i].display_name);
     }
 }
 

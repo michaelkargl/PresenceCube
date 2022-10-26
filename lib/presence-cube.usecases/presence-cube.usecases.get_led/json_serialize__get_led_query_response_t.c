@@ -1,8 +1,7 @@
 #include "json_serialize__get_led_query_response_t.h"
 #include "logger.h"
-#include "CException.h"
+#include "exception_handling.h"
 #include "using_json.h"
-
 
 /**
  * @brief
@@ -31,10 +30,10 @@ static cJSON *_serialize_get_led_query_response(get_led_query_response_t *respon
     // cJSON delete array on error
     // test out if json objects can be deleted twice without error
 
-    for (int i = 0; i < response->led_bag.count; i++)
+    for (int i = 0; i < response->led_bag->count; i++)
     {
         LOG_INFORMATION("Processing led bag led %i", i);
-        rgb_led_domain_t led = response->led_bag.leds[i];
+        rgb_led_domain_t led = response->led_bag->leds[i];
 
         cJSON *led_item = cJSON_CreateObject();
         cJSON_AddNumberToObject(led_item, "id", led.id);
@@ -47,10 +46,12 @@ static cJSON *_serialize_get_led_query_response(get_led_query_response_t *respon
     return led_array;
 }
 
-char *json_stringify__get_led_query_response_t(get_led_query_response_t *response)
+const char *json_stringify__get_led_query_response_t(get_led_query_response_t *response)
 {
     THROW_ARGUMENT_NULL_IF_NULL(response);
 
+    // we are making the pointer volatile so we can use it within the USING_JSON macro
+    // (which uses Try/Catch error handling)
     // volatile int *var tells the compiler that the data at that address is volatile
     // int *volatile var makes the pointer itself volatile
     // remember the clockwise/spiral rule

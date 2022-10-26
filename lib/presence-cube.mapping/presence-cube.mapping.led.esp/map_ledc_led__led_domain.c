@@ -1,12 +1,12 @@
 #include "map_ledc_led__led_domain.h"
-#include "CException.h"
+#include "exception_handling.h"
 #include "string.h"
 #include "math.h"
 #include "ledc_led_duty_calculator.h"
 #include "ledc_led_duty_calculator_func.h"
 #include "ledc_led_t.h"
 
-calculate_duty_percent_func_t _map_ledc_led__led_domain__calculate_duty_percent = calculate_duty_percent;
+calculate_duty_percent_func_t _map_ledc_led__led_domain__calculate_duty_percent = calculate_brightness_percent;
 
 /**
  * @brief Maps all elements of @ref source_leds to the target buffer @ref target_leds

@@ -14,6 +14,7 @@
     ]
  },
  "dependencies": {
+  "presence-cube.shared": "*",
   "presence-cube.domain.abstractions": "*"
  }
 }

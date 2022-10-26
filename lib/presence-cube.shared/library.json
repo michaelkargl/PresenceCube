@@ -1,10 +1,13 @@
 {
-    "name": "presence-cube.shared",
-    "version": "0.0.1",
-    "dependencies": {
-        "presence-cube.domain": "*",
-        "presence-cube.usecases": "*",
-        "presence-cube.errorhandling": "*",
-        "presence-cube.using": "*"
-    }
+  "name": "presence-cube.shared",
+  "version": "0.0.1",
+  "platforms": ["*"],
+  "frameworks": ["*"],
+  "dependencies": {
+    "logging.abstractions": "*",
+    "presence-cube.domain": "*",
+    "presence-cube.usecases": "*",
+    "presence-cube.errorhandling": "*",
+    "presence-cube.using": "*"
+  }
 }

@@ -1,0 +1,14 @@
+{
+    "name": "led_store.native",
+    "version": "0.0.1",
+    "platforms": [ "native" ],
+    "frameworks": [ "*" ],
+    "build": {
+        "srcDir": "./",
+        "includeDir": "./",
+        "srcFilter": "+<*.c>"
+     },
+     "dependencies": {
+        "presence-cube.shared": "*"
+     }
+}

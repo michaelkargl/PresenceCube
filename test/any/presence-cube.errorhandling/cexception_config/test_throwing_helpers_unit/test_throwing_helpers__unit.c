@@ -11,20 +11,23 @@ static struct initializable_t
 void setUp() {}
 void tearDown() {}
 
-void test_throw_argument_null__throws()
-{
-    uint8_t number = 42;
-
-    TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        THROW_ARGUMENT_NULL(number);
-    });
-}
-
 void test_throw_argument_null_if_null__given_null__throws()
 {
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        uint8_t *argument = NULL;
-        THROW_ARGUMENT_NULL_IF_NULL(argument);
+        THROW_ARGUMENT_NULL_IF_NULL(NULL);
+    });
+}
+
+void test_throw_resource_not_found_if_null__given_null__throws() {
+    TEST_ASSERT_THROWS(ERROR_CODE_RESOURCE_NOT_FOUND, {
+        THROW_RESOURCE_NOT_FOUND_IF_NULL(NULL, "Resource no found");
+    });
+}
+
+void test_throw_resource_not_found_if_null__given_non_null__does_not_throw() {
+    TEST_ASSERT_THROWS_NOT({
+        const char* argument = "a";
+        THROW_RESOURCE_NOT_FOUND_IF_NULL(argument, "Resource no found");
     });
 }
 
@@ -35,7 +38,6 @@ void test_throw_argument_null_if_null__given_non_null__does_not_throw()
         THROW_ARGUMENT_NULL_IF_NULL(&argument);
     });
 }
-
 
 void test_throw_uninitialized_access_if_uninitialized_struct__given_initialized__does_not_throw()
 {
@@ -82,8 +84,9 @@ int main()
 {
     UNITY_BEGIN();
 
-    RUN_TEST(test_throw_argument_null__throws);
-    
+    RUN_TEST(test_throw_resource_not_found_if_null__given_null__throws);
+    RUN_TEST(test_throw_resource_not_found_if_null__given_non_null__does_not_throw);
+
     RUN_TEST(test_throw_argument_null_if_null__given_null__throws);
     RUN_TEST(test_throw_argument_null_if_null__given_non_null__does_not_throw);
 

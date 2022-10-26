@@ -11,6 +11,6 @@ ledc_channel_config_t build_ledc_channel_config(
         .speed_mode = timer.speed_mode,
         .hpoint = 0,
         .timer_sel = timer.timer_num,
-        .intr_type = LEDC_INTR_DISABLE,
+        .intr_type = LEDC_INTR_DISABLE
     };
 }

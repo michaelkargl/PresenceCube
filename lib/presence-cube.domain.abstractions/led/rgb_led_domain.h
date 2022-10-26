@@ -1,8 +1,17 @@
 #pragma once
 #include "led_domain.h"
 
-// TODO: move to global helper in case this proves useful
+/**
+ * @brief Since structs are value types, it is impossible
+ *        to know when a certain struct is ready for use
+ *        or still under construction by some builder for
+ *        instance. This flags intent is to mitigate these
+ *        false-positive states and provides oportunities
+ *        for more fine-grained error checking.
+ * @todo // TODO #119: move to global helper in case this proves useful
+ */
 #define INITIALIZABLE_STRUCT bool is_initialized;
+#define RGB_LED_DOMAIN_T__DISPLAY_NAME__BUFFER_SIZE 5
 
 /**
  * @brief aggregate root for an RGB LED consisting of 3 channel leds
@@ -10,18 +19,22 @@
 typedef struct
 {
     INITIALIZABLE_STRUCT;
-    uint8_t id;
-    char display_name[5];
-    led_domain_t red;
-    led_domain_t green;
-    led_domain_t blue;
+    uint8_t id; // Uniquely identifies the RGB led in the system.
+    // Display name that is used to adress the LED by name (in logs and messages).
+    char display_name[RGB_LED_DOMAIN_T__DISPLAY_NAME__BUFFER_SIZE];
+    led_domain_t red;   // Red LED of the RGB LED
+    led_domain_t green; // Green LED of the RGB LED
+    led_domain_t blue;  // Blue LED of the RGB LED
 } rgb_led_domain_t;
 
 /**
- * @brief aggregate root for an RGB LED diode
+ * @brief a bag filled with RGB LED diodes. A bag does
+ *        not guarantee any order but provides a size
+ *        for simpler iteration and handling.
  */
-typedef struct {
+typedef struct
+{
     INITIALIZABLE_STRUCT;
-    rgb_led_domain_t *leds;
-    uint8_t count;
+    rgb_led_domain_t *leds; // An array of RGB LEDs
+    uint8_t count;          // The size of the RGB LED array
 } rgb_led_domain_bag_t;

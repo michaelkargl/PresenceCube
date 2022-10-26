@@ -1,5 +1,5 @@
 #include "json_parse_utils.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 cJSON *get_number_property(cJSON *object, const char *const property_name)
 {

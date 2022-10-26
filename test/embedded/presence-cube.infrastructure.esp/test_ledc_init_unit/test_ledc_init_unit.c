@@ -1,6 +1,6 @@
 #include "unity.h"
 #include "ledc_init.h"
-#include "CException.h"
+#include "exception_handling.h"
 #include "stubs/ledc_channel_config_stub.h"
 #include "stubs/ledc_fade_func_install_stub.h"
 #include "stubs/ledc_timer_config_stub.h"

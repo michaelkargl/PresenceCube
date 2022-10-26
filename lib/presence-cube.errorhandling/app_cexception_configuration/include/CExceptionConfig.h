@@ -1,6 +1,5 @@
 #pragma once
 #include "uncaught_error_handler.h"
-#include "throwing_helpers.h"
 
 
 // unless CEXCEPTION_USE_CONFIG_FILE compiler flag is undefined,

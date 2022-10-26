@@ -3,7 +3,7 @@
 #include "driver/ledc.h"
 #include "ledc_led_duty_calculator.h"
 #include "ledc_led_t.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 #define TAG "ledc.c"
 
@@ -54,7 +54,7 @@ static void _update_duty(const ledc_channel_config_t *channel, uint32_t duty, in
     }
 }
 
-void ledc_set_percent(const struct ledc_led_t *led, uint8_t percent, int fade_time_ms)
+void ledc_facade__set_percent(const struct ledc_led_t *led, uint8_t percent, int fade_time_ms)
 {
     THROW_ARGUMENT_NULL_IF_NULL(led);
     THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(led);

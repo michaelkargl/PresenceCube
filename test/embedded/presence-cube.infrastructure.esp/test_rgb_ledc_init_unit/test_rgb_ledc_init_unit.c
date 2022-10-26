@@ -1,7 +1,7 @@
 #include "unity.h"
 #include "rgb_ledc_init.h"
 #include "stubs/configure_led_mock.h"
-#include "CException.h"
+#include "exception_handling.h"
 
 #define RGB_LED_CHANNEL_COUNT 3
 

@@ -1,20 +1,20 @@
 #include "led_store.h"
 #include "ledc_rgb_led_builder.h"
 #include "string.h"
-#include "CException.h"
+#include "exception_handling.h"
 
+#define ENSURE_MODULE_INITIALIZED() THROW_IF_FALSY( \
+    ERROR_CODE_UNINITIALIZED_MODULE_ACCESS,         \
+    led_store__initialized(),                       \
+    "An attempt was made to access an uninitialized module: led_store.");
 
 #define RGBA_EAST_RED_GPIO_PIN (CONFIG_RGBA_EAST_RED_CHANNEL_PIN)
 #define RGBA_EAST_GREEN_GPIO_PIN (CONFIG_RGBA_EAST_GREEN_CHANNEL_PIN)
 #define RGBA_EAST_BLUE_GPIO_PIN (CONFIG_RGBA_EAST_BLUE_CHANNEL_PIN)
-
 #define RGBA_WEST_RED_GPIO_PIN (CONFIG_RGBA_WEST_RED_CHANNEL_PIN)
 #define RGBA_WEST_GREEN_GPIO_PIN (CONFIG_RGBA_WEST_GREEN_CHANNEL_PIN)
 #define RGBA_WEST_BLUE_GPIO_PIN (CONFIG_RGBA_WEST_BLUE_CHANNEL_PIN)
-
 #define LED_STORE__RGB_LED_COUNT CONFIG_CUBE_HARDWARE_RGB_LED_COUNT
-
-
 
 static struct ledc_rgb_led_t _leds[LED_STORE__RGB_LED_COUNT];
 
@@ -24,15 +24,16 @@ struct ledc_rgb_led_t (*_led_store__build_ledc_rgb_led)(
     const struct ledc_rgb_channels_t channels,
     const struct ledc_rgb_gpio_pins_t gpio_pins,
     bool is_common_anode) = build_ledc_rgb_led;
-    
-
 
 static void _store_led(uint8_t index, struct ledc_rgb_led_t led)
 {
-    if (index >= led_store__get_led_count()) {
-        Throw(ERROR_CODE_INDEX_OUT_OF_RANGE);
-    }
-    
+    const uint8_t array_length = led_store__get_led_count();
+    THROW_IF_TRUTHY(
+        ERROR_CODE_INDEX_OUT_OF_RANGE,
+        index >= array_length,
+        "The requested index %u falls outside of the range of 0-%u!",
+        index, array_length - 1);
+
     _leds[index] = led;
 }
 
@@ -81,14 +82,36 @@ static struct ledc_rgb_led_t _build_ledc_rgb_led_west()
     );
 }
 
+static bool _all_leds_initialized()
+{
+    struct ledc_rgb_led_t *leds = led_store__get_leds();
+    THROW_ARGUMENT_NULL_IF_NULL(leds);
+
+    for (uint8_t i = 0; i < led_store__get_led_count(); i++)
+    {
+        struct ledc_rgb_led_t *led = leds + i;
+        THROW_ARGUMENT_NULL_IF_NULL(led);
+
+        if (!led->is_initialized)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 // public functions
 
-esp_err_t led_store_initialize()
+esp_err_t led_store__initialize()
 {
-    // TODO: this can be made a compile time constant (there are no moving parts)
     _store_led(0, _build_ledc_rgb_led_east());
     _store_led(1, _build_ledc_rgb_led_west());
     return ESP_OK;
+}
+
+bool led_store__initialized()
+{
+    return _all_leds_initialized();
 }
 
 uint8_t led_store__get_led_count()
@@ -99,4 +122,51 @@ uint8_t led_store__get_led_count()
 struct ledc_rgb_led_t *led_store__get_leds()
 {
     return _leds;
+}
+
+static bool _try_get_index_of_led(uint8_t id, uint8_t *out_index)
+{
+    struct ledc_rgb_led_t *leds = led_store__get_leds();
+    THROW_ARGUMENT_NULL_IF_NULL(leds);
+
+    for (uint8_t i = 0; i < led_store__get_led_count(); i++)
+    {
+        struct ledc_rgb_led_t *led = leds + i;
+        THROW_ARGUMENT_NULL_IF_NULL(led);
+
+        if (led->id == id)
+        {
+            *out_index = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+struct ledc_rgb_led_t *led_store__get_led(uint8_t id)
+{
+    ENSURE_MODULE_INITIALIZED();
+    
+    uint8_t index = 0;
+    if (!_try_get_index_of_led(id, &index))
+    {
+        return NULL;
+    }
+
+    return _leds + index;
+}
+
+void led_store__update(struct ledc_rgb_led_t led)
+{
+    ENSURE_MODULE_INITIALIZED();
+
+    uint8_t index;
+    THROW_IF_FALSY(
+        ERROR_CODE_RESOURCE_NOT_FOUND,
+        _try_get_index_of_led(led.id, &index),
+        "Unable to store LED. No instance with id=%u could not be found.",
+        led.id);
+
+    _store_led(index, led);
 }

@@ -1,0 +1,12 @@
+{
+ "name": "rgb_ledc.native",
+ "version": "0.0.1",
+ "platforms": [ "native" ],
+ "frameworks": [ "*" ],
+ "dependencies": {
+   "presence-cube.hal.abstractions": "*",
+   "presence-cube.errorhandling": "*",
+   "led_store.native": "*",
+   "logging": "*"
+ }
+}

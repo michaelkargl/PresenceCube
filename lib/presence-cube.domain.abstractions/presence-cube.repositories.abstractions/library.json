@@ -9,6 +9,5 @@
         "srcFilter": "+<*.h>"
     },
     "dependencies": {
-        "presence-cube.domain.abstractions": "*"
     }
 }
