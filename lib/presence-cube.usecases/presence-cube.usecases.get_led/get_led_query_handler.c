@@ -8,7 +8,7 @@
  */
 const rgb_led_domain_bag_t *(*get_led_query_handler__led_repository__get_leds)() = get_led_repository__get_leds;
 
-const get_led_query_response_t get_led_query_handler__handle(const get_led_query_t request)
+get_led_query_response_t get_led_query_handler__handle(const get_led_query_t request)
 {
     LOG_DEBUG("Handling get led query...");
     return (get_led_query_response_t){

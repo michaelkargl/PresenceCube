@@ -7,7 +7,7 @@
  * 
  * @param request A structure representing the desire to query some information.
  *                It provides the handler with all the necessary query parameters.
- * @return const get_led_query_response_t
+ * @return get_led_query_response_t
  * @see https://github.com/jbogard/MediatR/wiki#requestresponse
  */
-const get_led_query_response_t get_led_query_handler__handle(const get_led_query_t request);
+get_led_query_response_t get_led_query_handler__handle(const get_led_query_t request);
