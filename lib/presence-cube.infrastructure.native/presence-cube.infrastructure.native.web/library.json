@@ -1,0 +1,16 @@
+{
+    "name": "presence-cube.infrastructure.native.web",
+    "version": "0.0.1",
+    "platforms": [ "native" ],
+    "frameworks": [ "*" ],
+    "build": {
+        "srcDir": "./",
+        "includeDir": "./",
+        "srcFilter": "+<*.c>"
+     },
+     "dependencies": {
+        "presence-cube.shared": "*",
+        "civetweb": "*",
+        "http-status-codes-cpp": "*"
+     }
+}

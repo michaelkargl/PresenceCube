@@ -25,17 +25,16 @@ void uncaught_error_handler_init(
 }
 
 void uncaught_error_handler_handle(error_code_t error_code) {
-    log_error(_logger_tag, "Uncaught exception caught: error code 0x%04x\n", error_code);
+    LOG_ERROR("Uncaught exception caught: error code 0x%04x", error_code);
     
     if (!_assert_module_initialized()) {
-        log_error(
-            _logger_tag,
+        LOG_ERROR(
             "=================================================\n"
             "No uncaught exception handler could be found.\n"
             "To prevent memory leaks or error fall-throughs, make sure to\n"
             "- configure an uncaught_error_handler using uncaught_error_handler_init\n"
             "- handle every Throw() in a corresponding Try/Catch()\n"
-            "=========================================================================\n",
+            "=========================================================================",
             error_code
         );
 
@@ -43,6 +42,6 @@ void uncaught_error_handler_handle(error_code_t error_code) {
         return;
     }
 
-    log_debug(_logger_tag, "Calling configured error handler with error_code: %i", error_code);
+    LOG_DEBUG("Calling configured error handler with error_code: %i", error_code);
     _handle_uncaught_error_callback(error_code);
 }

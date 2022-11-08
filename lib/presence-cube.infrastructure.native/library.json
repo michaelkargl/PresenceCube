@@ -4,6 +4,7 @@
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
  "dependencies": {
+   "presence-cube.infrastructure.native.web": "*",
    "get_led_infrastructure": "*",
    "rgb_ledc.native": "*"
  }

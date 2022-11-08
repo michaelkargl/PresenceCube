@@ -184,6 +184,9 @@
         "set_led_repository.h": "c",
         "set_led_repository_func.h": "c",
         "rgb_ledc_func.h": "c",
-        "exception_handling.h": "c"
+        "exception_handling.h": "c",
+        "unistd.h": "c",
+        "web_host.h": "c",
+        "httpstatuscodes_c.h": "c"
     }
 }

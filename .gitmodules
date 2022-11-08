@@ -10,3 +10,9 @@
 [submodule "lib/submodules/cJSON/cJSON"]
 	path = lib/submodules/cJSON/cJSON
 	url = https://github.com/DaveGamble/cJSON
+[submodule "lib/submodules/civetweb-lib/civetweb"]
+	path = lib/submodules/civetweb-lib/civetweb
+	url = https://github.com/civetweb/civetweb.git
+[submodule "lib/submodules/http_status_codes_cpp-lib/http-status-codes-cpp"]
+	path = lib/submodules/http_status_codes_cpp-lib/http-status-codes-cpp
+	url = https://github.com/j-ulrich/http-status-codes-cpp.git

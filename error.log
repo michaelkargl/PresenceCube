@@ -1,0 +1,6 @@
+[1668062830] [error] [client ] cannot bind to 8888: 98 (Address already in use)
+[1668062830] [error] [client ] cannot bind to 8884: 98 (Address already in use)
+[1668062830] [error] [client ] Failed to setup server ports
+[1668062844] [error] [client ] cannot bind to 8888: 98 (Address already in use)
+[1668062844] [error] [client ] cannot bind to 8884: 98 (Address already in use)
+[1668062844] [error] [client ] Failed to setup server ports

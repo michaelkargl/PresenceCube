@@ -2,12 +2,18 @@
 #include "logger.h"
 #include "get_led_query_handler.h"
 #include "set_led_command_handler.h"
+#include "rgb_ledc_adapter.h"
 #include "exception_handling.h"
 #include "stdlib.h"
 #include "led_store.h"
 #include "stdio.h"
+#include "web_host.h"
 
-static const char *_logger_context = "main.native";
+#define REQUEST_TIMEOUT_MS "10000"
+#define ERROR_LOG_FILE "error.log"
+#define PORTS "8888,8884"
+
+static bool _cancellation_token = false;
 
 static void _initialize_modules();
 static void _deinitialize_modules();
@@ -15,25 +21,25 @@ static void _handle_uncaught_errors(error_code_t error);
 
 static void _handle_uncaught_errors(error_code_t error)
 {
-    log_error(_logger_context, "Uncaught error received: %i\n", error);
-
-    log_error(_logger_context, "Deinitializing resources...\n");
+    LOG_ERROR("Uncaught error received: %i", error);
+    LOG_ERROR("Deinitializing resources...");
     _deinitialize_modules();
 
-    log_error(_logger_context, "Exiting with status: %i\n", error);
+    LOG_ERROR("Exiting with status: %i", error);
     exit(error);
 }
 
 static void _initialize_modules()
 {
-    log_information(_logger_context, "Initializing modules...\n");
+    LOG_INFORMATION("Initializing modules...");
     uncaught_error_handler_init(_handle_uncaught_errors);
     led_store__initialize();
+    rgb_ledc_adapter__initialize();
 }
 
 static void _deinitialize_modules()
 {
-    log_information(_logger_context, "Deinitializing modules...");
+    LOG_INFORMATION("Deinitializing modules...");
     uncaught_error_handler_deinit();
 }
 
@@ -70,15 +76,29 @@ static void _set_led_states()
     }
 }
 
-int main()
+static int _app_main(bool *cancellation_token)
 {
-    log_information("main", "Running %s main %s build\n", "native", BUILD_ENVIRONMENT);
+    LOG_INFORMATION("-------------------------------------------------");
+    LOG_INFORMATION("Running %s main %s build", "native", BUILD_ENVIRONMENT);
+    LOG_INFORMATION("Running webserver on port "PORTS);
+    LOG_INFORMATION("-------------------------------------------------");
 
     _initialize_modules();
 
     _print_led_states();
     _set_led_states();
     _print_led_states();
+}
 
-    return 0;
+int main()
+{
+    return host_web_application((const char *[]){
+                                    "listening_ports",
+                                    PORTS,
+                                    "request_timeout_ms",
+                                    REQUEST_TIMEOUT_MS,
+                                    "error_log_file",
+                                    ERROR_LOG_FILE,
+                                    0},
+                                _app_main, &_cancellation_token);
 }

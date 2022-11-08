@@ -1,0 +1,22 @@
+{
+    "name": "civetweb",
+    "description": "Embedded C/C++ web server",
+    "author": "civetweb",
+    "license": "https://github.com/civetweb/civetweb/blob/master/LICENSE.md",
+    "version": "0.0.0-c6e4e33",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/civetweb/civetweb.git"
+    },
+    "platforms": [ "native" ],
+    "frameworks": [ "*" ],
+    "srcDir": "./civetweb/src",
+    "build": {
+        "includeDir": "./civetweb/include",
+        "srcFilter": "+<./civetweb/src/*.c> -<./civetweb/src/main.c>",
+        "flags": [
+            "-D NO_SSL",
+            "-lpthread"
+        ]
+    }
+}
