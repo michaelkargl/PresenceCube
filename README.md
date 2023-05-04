@@ -99,6 +99,11 @@ The most direct way of testing the devices functionality are to use the provided
 ./scripts/set-color.sh --ip <cube-ip>
 ```
 
+## Tooling
+
+- Basic Multimeter
+- Dupont Crocodile Clamps for simpler troubleshooting
+- Preciva PR-3254 Dupont Ratcheting Crimper Plier for both Dupont- and JST cables
 
 ## Troubleshooting
 
