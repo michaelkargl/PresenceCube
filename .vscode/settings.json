@@ -188,5 +188,10 @@
         "unistd.h": "c",
         "web_host.h": "c",
         "httpstatuscodes_c.h": "c"
+    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#263112",
+        "titleBar.activeBackground": "#35451A",
+        "titleBar.activeForeground": "#F9FBF4"
     }
 }

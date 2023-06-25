@@ -10,9 +10,6 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SUBMODULE_UPDATE_STRATEGY: default
   PLATFORMIO_CI_SRC: src/main.c
-  DOCUSAURUS_PAGE_DIR: $CI_PROJECT_DIR/docs/zube
-  DOCUSAURUS_BUILD_DIR: $DOCUSAURUS_PAGE_DIR/build
-  DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR: $CI_PROJECT_DIR/public
   PLATFORMIO_PIP_VERSION: '6.1.3'
   FLAWFINDER_PIP_VERSION: '2.0.19'
   PYTHON_DOCKER_VERSION: '3.8'
@@ -32,29 +29,6 @@ before_script:
 #     # Listing all environment variables is a security risk! Use with caution!
 #     # https://docs.gitlab.com/ee/ci/variables/index.html#list-all-environment-variables
 #     - export
-
-pages:
-  stage: deploy
-  image: node:16-alpine
-  allow_failure: false
-  interruptible: false
-  script:
-    - cd $DOCUSAURUS_PAGE_DIR
-    - 'echo "PWD: $PWD"'
-    - npm install
-    - npm run build
-    - cd -
-    - 'echo "PWD: $PWD"'
-    - mv $DOCUSAURUS_BUILD_DIR $DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR
-    - echo '-----------------------------------'
-    - echo "$CI_PAGES_URL    "
-    - echo "-----------------------------------"
-    
-  artifacts:
-    paths:
-      - $DOCUSAURUS_GITLAB_PAGES_ARTIFACT_DIR
-  only:
-      - master
 
 build:
  stage: build
