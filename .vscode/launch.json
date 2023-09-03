@@ -12,8 +12,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/native-dev/program",
-            "projectEnvName": "native-dev",
+            "executable": "/home/kami/workspace/zube-space/presence-cube/.pio/build/native-test/program",
+            "projectEnvName": "native-test",
             "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
@@ -25,8 +25,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/native-dev/program",
-            "projectEnvName": "native-dev",
+            "executable": "/home/kami/workspace/zube-space/presence-cube/.pio/build/native-test/program",
+            "projectEnvName": "native-test",
             "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart"
         },
@@ -34,8 +34,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/kami/workspace/zube/zube-app/.pio/build/native-dev/program",
-            "projectEnvName": "native-dev",
+            "executable": "/home/kami/workspace/zube-space/presence-cube/.pio/build/native-test/program",
+            "projectEnvName": "native-test",
             "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"

@@ -1,0 +1,1 @@
+./invoke-pio.ps1 run --target clean
