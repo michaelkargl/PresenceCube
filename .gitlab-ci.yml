@@ -40,7 +40,7 @@ build:
  script: 
   - 'apt install python3-pip -y'
   - "pip3 install -U platformio==$PLATFORMIO_PIP_VERSION"
-  - "pwsh ./build_env.ps1 --environment native-dev"
+  - "pwsh ./build_env.ps1 'native-dev' 'espressif32-dev'"
 
 tests:
  stage: test 

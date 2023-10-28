@@ -1,10 +1,17 @@
-Function Find-PioFile {
+# TODO #156: Test and document
+<#
+.OUTPUTS
+    if found, returns the absolute command path
+    if not found, throws an Management.Automation.CommandNotFoundException
+#>
+Function Find-PioFile
+{
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $CommandName,
-        # --------------------------------
+    # --------------------------------
         [Parameter()]
         [ValidateScript({ Test-Path $_ })]
         [string] $SearchPath
@@ -15,55 +22,75 @@ Function Find-PioFile {
         -Recurse -File `
         -LiteralPath $SearchPath `
         -Filter $CommandName | Select-Object -First 1 -ExpandProperty 'FullName';
-    
+
     $CommandFound = [string]::IsNullOrWhiteSpace($CommandPath);
-    if ( -not $CommandFound ) {
-        Throw [Management.Automation.CommandNotFoundException] (
-            "Unable to find $PioCommandName in $SearchPath and subfolders"
+    if (!$CommandFound)
+    {
+        Throw [Management.Automation.CommandNotFoundException](
+        "Unable to find $PioCommandName in $SearchPath and subfolders"
         );
     }
-        
+
     Return $CommandPath
 }
 
-Function Find-Pio {
+# TODO #156: Test and document
+Function Find-Pio
+{
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $CommandName,
-        # --------------------------------
+    # --------------------------------
         [Parameter()]
         [ValidateScript({ Test-Path $_ })]
         [string] $SearchPath,
-        # --------------------------------
+    # --------------------------------
         [Parameter()]
-        [ValidateScript({ Test-Path $_ })]
         [string] $FallbackSearchPath
     )
 
-    try {
-        $ManualSearch = -not [string]::IsNullOrWhiteSpace($SearchPath)
-        if ($ManualSearch) {
+    try
+    {
+        Write-Debug "Attempting to find path $CommandName in registered paths"
+        $Command = Get-Command $CommandName -ErrorAction Stop | Select-Object -First 1 -ExpandProperty 'Path'
+        if ($Command)
+        {
+            Write-Debug "Command registered: $Command"
+            return $Command
+        }
+        else
+        {
+            Write-Warning "Command not registered"
+        }
+
+
+        $FileSearchRequested = -not [string]::IsNullOrWhiteSpace($SearchPath)
+        if ($FileSearchRequested)
+        {
             return Find-PioFile -CommandName $CommandName -SearchPath $SearchPath
         }
-        
-        Write-Debug 'Attempting to find command in shell registered paths';
-        return (Get-Command $CommandName -ErrorAction Stop `
-            | Select-Object -First 1 -ExpandProperty 'Path')
     }
-    catch [System.Management.Automation.CommandNotFoundException] {
-        Write-Warning "The command '$CommandName' could not be found within any of the configured PATHs: $env:PATH"
-        if ($FallbackSearchPath) {
+    catch [System.Management.Automation.CommandNotFoundException]
+    {
+        if ($FallbackSearchPath)
+        {
             Return Find-Pio -CommandName $CommandName -SearchPath $FallbackSearchPath
         }
         throw
     }
 }
 
+# TODO #156: Migrate to well tested powershell module
 
 $PioCommand = 'pio';
 $PioFallbackSearchPath = Join-Path $HOME '.platformio'
-
 $PioCommand = Find-Pio -CommandName $PioCommand -FallbackSearchPath $PioFallbackSearchPath -Debug
+
 & $PioCommand $args
+if ($LASTEXITCODE -ne 0)
+{
+    # TODO #156: Test
+    Throw "Command $PioCommand failed with error code $LASTEXITCODE"
+}
