@@ -16,10 +16,26 @@
     Run only tests containing the word cexception
 #>
 
-$Script:TargetEnvironment='native-test'
+$script:ProjectRoot = $PSScriptRoot
+$script:ScriptRoot = Join-Path -Resolve $ProjectRoot 'scripts/'
+$script:PioModulePath = Join-Path -Resolve $ScriptRoot 'platformio-module/platformio-module.psd1'
+$script:PlatformIoIniPath = Join-Path -Resolve $ProjectRoot 'platformio.ini'
+# you can find these in the platformio.ini
+$Script:TargetEnvironment = 'native-test'
 
-# developer obviously does testing => switch default environment
-./scripts/Set-DefaultEnv.ps1 -Environment $TargetEnvironment
+Import-Module $PioModulePath -Force
 
-# by default UNITY prints out all tests even when they are skipped => exclude these from the output
-./invoke-pio.ps1 test --environment "$TargetEnvironment" -vv @args | Select-String -NotMatch 'SKIPPED$'
+try
+{
+    # developer obviously does testing => switch default environment to force the IDE to use testing intellisense
+    Set-PioDefaultEnv -PlatformioIniPath $PlatformIoIniPath `
+                      -Environment $TargetEnvironment `
+                      -ErrorAction Stop
+
+    # by default UNITY prints out all tests even when they are skipped => exclude these from the output
+    Invoke-Pio test --environment "$TargetEnvironment" -vv @args | Select-String -NotMatch 'SKIPPED$'
+}
+catch
+{
+    throw
+}

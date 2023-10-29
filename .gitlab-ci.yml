@@ -6,10 +6,12 @@
 
 # After committing this template, visit CI/CD > Jobs to see the script output.
 
+# To ease concatenation, ensure paths not ending with trailing '/'
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SUBMODULE_UPDATE_STRATEGY: default
   PLATFORMIO_CI_SRC: src/main.c
+  SCRIPTS_FOLDER: scripts
   PLATFORMIO_PIP_VERSION: '6.1.3'
   FLAWFINDER_PIP_VERSION: '2.0.19'
   PYTHON_DOCKER_VERSION: '3.8'
@@ -19,12 +21,13 @@ default:
   image: mcr.microsoft.com/powershell:$POWERSHELL_DOCKER_VERSION
 
 before_script:
-  - 'apt update'
-  - 'echo "----------- Variables ---------------"'
-  - 'echo "CI_JOB_STAGE: $CI_JOB_STAGE"'
-  - 'echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"'
-  - 'echo "PWD: $PWD"'
-  - 'echo'
+  - |
+    apt update
+    echo "----------- Variables ---------------"
+    echo "CI_JOB_STAGE: $CI_JOB_STAGE"
+    echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"
+    echo "PWD: $PWD"
+    echo
 
 # list:
 #   stage: build
@@ -38,18 +41,30 @@ build:
  allow_failure: false
  interruptible: true
  script: 
-  - 'apt install python3-pip -y'
-  - "pip3 install -U platformio==$PLATFORMIO_PIP_VERSION"
-  - "pwsh ./build_env.ps1 'native-dev' 'espressif32-dev'"
+  - |
+    apt install python3-pip -y
+    pip3 install -U platformio==$PLATFORMIO_PIP_VERSION
+    pwsh ./build_env.ps1 'native-dev' 'espressif32-dev'
 
 tests:
  stage: test 
  allow_failure: false
  interruptible: true
  script:
-   - 'apt install python3-pip -y'
-   - "pip3 install -U platformio==$PLATFORMIO_PIP_VERSION"
-   - "pwsh ./test_native.ps1"
+   - |
+     apt install python3-pip -y
+     pip3 install -U platformio==$PLATFORMIO_PIP_VERSION
+     pwsh ./test_native.ps1
+
+test_scripts:
+  stage: test
+  allow_failure: false
+  interruptible: true
+  script:
+    - pwsh -Command "$SCRIPTS_FOLDER/Invoke-ScriptTests.ps1"
+  only:
+    changes:
+      - $SCRIPTS_FOLDER/**
     
 gitstats:
   stage: build
@@ -70,8 +85,9 @@ flawfinder:
   allow_failure: true
   interruptible: true
   script:
-    - python -m pip install flawfinder==$FLAWFINDER_PIP_VERSION
-    - flawfinder --context --html ./src ./test > flawfinder.html
+    - |
+      python -m pip install flawfinder==$FLAWFINDER_PIP_VERSION
+      flawfinder --context --html ./src ./test > flawfinder.html
   artifacts:
     paths:
       - flawfinder.html
