@@ -5,7 +5,7 @@
 /**
  * @brief ledc_led builder facade
  */
-struct ledc_led_t (*_ledc_rgb_led_builder__build_ledc_led)(
+struct ledc_led_t (*ledc_rgb_led_builder__build_ledc_led)(
     char name[10],
     ledc_timer_config_t timer,
     ledc_channel_t channel,
@@ -14,10 +14,10 @@ struct ledc_led_t (*_ledc_rgb_led_builder__build_ledc_led)(
 ) = build_ledc_led;
 
 
-static uint8_t _id_counter = 0;
+static uint8_t id_counter = 0;
 
 static unsigned int _generate_id() {
-    return _id_counter++;
+    return id_counter++;
 }
 
 struct ledc_rgb_led_t build_ledc_rgb_led(
@@ -29,9 +29,9 @@ struct ledc_rgb_led_t build_ledc_rgb_led(
 ) {
     struct ledc_rgb_led_t led = {
         .id = _generate_id(),
-        .red = _ledc_rgb_led_builder__build_ledc_led("red", timer, channels.red, gpio_pins.red, is_common_anode),
-        .green = _ledc_rgb_led_builder__build_ledc_led("green", timer, channels.green, gpio_pins.green, is_common_anode),
-        .blue = _ledc_rgb_led_builder__build_ledc_led("blue", timer, channels.blue, gpio_pins.blue, is_common_anode)
+        .red = ledc_rgb_led_builder__build_ledc_led("red", timer, channels.red, gpio_pins.red, is_common_anode),
+        .green = ledc_rgb_led_builder__build_ledc_led("green", timer, channels.green, gpio_pins.green, is_common_anode),
+        .blue = ledc_rgb_led_builder__build_ledc_led("blue", timer, channels.blue, gpio_pins.blue, is_common_anode)
     };  
 
     strncpy(led.name, name, sizeof(led.name));

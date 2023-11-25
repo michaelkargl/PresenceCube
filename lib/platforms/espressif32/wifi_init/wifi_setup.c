@@ -6,7 +6,7 @@
 #define WIFI_SSID CONFIG_ESP_WIFI_SSID
 #define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
 
-static const char *_LOGGING_TAG = "zube.wifi_setup";
+static const char *LOGGING_TAG = "zube.wifi_setup";
 
 /**
  * @brief Configures and sets up a wi-fi station according to the Wi-Fi programming model
@@ -14,7 +14,7 @@ static const char *_LOGGING_TAG = "zube.wifi_setup";
  */
 void create_wifi_station()
 {
-    ESP_LOGI(_LOGGING_TAG, "Initializing non-volatile storage...");
+    ESP_LOGI(LOGGING_TAG, "Initializing non-volatile storage...");
     initialize_non_volatile_storage();
 
     wifi_config_t wifi_config = {
@@ -23,6 +23,6 @@ void create_wifi_station()
             .password = WIFI_PASS},
     };
 
-    ESP_LOGI(_LOGGING_TAG, "Initializing wifi station...");
+    ESP_LOGI(LOGGING_TAG, "Initializing wifi station...");
     init_tcpip_networking(&wifi_config);
 }

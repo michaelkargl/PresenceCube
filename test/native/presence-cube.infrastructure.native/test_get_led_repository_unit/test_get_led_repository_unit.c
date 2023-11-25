@@ -11,8 +11,8 @@ DEFINE_FFF_GLOBALS
 FAKE_VALUE_FUNC1(const rgb_led_domain_t *, fff_get_led, uint8_t);
 FAKE_VALUE_FUNC0(const rgb_led_domain_bag_t *, fff_get_leds);
 
-static uint8_t _unknown_led_id = 255;
-static uint8_t _known_led_id = 1;
+static uint8_t unknown_led_id = 255;
+static uint8_t known_led_id = 1;
 static const rgb_led_domain_bag_t _known_leds = {
     .count = 2,
     .leds = (rgb_led_domain_t[2]){
@@ -22,7 +22,7 @@ static const rgb_led_domain_bag_t _known_leds = {
 
 static const rgb_led_domain_t *get_known_led()
 {
-    return &_known_leds.leds[_known_led_id];
+    return &_known_leds.leds[known_led_id];
 }
 
 void setUp()
@@ -48,7 +48,7 @@ void test_function_pointer_compatibility_with_exposed_api()
 void test_get_led__given_invalid_id__returns_null()
 {
     fff_get_led_fake.return_val = NULL;
-    const rgb_led_domain_t *result = get_led_repository__get_led(_unknown_led_id);
+    const rgb_led_domain_t *result = get_led_repository__get_led(unknown_led_id);
     TEST_ASSERT_NULL(result);
 }
 

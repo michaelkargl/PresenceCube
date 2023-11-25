@@ -3,7 +3,7 @@
 #include "exception_handling.h"
 
 
-static void _test_min_returns_min_value(int left, int right, int expected)
+static void testcase__min_returns_min_value(int left, int right, int expected)
 {
     TEST_PRINTF("Asserting min(%i, %i) = %i.", left, right, expected);
 
@@ -14,16 +14,16 @@ static void _test_min_returns_min_value(int left, int right, int expected)
 
 void test_min__returns_min_value()
 {
-    _test_min_returns_min_value(0, 1, 0);
-    _test_min_returns_min_value(1, 0, 0);
-    _test_min_returns_min_value(0, 0, 0);
-    _test_min_returns_min_value(-1, 0, -1);
-    _test_min_returns_min_value(0, -1, -1);
+    testcase__min_returns_min_value(0, 1, 0);
+    testcase__min_returns_min_value(1, 0, 0);
+    testcase__min_returns_min_value(0, 0, 0);
+    testcase__min_returns_min_value(-1, 0, -1);
+    testcase__min_returns_min_value(0, -1, -1);
 }
 
 // -----------------------------------------------------------------------
 
-static void _test_max_returns_max_value(int left, int right, int expected)
+static void testcase__max__returns_max_value(int left, int right, int expected)
 {
     TEST_PRINTF("Asserting max(%i, %i) = %i.", left, right, expected);
 
@@ -34,16 +34,16 @@ static void _test_max_returns_max_value(int left, int right, int expected)
 
 void test_max__returns_max_value()
 {
-    _test_max_returns_max_value(0, 1, 1);
-    _test_max_returns_max_value(1, 0, 1);
-    _test_max_returns_max_value(0, 0, 0);
-    _test_max_returns_max_value(-1, 0, 0);
-    _test_max_returns_max_value(0, -1, 0);
+    testcase__max__returns_max_value(0, 1, 1);
+    testcase__max__returns_max_value(1, 0, 1);
+    testcase__max__returns_max_value(0, 0, 0);
+    testcase__max__returns_max_value(-1, 0, 0);
+    testcase__max__returns_max_value(0, -1, 0);
 }
 
 // -----------------------------------------------------------------------
 
-static void _test_ranged_value__limits_value(int value, int lower_bounds, int upper_bounds, int expected) {
+static void testcase__assert_ranged_value__limits_value(int value, int lower_bounds, int upper_bounds, int expected) {
     TEST_PRINTF("Asserting ranged_value(%i, %i, %i) = %i.", value, lower_bounds, upper_bounds, expected);
 
     int actual = ranged_value(value, lower_bounds, upper_bounds);
@@ -52,18 +52,18 @@ static void _test_ranged_value__limits_value(int value, int lower_bounds, int up
 }
 
 void test_ranged_value__limits_value() { 
-    _test_ranged_value__limits_value(-1, -1, -1, -1);
-    _test_ranged_value__limits_value(0, 0, 0, 0);
-    _test_ranged_value__limits_value(0, 0, 100, 0);
-    _test_ranged_value__limits_value(50, 0, 100, 50);
-    _test_ranged_value__limits_value(100, 0, 100, 100);
-    _test_ranged_value__limits_value(120, 0, 100, 100);
-    _test_ranged_value__limits_value(-120, 0, 100, 0);
+    testcase__assert_ranged_value__limits_value(-1, -1, -1, -1);
+    testcase__assert_ranged_value__limits_value(0, 0, 0, 0);
+    testcase__assert_ranged_value__limits_value(0, 0, 100, 0);
+    testcase__assert_ranged_value__limits_value(50, 0, 100, 50);
+    testcase__assert_ranged_value__limits_value(100, 0, 100, 100);
+    testcase__assert_ranged_value__limits_value(120, 0, 100, 100);
+    testcase__assert_ranged_value__limits_value(-120, 0, 100, 0);
 }
 
 // -----------------------------------------------------------------------
 
-static void _test_ranged_value__given_swapped_boundaries__throws(int lower_bound, int upper_bound) {
+static void testcase__ranged_value__given_swapped_boundaries__throws(int lower_bound, int upper_bound) {
     TEST_PRINTF("Asserting that ranged_value(%i, %i) throws.", lower_bound, upper_bound);
     CEXCEPTION_T ex;
     Try {
@@ -75,8 +75,8 @@ static void _test_ranged_value__given_swapped_boundaries__throws(int lower_bound
 }
 
 void test_ranged_value__given_swapped_boundaries__throws() {
-    _test_ranged_value__given_swapped_boundaries__throws(0, -1);
-    _test_ranged_value__given_swapped_boundaries__throws(1, 0);
+    testcase__ranged_value__given_swapped_boundaries__throws(0, -1);
+    testcase__ranged_value__given_swapped_boundaries__throws(1, 0);
 }
 
 // -----------------------------------------------------------------------

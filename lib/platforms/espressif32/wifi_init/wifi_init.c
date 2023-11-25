@@ -3,14 +3,14 @@
 #include "esp_wifi.h"
 #include "esp_netif.h"
 
-static const char *_LOGGING_TAG = "wifi";
+static const char *LOGGING_TAG = "wifi";
 
 /* FreeRTOS event group to signal when we are connected 
    The event group allows multiple bits for each event
    we only care about two of them 00 and 01
 */
-static EventGroupHandle_t _wifi_event_group;
-static EventBits_t _wifi_connection_state;
+static EventGroupHandle_t wifi_event_group;
+static EventBits_t wifi_connection_state;
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT BIT1
 
@@ -18,16 +18,16 @@ static EventBits_t _wifi_connection_state;
     @see xEventGroupCreate:             https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html#_CPPv417xEventGroupCreatev
     @see esp_event_loop_create_default: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_event.html?highlight=esp_event_loop_create_default
 */
-static esp_err_t _setup_wifi_event_loop()
+static esp_err_t setup_wifi_event_loop()
 {
-    _wifi_event_group = xEventGroupCreate();
-    if (_wifi_event_group == NULL)
+    wifi_event_group = xEventGroupCreate();
+    if (wifi_event_group == NULL)
     {
-        log_error(_LOGGING_TAG, "Failed to setup event groups. Insufficient memory.\n");
+        log_error(LOGGING_TAG, "Failed to setup event groups. Insufficient memory.\n");
         return ESP_ERR_NO_MEM;
     }
 
-    // Create eventloop for _wifi_event_group
+    // Create eventloop for wifi_event_group
     return esp_event_loop_create_default();
 }
 
@@ -47,61 +47,61 @@ static void handle_wifi_event(
 {
     if (event_base == WIFI_EVENT)
     {
-        log_debug(_LOGGING_TAG, "Received WIFI_EVENT event_id %i\n", event_id);
+        log_debug(LOGGING_TAG, "Received WIFI_EVENT event_id %i\n", event_id);
         switch (event_id)
         {
         case WIFI_EVENT_STA_START:
         {
-            log_information(_LOGGING_TAG, "Station initialization started. Connecting...\n");
+            log_information(LOGGING_TAG, "Station initialization started. Connecting...\n");
             esp_wifi_connect();
             break;
         }
         case WIFI_EVENT_STA_DISCONNECTED:
         {
-            log_information(_LOGGING_TAG, "Station disconnected...\n");
-            xEventGroupSetBits(_wifi_event_group, WIFI_FAIL_BIT);
+            log_information(LOGGING_TAG, "Station disconnected...\n");
+            xEventGroupSetBits(wifi_event_group, WIFI_FAIL_BIT);
             break;
         }
         case WIFI_EVENT_STA_CONNECTED:
         {
-            log_information(_LOGGING_TAG, "WIFI station connected!\n");
+            log_information(LOGGING_TAG, "WIFI station connected!\n");
             break;
         }
         default:
         {
-            log_debug(_LOGGING_TAG, "Received event_id %i\n", event_id);
-            log_debug(_LOGGING_TAG, "Unable to react. Not implemented.\n");
+            log_debug(LOGGING_TAG, "Received event_id %i\n", event_id);
+            log_debug(LOGGING_TAG, "Unable to react. Not implemented.\n");
             break;
         }
         }
     }
     else if (event_base == IP_EVENT)
     {
-        log_debug(_LOGGING_TAG, "Received IP_EVENT\n");
+        log_debug(LOGGING_TAG, "Received IP_EVENT\n");
         switch (event_id)
         {
         case IP_EVENT_STA_GOT_IP:
         {
-            log_information(_LOGGING_TAG, "Received station address.\n");
+            log_information(LOGGING_TAG, "Received station address.\n");
             ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
-            log_information(_LOGGING_TAG, "IP:" IPSTR "\n", IP2STR(&event->ip_info.ip));
+            log_information(LOGGING_TAG, "IP:" IPSTR "\n", IP2STR(&event->ip_info.ip));
 
-            xEventGroupSetBits(_wifi_event_group, WIFI_CONNECTED_BIT);
+            xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
             break;
         }
         default:
         {
-            log_debug(_LOGGING_TAG, "Received event_id %i\n", event_id);
-            log_debug(_LOGGING_TAG, "Unable to react. Not implemented.\n");
+            log_debug(LOGGING_TAG, "Received event_id %i\n", event_id);
+            log_debug(LOGGING_TAG, "Unable to react. Not implemented.\n");
             break;
         }
         }
     }
 }
 
-static void _register_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
+static void register_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
 {
-    log_information(_LOGGING_TAG, "Registering wifi handlers\n");
+    log_information(LOGGING_TAG, "Registering wifi handlers\n");
 
     ESP_ERROR_CHECK(esp_event_handler_instance_register(
         WIFI_EVENT,
@@ -117,28 +117,28 @@ static void _register_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
         NULL,
         &wifi_handlers->got_ip));
 
-    log_information(_LOGGING_TAG, "AnyId wifi handler => %p\n", wifi_handlers->any_id);
-    log_information(_LOGGING_TAG, "GotIP wifi handler => %p\n", wifi_handlers->got_ip);
+    log_information(LOGGING_TAG, "AnyId wifi handler => %p\n", wifi_handlers->any_id);
+    log_information(LOGGING_TAG, "GotIP wifi handler => %p\n", wifi_handlers->got_ip);
 }
 
-static void _unregister_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
+static void unregister_wifi_callbacks(struct _wifi_handlers_t *wifi_handlers)
 {
-    log_information(_LOGGING_TAG, "Unregistering wifi handlers\n");
-    log_debug(_LOGGING_TAG, "AnyId wifi handler => %p\n", wifi_handlers->any_id);
-    log_debug(_LOGGING_TAG, "GotIP wifi handler => %p\n", wifi_handlers->got_ip);
+    log_information(LOGGING_TAG, "Unregistering wifi handlers\n");
+    log_debug(LOGGING_TAG, "AnyId wifi handler => %p\n", wifi_handlers->any_id);
+    log_debug(LOGGING_TAG, "GotIP wifi handler => %p\n", wifi_handlers->got_ip);
 
     ESP_ERROR_CHECK(esp_event_handler_instance_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, wifi_handlers->got_ip));
     ESP_ERROR_CHECK(esp_event_handler_instance_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, wifi_handlers->any_id));
 }
 
-static EventBits_t _await_tcpip_connection()
+static EventBits_t await_tcpip_connection()
 {
-    log_debug(_LOGGING_TAG, "Awaiting TCP/IP connection.\n");
+    log_debug(LOGGING_TAG, "Awaiting TCP/IP connection.\n");
 
     // Waiting until either the connection is established or failed.
     // Event bits are set from the wifi event state machine (see above)
     return xEventGroupWaitBits(
-        _wifi_event_group,
+        wifi_event_group,
         WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
         pdFALSE,
         pdFALSE,
@@ -152,7 +152,7 @@ static EventBits_t _await_tcpip_connection()
  */
 esp_err_t init_tcpip_networking(wifi_config_t *wifi_config)
 {
-    ESP_ERROR_CHECK(_setup_wifi_event_loop());
+    ESP_ERROR_CHECK(setup_wifi_event_loop());
     // initialize the underlying TCP/IP stack
     ESP_ERROR_CHECK(esp_netif_init());
     // create objects for wifi station mode
@@ -165,28 +165,28 @@ esp_err_t init_tcpip_networking(wifi_config_t *wifi_config)
     struct _wifi_handlers_t wifi_handlers = {
         .any_id = NULL,
         .got_ip = NULL};
-    _register_wifi_callbacks(&wifi_handlers);
+    register_wifi_callbacks(&wifi_handlers);
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
-    log_information(_LOGGING_TAG, "wifi_init_sta finished.\n");
+    log_information(LOGGING_TAG, "wifi_init_sta finished.\n");
 
-    _wifi_connection_state = _await_tcpip_connection();
+    wifi_connection_state = await_tcpip_connection();
 
     // clean up and free space
-    _unregister_wifi_callbacks(&wifi_handlers);
-    vEventGroupDelete(_wifi_event_group);
+    unregister_wifi_callbacks(&wifi_handlers);
+    vEventGroupDelete(wifi_event_group);
 
     return ESP_OK;
 }
 
 bool is_wifi_connected()
 {
-    return _wifi_connection_state & WIFI_CONNECTED_BIT;
+    return wifi_connection_state & WIFI_CONNECTED_BIT;
 }
 
 bool is_wifi_connection_failed()
 {
-    return _wifi_connection_state & WIFI_FAIL_BIT;
+    return wifi_connection_state & WIFI_FAIL_BIT;
 }

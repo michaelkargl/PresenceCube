@@ -8,16 +8,16 @@
 #define ONCE 1
 #define ZERO_TIMES 0
 
-extern esp_err_t (*_ledc_init__ledc_timer_config)(const ledc_timer_config_t* timer_configuration);
-extern esp_err_t (*_ledc_init__ledc_channel_config)(const ledc_channel_config_t* ledc_configuration);
-extern esp_err_t (*_led_init__ledc_fade_func_install)(int interrupt_allocation_flags);
+extern esp_err_t (*ledc_init__ledc_timer_config)(const ledc_timer_config_t* timer_configuration);
+extern esp_err_t (*ledc_init__ledc_channel_config)(const ledc_channel_config_t* ledc_configuration);
+extern esp_err_t (*led_init__ledc_fade_func_install)(int interrupt_allocation_flags);
 
 
 void tearDown() { }
 void setUp() {
-    _ledc_init__ledc_timer_config = ledc_timer_config_stub;
-    _ledc_init__ledc_channel_config = ledc_channel_config_stub;
-    _led_init__ledc_fade_func_install = ledc_fade_func_install_stub;
+    ledc_init__ledc_timer_config = ledc_timer_config_stub;
+    ledc_init__ledc_channel_config = ledc_channel_config_stub;
+    led_init__ledc_fade_func_install = ledc_fade_func_install_stub;
     
     ledc_timer_config_stub__reset();
     ledc_channel_config_stub__reset();
@@ -25,7 +25,7 @@ void setUp() {
 }
 
 
-static void _assert_ledc_functions_called(uint8_t expected_call_count) {
+static void assert_ledc_functions_called(uint8_t expected_call_count) {
     TEST_ASSERT_EQUAL_MESSAGE(expected_call_count, ledc_timer_config_stub__get_call_count(), "Function ledc_timer_config_stub.");
     TEST_ASSERT_EQUAL_MESSAGE(expected_call_count, ledc_channel_config_stub__get_call_count(), "Function ledc_channel_config_stub.");
     TEST_ASSERT_EQUAL_MESSAGE(expected_call_count, ledc_fade_func_install_stub__get_call_count(), "Function ledc_fade_func_install_stub.");
@@ -42,7 +42,7 @@ void test__configure_led__given_uninitialized_led__throws_uninitialized_struct_e
     } Catch(ex) { }
 
     TEST_ASSERT_EQUAL(ERROR_CODE_UNINITIALIZED_DATA_ACCESS, ex);
-    _assert_ledc_functions_called(ZERO_TIMES);
+    assert_ledc_functions_called(ZERO_TIMES);
 }
 
 void test__configure_led__given_null_input__throws_argument_null_exception() {
@@ -53,7 +53,7 @@ void test__configure_led__given_null_input__throws_argument_null_exception() {
     } Catch (ex) { }
 
     TEST_ASSERT_EQUAL(ERROR_CODE_ARGUMENT_NULL, ex);
-    _assert_ledc_functions_called(ZERO_TIMES);
+    assert_ledc_functions_called(ZERO_TIMES);
 }
 
 void test__configure_led__given_initialized_led__calls_ledc_functions() {
@@ -61,7 +61,7 @@ void test__configure_led__given_initialized_led__calls_ledc_functions() {
 
     configure_led(&dummy_led);
     
-    _assert_ledc_functions_called(ONCE);
+    assert_ledc_functions_called(ONCE);
 }
 
 int main() {

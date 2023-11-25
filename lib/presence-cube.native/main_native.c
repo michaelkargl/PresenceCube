@@ -13,37 +13,37 @@
 #define ERROR_LOG_FILE "error.log"
 #define PORTS "8888,8884"
 
-static bool _cancellation_token = false;
+static bool cancellation_token = false;
 
-static void _initialize_modules();
-static void _deinitialize_modules();
-static void _handle_uncaught_errors(error_code_t error);
+static void initialize_modules();
+static void deinitialize_modules();
+static void handle_uncaught_errors(error_code_t error);
 
-static void _handle_uncaught_errors(error_code_t error)
+static void handle_uncaught_errors(error_code_t error)
 {
     LOG_ERROR("Uncaught error received: %i", error);
     LOG_ERROR("Deinitializing resources...");
-    _deinitialize_modules();
+    deinitialize_modules();
 
     LOG_ERROR("Exiting with status: %i", error);
     exit(error);
 }
 
-static void _initialize_modules()
+static void initialize_modules()
 {
     LOG_INFORMATION("Initializing modules...");
-    uncaught_error_handler_init(_handle_uncaught_errors);
+    uncaught_error_handler_init(handle_uncaught_errors);
     led_store__initialize();
     rgb_ledc_adapter__initialize();
 }
 
-static void _deinitialize_modules()
+static void deinitialize_modules()
 {
     LOG_INFORMATION("Deinitializing modules...");
     uncaught_error_handler_deinit();
 }
 
-static void _print_led_states()
+static void print_led_states()
 {
     const get_led_query_response_t response = get_led_query_handler__handle((get_led_query_t){});
 
@@ -61,7 +61,7 @@ static void _print_led_states()
     }
 }
 
-static void _set_led_states()
+static void set_led_states()
 {
     const get_led_query_response_t response = get_led_query_handler__handle((get_led_query_t){});
 
@@ -76,23 +76,23 @@ static void _set_led_states()
     }
 }
 
-static int _app_main(bool *cancellation_token)
+static int app_main(bool *cancellation_token)
 {
     LOG_INFORMATION("-------------------------------------------------");
     LOG_INFORMATION("Running %s main %s build", "native", BUILD_ENVIRONMENT);
     LOG_INFORMATION("Running webserver on port "PORTS);
     LOG_INFORMATION("-------------------------------------------------");
 
-    _initialize_modules();
+    initialize_modules();
 
-    _print_led_states();
-    _set_led_states();
-    _print_led_states();
+    print_led_states();
+    set_led_states();
+    print_led_states();
 }
 
 int main()
 {
-    return host_web_application((const char *[]){
+    return web_host__host_web_application((const char *[]){
                                     "listening_ports",
                                     PORTS,
                                     "request_timeout_ms",
@@ -100,5 +100,5 @@ int main()
                                     "error_log_file",
                                     ERROR_LOG_FILE,
                                     0},
-                                _app_main, &_cancellation_token);
+                                app_main, &cancellation_token);
 }

@@ -5,7 +5,7 @@
 
 static const char *TAG = "spiffs";
 
-static void _spiffs_display(const char * path) {
+static void spiffs_display(const char * path) {
 	DIR* dir = opendir(path);
 	assert(dir != NULL);
 	while (true) {
@@ -43,5 +43,5 @@ void initialize_spiffs(esp_vfs_spiffs_conf_t* configuration) {
 		log_information(TAG,"Partition size: total: %d, used: %d\n", total, used);
 	}
 
-	_spiffs_display(configuration->base_path);
+	spiffs_display(configuration->base_path);
 }

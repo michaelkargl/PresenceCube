@@ -7,7 +7,7 @@
 
 #define ONCE 1
 
-extern calculate_duty_percent_func_t _map_ledc_led__led_domain__calculate_duty_percent;
+extern calculate_duty_percent_func_t map_ledc_led__led_domain__calculate_duty_percent;
 
 
 DEFINE_FFF_GLOBALS;
@@ -15,7 +15,7 @@ FAKE_VALUE_FUNC(float, _fff_calculate_duty_percent, const struct ledc_led_t*);
 
 void setUp()
 {
-    _map_ledc_led__led_domain__calculate_duty_percent = _fff_calculate_duty_percent;
+    map_ledc_led__led_domain__calculate_duty_percent = _fff_calculate_duty_percent;
 }
 
 void tearDown()
@@ -23,20 +23,20 @@ void tearDown()
     RESET_FAKE(_fff_calculate_duty_percent);
 }
 
-static uint8_t _id_counter = 1;
-static uint8_t _get_id() {
-    if( _id_counter == 0 ) {
+static uint8_t id_counter = 1;
+static uint8_t get_id() {
+    if( id_counter == 0 ) {
         Throw(ERROR_CODE_DATATYPE_OVERFLOW);
     }
 
-    return _id_counter++;
+    return id_counter++;
 }
 
-static struct ledc_led_t _build_2level_led(bool on)
+static struct ledc_led_t build_2level_led(bool on)
 {
     const ledc_timer_config_t twoBitTimer = {.duty_resolution = 1};
     return (struct ledc_led_t){
-        .id = _get_id(),
+        .id = get_id(),
         .timer = twoBitTimer,
         .channel = {.duty = on},
         .is_initialized = true};
@@ -53,7 +53,7 @@ void test__map_ledc_led__to__led_domain__given_null__throws()
 
 void test_map_ledc_led__to__led_domain()
 {
-    struct ledc_led_t source = _build_2level_led(true);
+    struct ledc_led_t source = build_2level_led(true);
     _fff_calculate_duty_percent_fake.return_val = 50.0f;
     
     led_domain_t actual = map_ledc_led__to__led_domain(&source);
@@ -114,7 +114,7 @@ void test__map_ledc_led_array__to__led_domain_bag__given_smaller_target_array__t
 }
 
 void test__map_ledc_led_array__to__led_domain_bag__given_larger_target_array__partly_maps() {
-    struct ledc_led_t small_source[] = { _build_2level_led(true) };
+    struct ledc_led_t small_source[] = { build_2level_led(true) };
     led_domain_bag_t larger_bag = {
         .leds = (led_domain_t[2]) {},
         .count = 2
@@ -151,9 +151,9 @@ void test__map_rgb_ledc_led__to__rgb_led_domain() {
     rgb_led_domain_t target_led = { };
     const struct ledc_rgb_led_t source_led = {
         .id = 99,
-        .red = _build_2level_led(true),
-        .green = _build_2level_led(true),
-        .blue = _build_2level_led(true),
+        .red = build_2level_led(true),
+        .green = build_2level_led(true),
+        .blue = build_2level_led(true),
         .is_initialized = true,
         .name = "testrgbled"
     };
@@ -217,10 +217,10 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_too_small_target
 
 static struct ledc_rgb_led_t _build_dummy_ledc_rgb_led() {
     return (struct ledc_rgb_led_t){
-        .id = _get_id(),
-        .red = { .id = _get_id() },
-        .green = { .id = _get_id() },
-        .blue = {.id = _get_id() },
+        .id = get_id(),
+        .red = { .id = get_id() },
+        .green = { .id = get_id() },
+        .blue = {.id = get_id() },
         .name = "test",
         .is_initialized = true
     };

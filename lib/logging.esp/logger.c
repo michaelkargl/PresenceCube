@@ -2,7 +2,7 @@
 #include "esp_log.h"
 
 
-static void _log_message(
+static void log_message(
     esp_log_level_t log_level,
     const char* log_level_string,
     const char *context_name,
@@ -18,7 +18,7 @@ void log_information(const char *context_name, const char *message_format, ...)
     va_list variadic_args;
     va_start(variadic_args, message_format);
     {
-        _log_message(ESP_LOG_INFO, "INFO", context_name, message_format, variadic_args);
+        log_message(ESP_LOG_INFO, "INFO", context_name, message_format, variadic_args);
     }
     va_end(variadic_args);
 }
@@ -28,7 +28,7 @@ void log_debug(const char *context_name, const char *message_format, ...)
     va_list variadic_args;
     va_start(variadic_args, message_format);
     {
-        _log_message(ESP_LOG_DEBUG, "DEBUG", context_name, message_format, variadic_args);
+        log_message(ESP_LOG_DEBUG, "DEBUG", context_name, message_format, variadic_args);
     }
     va_end(variadic_args);
 }
@@ -38,7 +38,7 @@ void log_warning(const char *context_name, const char *message_format, ...)
     va_list variadic_args;
     va_start(variadic_args, message_format);
     {
-        _log_message(ESP_LOG_WARN, "WARN", context_name, message_format, variadic_args);
+        log_message(ESP_LOG_WARN, "WARN", context_name, message_format, variadic_args);
     }
     va_end(variadic_args);
 }
@@ -48,7 +48,7 @@ void log_error(const char *context_name, const char *message_format, ...)
     va_list variadic_args;
     va_start(variadic_args, message_format);
     {
-        _log_message(ESP_LOG_ERROR, "ERROR", context_name, message_format, variadic_args);
+        log_message(ESP_LOG_ERROR, "ERROR", context_name, message_format, variadic_args);
     }
     va_end(variadic_args);
 }

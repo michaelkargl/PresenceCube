@@ -79,7 +79,7 @@ void test_update_led__given_valid_id__mutates_state()
     TEST_ASSERT_EQUAL(mutated_led.blue.brightness_percent, led->blue.brightness_percent);
 }
 
-static void _run_order_critical_tests()
+static void run_order_critical_tests()
 {
     RUN_TEST(test_get_leds__given_uninitialized_module__throws);
     RUN_TEST(test_get_led__given_uninitialized_module__throws);
@@ -90,7 +90,7 @@ int main()
 {
     UNITY_BEGIN();
     TEST_ASSERT_THROWS_NOT({
-        _run_order_critical_tests();
+        run_order_critical_tests();
         RUN_TEST(test_get_leds__returns_non_empty_led_bag);
         RUN_TEST(test_function_compatibility);
         RUN_TEST(test_get_led__given_unknown_id__returns_null);

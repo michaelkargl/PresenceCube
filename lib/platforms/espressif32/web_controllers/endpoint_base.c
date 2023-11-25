@@ -8,7 +8,7 @@
 #define HEADER_VALUE__ACCESS_CONTROL__ANY "*"
 
 
-static void _set_cors(httpd_req_t *request) {
+static void set_cors(httpd_req_t *request) {
     ESP_ERROR_CHECK(httpd_resp_set_hdr(request, HEADER_KEY__ACCESS_CONTROL__MAX_AGE, "1"));
     ESP_ERROR_CHECK(httpd_resp_set_hdr(request, HEADER_KEY__ACCESS_CONTROL__ALLOW_METHODS, "PUT,POST,GET,OPTIONS"));
     ESP_ERROR_CHECK(httpd_resp_set_hdr(request, HEADER_KEY__ACCESS_CONTROL__ALLOW_ORIGIN, HEADER_VALUE__ACCESS_CONTROL__ANY));
@@ -20,7 +20,7 @@ void send_response(httpd_req_t *request, char *status_code, const char *payload)
 {
     ESP_ERROR_CHECK(httpd_resp_set_status(request, status_code));
 
-    _set_cors(request);
+    set_cors(request);
 
     if (payload != NULL)
     {

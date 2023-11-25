@@ -12,7 +12,7 @@
 esp_err_t POST_hud_handler(httpd_req_t *req);
 static esp_err_t OPTIONS_handler(httpd_req_t *req);
 
-static const httpd_uri_t _endpoints[] = {
+static const httpd_uri_t endpoints[] = {
     {.uri = "/hud",
      .method = HTTP_POST,
      .handler = POST_hud_handler},
@@ -30,12 +30,12 @@ void initialize_hud_controller()
 
 const httpd_uri_t *get_hud_controller_endpoints()
 {
-    return _endpoints;
+    return endpoints;
 }
 
 uint8_t get_hud_controller_endpoint_count()
 {
-    return (uint8_t)(sizeof(_endpoints) / sizeof(_endpoints[0]));
+    return (uint8_t)(sizeof(endpoints) / sizeof(endpoints[0]));
 }
 
 static esp_err_t OPTIONS_handler(httpd_req_t *request)

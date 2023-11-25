@@ -8,7 +8,7 @@
 
 #define RGB_8BIT_COLOR_TO_PERCENT(color) ((100 / 255.0f) * color)
 
-ledc_set_percent_func_t _rgb_ledc__ledc_facade__set_percent_func = ledc_facade__set_percent;
+ledc_set_percent_func_t rgb_ledc__ledc_facade__set_percent_func = ledc_facade__set_percent;
 
 void set_leds_color_percent(
     const struct ledc_rgb_led_t *leds,
@@ -41,9 +41,9 @@ void set_led_color_percent(
     percent_blue = ranged_value(percent_blue, 0, 100);
     LOG_DEBUG("Setting led %s to color: %i, %i, %i percent\n", led->name, percent_red, percent_green, percent_blue);
 
-    _rgb_ledc__ledc_facade__set_percent_func(&led->red, percent_red, fade_milliseconds);
-    _rgb_ledc__ledc_facade__set_percent_func(&led->green, percent_green, fade_milliseconds);
-    _rgb_ledc__ledc_facade__set_percent_func(&led->blue, percent_blue, fade_milliseconds);
+    rgb_ledc__ledc_facade__set_percent_func(&led->red, percent_red, fade_milliseconds);
+    rgb_ledc__ledc_facade__set_percent_func(&led->green, percent_green, fade_milliseconds);
+    rgb_ledc__ledc_facade__set_percent_func(&led->blue, percent_blue, fade_milliseconds);
 }
 
 void set_led_color_8bit(

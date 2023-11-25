@@ -12,7 +12,7 @@ free_func_t _using_free__free_func = free;
  *        ignored and, depending on compiler flags, fail build execution. This function
  *        explicitly tells the compiler by casting, that this is expected behavior.
  */
-static void _free(const void *variable)
+static void free_const(const void *variable)
 {
     _using_free__free_func((void *)variable);
 }
@@ -24,6 +24,6 @@ static void _free(const void *variable)
  *              // process
  *          })
  */
-#define USING(variable, code_block) USING_FUNC(variable, code_block, _free);
+#define USING(variable, code_block) USING_FUNC(variable, code_block, free_const);
 
 // eof

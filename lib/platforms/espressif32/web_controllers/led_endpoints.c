@@ -21,7 +21,7 @@ static esp_err_t POST_led_handler(httpd_req_t *req);
 static esp_err_t GET_leds_handler(httpd_req_t *req);
 static esp_err_t OPTIONS_handler(httpd_req_t *req);
 
-static const httpd_uri_t _home_controller_endpoints[] = {
+static const httpd_uri_t home_controller_endpoints[] = {
     {.uri = "/led",
      .method = HTTP_POST,
      .handler = POST_led_handler},
@@ -34,12 +34,12 @@ static const httpd_uri_t _home_controller_endpoints[] = {
 
 const httpd_uri_t *get_led_controller_endpoints()
 {
-    return _home_controller_endpoints;
+    return home_controller_endpoints;
 }
 
 uint8_t get_led_controller_endpoint_count()
 {
-    return (uint8_t)(sizeof(_home_controller_endpoints) / sizeof(_home_controller_endpoints[0]));
+    return (uint8_t)(sizeof(home_controller_endpoints) / sizeof(home_controller_endpoints[0]));
 }
 
 

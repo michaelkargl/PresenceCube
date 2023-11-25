@@ -16,16 +16,16 @@
 #define RGBA_WEST_BLUE_GPIO_PIN (CONFIG_RGBA_WEST_BLUE_CHANNEL_PIN)
 #define LED_STORE__RGB_LED_COUNT CONFIG_CUBE_HARDWARE_RGB_LED_COUNT
 
-static struct ledc_rgb_led_t _leds[LED_STORE__RGB_LED_COUNT];
+static struct ledc_rgb_led_t leds[LED_STORE__RGB_LED_COUNT];
 
-struct ledc_rgb_led_t (*_led_store__build_ledc_rgb_led)(
+struct ledc_rgb_led_t (*led_store__build_ledc_rgb_led)(
     const char name[10],
     const ledc_timer_config_t timer,
     const struct ledc_rgb_channels_t channels,
     const struct ledc_rgb_gpio_pins_t gpio_pins,
     bool is_common_anode) = build_ledc_rgb_led;
 
-static void _store_led(uint8_t index, struct ledc_rgb_led_t led)
+static void store_led(uint8_t index, struct ledc_rgb_led_t led)
 {
     const uint8_t array_length = led_store__get_led_count();
     THROW_IF_TRUTHY(
@@ -34,10 +34,10 @@ static void _store_led(uint8_t index, struct ledc_rgb_led_t led)
         "The requested index %u falls outside of the range of 0-%u!",
         index, array_length - 1);
 
-    _leds[index] = led;
+    leds[index] = led;
 }
 
-static ledc_timer_config_t _build_low_speed_ledc_timer()
+static ledc_timer_config_t build_low_speed_ledc_timer()
 {
     return (ledc_timer_config_t){
         .duty_resolution = LEDC_TIMER_13_BIT, // 13bit = 2^13 = 81 92 levels within 1 cycle
@@ -48,11 +48,11 @@ static ledc_timer_config_t _build_low_speed_ledc_timer()
     };
 }
 
-static struct ledc_rgb_led_t _build_ledc_rgb_led_east()
+static struct ledc_rgb_led_t build_ledc_rgb_led_east()
 {
     return build_ledc_rgb_led(
         "east",
-        _build_low_speed_ledc_timer(),
+        build_low_speed_ledc_timer(),
         (struct ledc_rgb_channels_t){
             .red = LEDC_CHANNEL_0,
             .green = LEDC_CHANNEL_1,
@@ -65,11 +65,11 @@ static struct ledc_rgb_led_t _build_ledc_rgb_led_east()
     );
 }
 
-static struct ledc_rgb_led_t _build_ledc_rgb_led_west()
+static struct ledc_rgb_led_t build_ledc_rgb_led_west()
 {
     return build_ledc_rgb_led(
         "west",
-        _build_low_speed_ledc_timer(),
+        build_low_speed_ledc_timer(),
         (struct ledc_rgb_channels_t){
             .red = LEDC_CHANNEL_3,
             .green = LEDC_CHANNEL_4,
@@ -82,7 +82,7 @@ static struct ledc_rgb_led_t _build_ledc_rgb_led_west()
     );
 }
 
-static bool _all_leds_initialized()
+static bool all_leds_initialized()
 {
     struct ledc_rgb_led_t *leds = led_store__get_leds();
     THROW_ARGUMENT_NULL_IF_NULL(leds);
@@ -104,27 +104,27 @@ static bool _all_leds_initialized()
 
 esp_err_t led_store__initialize()
 {
-    _store_led(0, _build_ledc_rgb_led_east());
-    _store_led(1, _build_ledc_rgb_led_west());
+    store_led(0, build_ledc_rgb_led_east());
+    store_led(1, build_ledc_rgb_led_west());
     return ESP_OK;
 }
 
 bool led_store__initialized()
 {
-    return _all_leds_initialized();
+    return all_leds_initialized();
 }
 
 uint8_t led_store__get_led_count()
 {
-    return sizeof(_leds) / sizeof(_leds[0]);
+    return sizeof(leds) / sizeof(leds[0]);
 }
 
 struct ledc_rgb_led_t *led_store__get_leds()
 {
-    return _leds;
+    return leds;
 }
 
-static bool _try_get_index_of_led(uint8_t id, uint8_t *out_index)
+static bool try_get_index_of_led(uint8_t id, uint8_t *out_index)
 {
     struct ledc_rgb_led_t *leds = led_store__get_leds();
     THROW_ARGUMENT_NULL_IF_NULL(leds);
@@ -149,12 +149,12 @@ struct ledc_rgb_led_t *led_store__get_led(uint8_t id)
     ENSURE_MODULE_INITIALIZED();
     
     uint8_t index = 0;
-    if (!_try_get_index_of_led(id, &index))
+    if (!try_get_index_of_led(id, &index))
     {
         return NULL;
     }
 
-    return _leds + index;
+    return leds + index;
 }
 
 void led_store__update(struct ledc_rgb_led_t led)
@@ -164,9 +164,9 @@ void led_store__update(struct ledc_rgb_led_t led)
     uint8_t index;
     THROW_IF_FALSY(
         ERROR_CODE_RESOURCE_NOT_FOUND,
-        _try_get_index_of_led(led.id, &index),
+        try_get_index_of_led(led.id, &index),
         "Unable to store LED. No instance with id=%u could not be found.",
         led.id);
 
-    _store_led(index, led);
+    store_led(index, led);
 }

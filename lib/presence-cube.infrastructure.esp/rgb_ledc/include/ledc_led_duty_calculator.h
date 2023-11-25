@@ -13,12 +13,12 @@
  * @exception ERROR_CODE_ARGUMENT_NULL if the input LED was NULL.
  * @exception ERROR_CODE_UNINITIALIZED_DATA_ACCESS if the given input LED was uninitialized.
  */
-uint32_t calculate_duty_cycle(const struct ledc_led_t *led, uint8_t percent);
+uint32_t ledc_led_duty_calculator__calculate_duty_cycle(const struct ledc_led_t *led, uint8_t percent);
 
 /**
- * @brief Gets the current output percentage for a given led (this is the inverse of calculate_duty_cycle).
+ * @brief Gets the current output percentage for a given led (this is the inverse of ledc_led_duty_calculator__calculate_duty_cycle).
  * @return float percentage reflecting the leds current brightness level.
  * @exception ERROR_CODE_ARGUMENT_NULL if the input LED was NULL.
  * @exception ERROR_CODE_UNINITIALIZED_DATA_ACCESS if the given input LED was uninitialized.
  */
-float calculate_brightness_percent(const struct ledc_led_t *led);
+float ledc_led_duty_calculator__calculate_brightness_percent(const struct ledc_led_t *led);

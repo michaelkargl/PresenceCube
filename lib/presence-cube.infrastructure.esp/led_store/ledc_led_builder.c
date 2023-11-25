@@ -3,10 +3,10 @@
 #include "string.h"
 
 
-static uint8_t _id_counter = 0;
+static uint8_t id_counter = 0;
 
 static unsigned int _generate_id() {
-    return _id_counter++;
+    return id_counter++;
 }
 
 

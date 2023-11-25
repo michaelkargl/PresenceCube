@@ -6,7 +6,7 @@
 #include "ledc_led_duty_calculator_func.h"
 #include "ledc_led_t.h"
 
-calculate_duty_percent_func_t _map_ledc_led__led_domain__calculate_duty_percent = calculate_brightness_percent;
+calculate_duty_percent_func_t map_ledc_led__led_domain__calculate_duty_percent = ledc_led_duty_calculator__calculate_brightness_percent;
 
 /**
  * @brief Maps all elements of @ref source_leds to the target buffer @ref target_leds
@@ -19,7 +19,7 @@ calculate_duty_percent_func_t _map_ledc_led__led_domain__calculate_duty_percent 
  * @exception ERROR_CODE_ARGUMENT_NULL if one of the input arrays is NULL
  * @exception ERROR_CODE_INSUFFICIENT_BUFFER if the @ref target_leds array is not big enough to hold all the mappings of @ref source_leds
  */
-static void _map_ledc_led_array__to__led_domain_array(
+static void map_ledc_led_array__to__led_domain_array(
     const struct ledc_led_t source_leds[], uint8_t source_led_count,
     led_domain_t target_leds[], uint8_t target_led_count)
 {
@@ -44,7 +44,7 @@ led_domain_t map_ledc_led__to__led_domain(const struct ledc_led_t *led)
 
     led_domain_t target = {
         .is_initialized = led->is_initialized,
-        .brightness_percent = _map_ledc_led__led_domain__calculate_duty_percent(led),
+        .brightness_percent = map_ledc_led__led_domain__calculate_duty_percent(led),
         .id = led->id};
 
     strncpy(target.display_name, led->name, sizeof(target.display_name));
@@ -59,7 +59,7 @@ void map_ledc_led_array__to__led_domain_bag(
     THROW_ARGUMENT_NULL_IF_NULL(source_leds);
     THROW_ARGUMENT_NULL_IF_NULL(target_led_bag);
 
-    _map_ledc_led_array__to__led_domain_array(
+    map_ledc_led_array__to__led_domain_array(
         source_leds, source_led_count,
         target_led_bag->leds, target_led_bag->count);
     target_led_bag->count = source_led_count;

@@ -12,11 +12,11 @@
  *        If we imagine the native application to be a virtual device,
  *        these were the LEDs accessable via GPIO pins.
  */
-static rgb_led_domain_bag_t _registered_leds = {
+static rgb_led_domain_bag_t registered_leds = {
     .count = LED_STORE__LED_COUNT,
     .leds = (rgb_led_domain_t[LED_STORE__LED_COUNT]){}};
 
-static const led_domain_t _build_led(uint8_t id, const char *name)
+static const led_domain_t build_led(uint8_t id, const char *name)
 {
     led_domain_t led = {
         .is_initialized = true,
@@ -27,14 +27,14 @@ static const led_domain_t _build_led(uint8_t id, const char *name)
     return led;
 }
 
-static const rgb_led_domain_t _build_rgb_led(uint8_t id, const char *name)
+static const rgb_led_domain_t build_rgb_led(uint8_t id, const char *name)
 {
     rgb_led_domain_t led = {
         .is_initialized = true,
         .id = id,
-        .red = _build_led(0, "red"),
-        .green = _build_led(1, "green"),
-        .blue = _build_led(2, "blue")};
+        .red = build_led(0, "red"),
+        .green = build_led(1, "green"),
+        .blue = build_led(2, "blue")};
 
     strncpy(led.display_name, name, sizeof(led.display_name));
     return led;
@@ -42,24 +42,24 @@ static const rgb_led_domain_t _build_rgb_led(uint8_t id, const char *name)
 
 bool led_store__initialized()
 {
-    return _registered_leds.is_initialized;
+    return registered_leds.is_initialized;
 }
 
 void led_store__initialize()
 {
     LOG_INFORMATION("Initializing module...");
     rgb_led_domain_t leds[LED_STORE__LED_COUNT] = {
-        _build_rgb_led(0, "east"),
-        _build_rgb_led(1, "west")};
+        build_rgb_led(0, "east"),
+        build_rgb_led(1, "west")};
 
-    memcpy(_registered_leds.leds, leds, sizeof(leds));
-    _registered_leds.is_initialized = true;
+    memcpy(registered_leds.leds, leds, sizeof(leds));
+    registered_leds.is_initialized = true;
 }
 
 const rgb_led_domain_bag_t *led_store__get_leds()
 {
     ENSURE_MODULE_INITIALIZED();
-    return &_registered_leds;
+    return &registered_leds;
 }
 
 const rgb_led_domain_t *led_store__get_led(uint8_t id)

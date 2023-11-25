@@ -9,7 +9,7 @@ led_store__get_led_func_t set_led_repository__led_store__get_led = led_store__ge
 
 
 // TODO: move this into the module containing rgb_led_domain_t
-static rgb_led_domain_t _copy_led(const rgb_led_domain_t* source_led) {
+static rgb_led_domain_t copy_led(const rgb_led_domain_t* source_led) {
     rgb_led_domain_t target_copy;
     
     const uint8_t source_type_size = sizeof(*source_led);
@@ -39,7 +39,7 @@ void set_led_repository__update(
     
     // To keep this function idempotent, we should not mutate global
     // state just to apply an update to a data store.
-    rgb_led_domain_t led_copy = _copy_led(led);
+    rgb_led_domain_t led_copy = copy_led(led);
     led_copy.red.brightness_percent = red_percent;
     led_copy.green.brightness_percent = green_percent;
     led_copy.blue.brightness_percent = blue_percent;

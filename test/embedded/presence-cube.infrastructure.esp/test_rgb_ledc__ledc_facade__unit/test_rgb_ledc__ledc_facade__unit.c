@@ -4,10 +4,10 @@
 #include "fff.h"
 #include "assertion_helpers.h"
 
-extern esp_err_t (*_ledc_facade__ledc_set_duty)(ledc_mode_t speed_mode, ledc_channel_t channel, uint32_t duty);
-extern esp_err_t (*_ledc_facade__ledc_update_duty)(ledc_mode_t speed_mode, ledc_channel_t channel);
-extern esp_err_t (*_ledc_facade__ledc_set_fade_with_time)(ledc_mode_t speed_mode, ledc_channel_t channel, uint32_t target_duty, int max_fade_time_ms);
-extern esp_err_t (*_ledc_facade__ledc_fade_start)(ledc_mode_t speed_mode, ledc_channel_t channel, ledc_fade_mode_t fade_mode);
+extern esp_err_t (*ledc_facade__ledc_set_duty)(ledc_mode_t speed_mode, ledc_channel_t channel, uint32_t duty);
+extern esp_err_t (*ledc_facade__ledc_update_duty)(ledc_mode_t speed_mode, ledc_channel_t channel);
+extern esp_err_t (*ledc_facade__ledc_set_fade_with_time)(ledc_mode_t speed_mode, ledc_channel_t channel, uint32_t target_duty, int max_fade_time_ms);
+extern esp_err_t (*ledc_facade__ledc_fade_start)(ledc_mode_t speed_mode, ledc_channel_t channel, ledc_fade_mode_t fade_mode);
 
 DEFINE_FFF_GLOBALS;
 FAKE_VALUE_FUNC(esp_err_t, ledc_set_duty, ledc_mode_t, ledc_channel_t, uint32_t);
@@ -28,10 +28,10 @@ static void reset_fakes()
 
 static void assign_fakes()
 {
-    _ledc_facade__ledc_set_duty = ledc_set_duty;
-    _ledc_facade__ledc_update_duty = ledc_update_duty;
-    _ledc_facade__ledc_set_fade_with_time = ledc_set_fade_with_time;
-    _ledc_facade__ledc_fade_start = ledc_fade_start;
+    ledc_facade__ledc_set_duty = ledc_set_duty;
+    ledc_facade__ledc_update_duty = ledc_update_duty;
+    ledc_facade__ledc_set_fade_with_time = ledc_set_fade_with_time;
+    ledc_facade__ledc_fade_start = ledc_fade_start;
 }
 
 void setUp()

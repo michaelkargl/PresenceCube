@@ -2,15 +2,15 @@
 #include "ledc_rgb_led_builder.h"
 #include "build_ledc_led_mock.h"
 
-static ledc_timer_config_t _dummy_timer = {};
-static struct ledc_rgb_gpio_pins_t _dummy_pins = {};
-static struct ledc_rgb_channels_t _dummy_channels = {};
-static int _dummy_bool = false;
-static char _dummy_string[0] = "";
+static ledc_timer_config_t dummy_timer = {};
+static struct ledc_rgb_gpio_pins_t dummy_pins = {};
+static struct ledc_rgb_channels_t dummy_channels = {};
+static int dummy_bool = false;
+static char dummy_string[0] = "";
 
 
 
-extern struct ledc_led_t (*_ledc_rgb_led_builder__build_ledc_led)(
+extern struct ledc_led_t (*ledc_rgb_led_builder__build_ledc_led)(
     char name[10],
     ledc_timer_config_t timer,
     ledc_channel_t channel,
@@ -22,7 +22,7 @@ extern struct ledc_led_t (*_ledc_rgb_led_builder__build_ledc_led)(
 void tearDown() { }
 void setUp() {
     // turns this test into a unit test
-    _ledc_rgb_led_builder__build_ledc_led = build_ledc_led_mock__build_ledc_led;
+    ledc_rgb_led_builder__build_ledc_led = build_ledc_led_mock__build_ledc_led;
     
     build_ledc_led_mock__reset();
 }
@@ -30,11 +30,11 @@ void setUp() {
 
 
 static struct ledc_rgb_led_t build_named_led(char name[10]) {
-    return build_ledc_rgb_led(name, _dummy_timer, _dummy_channels, _dummy_pins, _dummy_bool);
+    return build_ledc_rgb_led(name, dummy_timer, dummy_channels, dummy_pins, dummy_bool);
 }
 
 static struct ledc_rgb_led_t build_dummy_led() {
-    return build_named_led(_dummy_string);
+    return build_named_led(dummy_string);
 }
 
 

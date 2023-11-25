@@ -10,7 +10,7 @@
  * @return 0 if the cann was successful
  * @return >0 if it was unsuccessful
  */
-int host_web_application(
+int web_host__host_web_application(
     const char *webserver_options[],
     int (*application_fn)(bool *),
     bool *_cancellation_token);

@@ -3,20 +3,20 @@
 #include "exception_handling.h"
 #include "led_store.h"
 
-static bool _module_initialized = false;
+static bool module_initialized = false;
 
 void rgb_ledc_adapter__initialize()
 {
-    if (!_module_initialized)
+    if (!module_initialized)
     {
         led_store__initialize();
-        _module_initialized = true;
+        module_initialized = true;
     }
 }
 
 bool rgb_ledc_adapter__initialized()
 {
-    return _module_initialized;
+    return module_initialized;
 }
 
 void rgb_ledc_adapter__set_color(

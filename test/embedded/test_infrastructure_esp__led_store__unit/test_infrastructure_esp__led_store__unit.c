@@ -13,7 +13,7 @@
         }                                                              \
     } while (0);
 
-extern struct ledc_rgb_led_t (*_led_store__build_ledc_rgb_led)(
+extern struct ledc_rgb_led_t (*led_store__build_ledc_rgb_led)(
     const char name[10],
     const ledc_timer_config_t timer,
     const struct ledc_rgb_channels_t channels,
@@ -26,7 +26,7 @@ static const uint8_t _unknown_led_id = 255;
 void tearDown() {}
 void setUp()
 {
-    _led_store__build_ledc_rgb_led = stub__build_ledc_rgb_led;
+    led_store__build_ledc_rgb_led = stub__build_ledc_rgb_led;
 }
 
 static void test_store_led__led_count__returns_configured_rgb_led_count()
@@ -97,7 +97,7 @@ static void test_function_pointer_compatibility()
     _ = (led_store__get_led_func_t)led_store__get_led;
 }
 
-static void _run_order_sensitive_tests()
+static void run_order_sensitive_tests()
 {
     RUN_TEST(test_update__given_uninitialized_module__throws);
     RUN_TEST(test__get_led__given_uninitialized_module__throws);
@@ -111,7 +111,7 @@ int main()
     UNITY_BEGIN();
 
     TEST_ASSERT_THROWS_NOT({
-        _run_order_sensitive_tests();
+        run_order_sensitive_tests();
         RUN_TEST(test_store_led__led_count__returns_configured_rgb_led_count);
         RUN_TEST(test_store_led__initialized__every_led_initialized);
         RUN_TEST(test_get_led__given_unknown_id__returns_null);

@@ -16,7 +16,7 @@ static const uint8_t _unknown_led_id = 255;
 static const uint8_t _dummy_id = 255;
 static const uint8_t _dummy_color = 50;
 
-static rgb_led_domain_t _valid_led = {
+static rgb_led_domain_t valid_led = {
     .is_initialized = true,
     .id = _known_led_id,
     .red = {.id = 10, .brightness_percent = 10},
@@ -27,7 +27,7 @@ void setUp()
 {
     set_led_repository__led_store__update_led = fff_update_led;
     set_led_repository__led_store__get_led = fff_get_led;
-    fff_get_led_fake.return_val = &_valid_led;
+    fff_get_led_fake.return_val = &valid_led;
 }
 
 void tearDown()

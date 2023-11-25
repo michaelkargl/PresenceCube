@@ -14,29 +14,29 @@
 static struct mg_callbacks _event_callbacks;
 static struct mg_context *_webserver_context = NULL;
 
-static int _log_message(const struct mg_connection *conn, const char *message)
+static int log_message(const struct mg_connection *conn, const char *message)
 {
     LOG_DEBUG("[_log_message]: %s", message);
     return LOGGING_ENABLED;
 }
 
-static void _register_event_callbacks()
+static void register_event_callbacks()
 {
     LOG_DEBUG("registering event callbacks...");
     memset(&_event_callbacks, 0, sizeof(_event_callbacks));
-    _event_callbacks.log_message = _log_message;
-    _event_callbacks.log_access = _log_message;
+    _event_callbacks.log_message = log_message;
+    _event_callbacks.log_access = log_message;
 }
 
-static void _initialize_webserver()
+static void initialize_webserver()
 {
     LOG_DEBUG("initializing webserver...");
     mg_init_library(MG_FEATURES_DEFAULT);
-    _register_event_callbacks();
+    register_event_callbacks();
 }
 
 
-static void _stop_webserver()
+static void stop_webserver()
 {
     LOG_DEBUG("stopping web server...\n");
     if (_webserver_context == NULL)
@@ -49,14 +49,14 @@ static void _stop_webserver()
     LOG_DEBUG("Bye!\n");
 }
 
-static bool _start_webserver(const char *webserver_options[])
+static bool start_webserver(const char *webserver_options[])
 {
     LOG_DEBUG("Starting web server...\n");
     _webserver_context = mg_start(&_event_callbacks, NULL, webserver_options);
     return _webserver_context != NULL;
 }
 
-static void _await_cancellation(bool *_cancellation_token)
+static void await_cancellation(bool *_cancellation_token)
 {
     // blocking the root thread from closing
     // wait until cancellation has been requested
@@ -75,15 +75,15 @@ static void _await_cancellation(bool *_cancellation_token)
     }
 }
 
-int host_web_application(
+int web_host__host_web_application(
     const char *webserver_options[],
     int (*application_fn)(bool *),
     bool *cancellation_token)
 {
     printf("Starting web host...\n");   
 
-    _initialize_webserver();
-    if (!_start_webserver(webserver_options))
+    initialize_webserver();
+    if (!start_webserver(webserver_options))
     {
         fprintf(stderr, "Unable to start web server instance...\n");
         return 1;
@@ -93,8 +93,8 @@ int host_web_application(
     controller_registrar__register(_webserver_context, cancellation_token);
     
     application_fn(cancellation_token);
-    _await_cancellation(cancellation_token);
+    await_cancellation(cancellation_token);
 
-    _stop_webserver();
+    stop_webserver();
     return 0;
 }

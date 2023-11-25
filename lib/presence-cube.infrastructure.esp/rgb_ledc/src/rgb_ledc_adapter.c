@@ -11,7 +11,7 @@
 led_store__get_led_func_t rgb_ledc_adapter__led_store__get_led_fn = led_store__get_led;
 rgb_ledc__set_led_color_percent_func_t rgb_ledc_adapter__rgb_ledc__set_led_color_percent_fn = set_led_color_percent;
 
-static bool _module_initialized = false;
+static bool module_initialized = false;
 
 void rgb_ledc_adapter__initialize()
 {
@@ -22,13 +22,13 @@ void rgb_ledc_adapter__initialize()
         configure_rgb_leds(
             led_store__get_leds(),
             led_store__get_led_count());
-        _module_initialized = true;
+        module_initialized = true;
     }
 }
 
 bool rgb_ledc_adapter__initialized()
 {
-    return _module_initialized;
+    return module_initialized;
 }
 
 void rgb_ledc_adapter__set_color(

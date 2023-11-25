@@ -3,14 +3,14 @@
 #include "assertion_helpers.h"
 #include "fff.h"
 
-extern cJSON_Delete_func_t _using_json__cJSON_Delete_func;
+extern cJSON_Delete_func_t using_json__cJSON_Delete_func;
 
 DEFINE_FFF_GLOBALS;
 FAKE_VOID_FUNC(fff_cJSON_Delete_func, cJSON*);
 
 
 void setUp() {
-    _using_json__cJSON_Delete_func = fff_cJSON_Delete_func;
+    using_json__cJSON_Delete_func = fff_cJSON_Delete_func;
 }
 
 void tearDown() {

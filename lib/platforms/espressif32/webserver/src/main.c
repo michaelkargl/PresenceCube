@@ -11,7 +11,7 @@
 #define WIFI_SSID CONFIG_WIFI_SSID
 #define WIFI_PASSWORD CONFIG_WIFI_PASSWORD
 
-static const char *_LOGGING_TAG = "main";
+static const char *LOGGING_TAG = "main";
 
 esp_err_t app_main()
 {   
@@ -33,12 +33,12 @@ esp_err_t app_main()
     ESP_ERROR_CHECK(init_tcpip_networking(&wifi_config));
     if (is_wifi_connection_failed() || !is_wifi_connected())
     {
-        ESP_LOGE(_LOGGING_TAG, "Failed to connect to SSID: %s", WIFI_SSID);
+        ESP_LOGE(LOGGING_TAG, "Failed to connect to SSID: %s", WIFI_SSID);
         return ESP_FAIL;
     }
     else
     {
-        ESP_LOGI(_LOGGING_TAG, "Connected to Ssid: %s", CONFIG_WIFI_SSID);
+        ESP_LOGI(LOGGING_TAG, "Connected to Ssid: %s", CONFIG_WIFI_SSID);
     }
 
     ESP_ERROR_CHECK(webserver_start());
