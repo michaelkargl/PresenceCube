@@ -1,6 +1,9 @@
 #pragma once
 #include "ledc_led_duty_calculator_func.h"
 
+// TODO: prefix those functions with `ledc_led_duty_calculator`!
+//       Mind that theres function pointer types assigned for testing (ledc_led_duty_calculator_func.h)
+
 /**
  * @brief Translates a percentage value to a LED specific duty cycle
  *
