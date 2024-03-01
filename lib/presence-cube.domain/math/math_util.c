@@ -2,8 +2,7 @@
 #include "exception_handling.h"
 
 
-// TODO: rename limit_value
-int ranged_value(int value, int min_range, int max_range)
+int math_util__clamp(int value, int min_range, int max_range)
 {
     if(min_range > max_range) {
         Throw(ERROR_CODE_LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
@@ -22,14 +21,14 @@ int ranged_value(int value, int min_range, int max_range)
     return value;
 }
 
-int max(int value, int value2)
+int math_util__max(int value, int value2)
 {
     return value >= value2
                ? value
                : value2;
 }
 
-int min(int value, int value2)
+int math_util__min(int value, int value2)
 {
     return value <= value2
                ? value

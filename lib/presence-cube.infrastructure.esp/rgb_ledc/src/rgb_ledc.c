@@ -36,9 +36,9 @@ void set_led_color_percent(
     THROW_ARGUMENT_NULL_IF_NULL(led);
     THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(led);
 
-    percent_red = ranged_value(percent_red, 0, 100);
-    percent_green = ranged_value(percent_green, 0, 100);
-    percent_blue = ranged_value(percent_blue, 0, 100);
+    percent_red = math_util__clamp(percent_red, 0, 100);
+    percent_green = math_util__clamp(percent_green, 0, 100);
+    percent_blue = math_util__clamp(percent_blue, 0, 100);
     LOG_DEBUG("Setting led %s to color: %i, %i, %i percent\n", led->name, percent_red, percent_green, percent_blue);
 
     rgb_ledc__ledc_facade__set_percent_func(&led->red, percent_red, fade_milliseconds);

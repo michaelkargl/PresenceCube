@@ -13,7 +13,7 @@ static uint32_t calculate_max_duty(uint32_t bit_resolution)
 
 static uint32_t calculate_duty_cycle(uint32_t bit_resolution, uint8_t percent)
 {
-    percent = ranged_value(percent, 0, 100);
+    percent = math_util__clamp(percent, 0, 100);
 
     uint32_t max_duty = calculate_max_duty(bit_resolution);
     uint32_t duty = max_duty / 100.0f * percent;
@@ -36,7 +36,7 @@ uint32_t ledc_led_duty_calculator__calculate_duty_cycle(const struct ledc_led_t 
     THROW_ARGUMENT_NULL_IF_NULL(led);
     THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(led);
 
-    percent = ranged_value(percent, 0, 100);
+    percent = math_util__clamp(percent, 0, 100);
     percent = led->is_common_anode
                   ? 100 - percent
                   : percent;

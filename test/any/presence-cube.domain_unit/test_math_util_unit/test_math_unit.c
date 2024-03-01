@@ -7,7 +7,7 @@ static void testcase__min_returns_min_value(int left, int right, int expected)
 {
     TEST_PRINTF("Asserting min(%i, %i) = %i.", left, right, expected);
 
-    int result = min(left, right);
+    int result = math_util__min(left, right);
 
     TEST_ASSERT_EQUAL_INT(expected, result);
 }
@@ -27,7 +27,7 @@ static void testcase__max__returns_max_value(int left, int right, int expected)
 {
     TEST_PRINTF("Asserting max(%i, %i) = %i.", left, right, expected);
 
-    int result = max(left, right);
+    int result = math_util__max(left, right);
 
     TEST_ASSERT_EQUAL_INT(expected, result);
 }
@@ -43,40 +43,40 @@ void test_max__returns_max_value()
 
 // -----------------------------------------------------------------------
 
-static void testcase__assert_ranged_value__limits_value(int value, int lower_bounds, int upper_bounds, int expected) {
-    TEST_PRINTF("Asserting ranged_value(%i, %i, %i) = %i.", value, lower_bounds, upper_bounds, expected);
+static void testcase__assert_clamp__limits_value(int value, int lower_bounds, int upper_bounds, int expected) {
+    TEST_PRINTF("Asserting clamp(%i, %i, %i) = %i.", value, lower_bounds, upper_bounds, expected);
 
-    int actual = ranged_value(value, lower_bounds, upper_bounds);
+    int actual = math_util__clamp(value, lower_bounds, upper_bounds);
 
     TEST_ASSERT_EQUAL_INT(expected, actual);
 }
 
-void test_ranged_value__limits_value() { 
-    testcase__assert_ranged_value__limits_value(-1, -1, -1, -1);
-    testcase__assert_ranged_value__limits_value(0, 0, 0, 0);
-    testcase__assert_ranged_value__limits_value(0, 0, 100, 0);
-    testcase__assert_ranged_value__limits_value(50, 0, 100, 50);
-    testcase__assert_ranged_value__limits_value(100, 0, 100, 100);
-    testcase__assert_ranged_value__limits_value(120, 0, 100, 100);
-    testcase__assert_ranged_value__limits_value(-120, 0, 100, 0);
+void test_clamp__limits_value() { 
+    testcase__assert_clamp__limits_value(-1, -1, -1, -1);
+    testcase__assert_clamp__limits_value(0, 0, 0, 0);
+    testcase__assert_clamp__limits_value(0, 0, 100, 0);
+    testcase__assert_clamp__limits_value(50, 0, 100, 50);
+    testcase__assert_clamp__limits_value(100, 0, 100, 100);
+    testcase__assert_clamp__limits_value(120, 0, 100, 100);
+    testcase__assert_clamp__limits_value(-120, 0, 100, 0);
 }
 
 // -----------------------------------------------------------------------
 
-static void testcase__ranged_value__given_swapped_boundaries__throws(int lower_bound, int upper_bound) {
-    TEST_PRINTF("Asserting that ranged_value(%i, %i) throws.", lower_bound, upper_bound);
+static void testcase__clamp__given_swapped_boundaries__throws(int lower_bound, int upper_bound) {
+    TEST_PRINTF("Asserting that clamp(%i, %i) throws.", lower_bound, upper_bound);
     CEXCEPTION_T ex;
     Try {
-        ranged_value(0, lower_bound, upper_bound);
+        math_util__clamp(0, lower_bound, upper_bound);
         TEST_FAIL_MESSAGE("Expected exception to be thrown, but none received!");
     } Catch(ex) {}
 
     TEST_ASSERT_EQUAL(ex, ERROR_CODE_LOWER_BOUNDS_BIGGER_THAN_UPPER_BOUNDS);
 }
 
-void test_ranged_value__given_swapped_boundaries__throws() {
-    testcase__ranged_value__given_swapped_boundaries__throws(0, -1);
-    testcase__ranged_value__given_swapped_boundaries__throws(1, 0);
+void test_clamp__given_swapped_boundaries__throws() {
+    testcase__clamp__given_swapped_boundaries__throws(0, -1);
+    testcase__clamp__given_swapped_boundaries__throws(1, 0);
 }
 
 // -----------------------------------------------------------------------
@@ -87,8 +87,8 @@ int main()
 
     RUN_TEST(test_min__returns_min_value);
     RUN_TEST(test_max__returns_max_value);
-    RUN_TEST(test_ranged_value__limits_value);
-    RUN_TEST(test_ranged_value__given_swapped_boundaries__throws);
+    RUN_TEST(test_clamp__limits_value);
+    RUN_TEST(test_clamp__given_swapped_boundaries__throws);
 
     return UNITY_END();
 }

@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "led_store.h": "c"
+        "led_store.h": "c",
+        "math_util.h": "c",
+        "unity.h": "c"
+    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#142D52",
+        "titleBar.activeBackground": "#1C3F73",
+        "titleBar.activeForeground": "#F8FAFD"
     }
 }
