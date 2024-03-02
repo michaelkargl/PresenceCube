@@ -4,13 +4,13 @@
 #include "ledc_rgb_led_t.h"
 
 /**
- * @brief Maps the given @ref ledc_led_t to its domain representative @ref led_domain_t.
+ * @brief Maps the given @ref ledc_led_t to its domain representative @ref led_diode_t.
  * 
  * @param led the led element to map.
- * @return led_domain_t a new @ref led_domain_t mapping of @ref led.
+ * @return led_diode_t a new @ref led_diode_t mapping of @ref led.
  * @exception ERROR_CODE_ARGUMENT_NULL if the input @ref led is NULL.
  */
-led_domain_t map_ledc_led__to__led_domain(const struct ledc_led_t *led);
+led_diode_t map_ledc_led__to__led_domain(const struct ledc_led_t *led);
 
 
 /**

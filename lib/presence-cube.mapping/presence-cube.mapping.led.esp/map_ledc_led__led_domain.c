@@ -21,7 +21,7 @@ calculate_duty_percent_func_t map_ledc_led__led_domain__calculate_duty_percent =
  */
 static void map_ledc_led_array__to__led_domain_array(
     const struct ledc_led_t source_leds[], uint8_t source_led_count,
-    led_domain_t target_leds[], uint8_t target_led_count)
+    led_diode_t target_leds[], uint8_t target_led_count)
 {
     THROW_ARGUMENT_NULL_IF_NULL(source_leds);
     THROW_ARGUMENT_NULL_IF_NULL(target_leds);
@@ -38,11 +38,11 @@ static void map_ledc_led_array__to__led_domain_array(
     }
 }
 
-led_domain_t map_ledc_led__to__led_domain(const struct ledc_led_t *led)
+led_diode_t map_ledc_led__to__led_domain(const struct ledc_led_t *led)
 {
     THROW_ARGUMENT_NULL_IF_NULL(led);
 
-    led_domain_t target = {
+    led_diode_t target = {
         .is_initialized = led->is_initialized,
         .brightness_percent = map_ledc_led__led_domain__calculate_duty_percent(led),
         .id = led->id};

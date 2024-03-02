@@ -1,5 +1,5 @@
 #pragma once
-#include "led_domain.h"
+#include "led_diode.h"
 
 /**
  * @brief Since structs are value types, it is impossible
@@ -11,7 +11,7 @@
  * @todo // TODO #119: move to global helper in case this proves useful
  */
 #define INITIALIZABLE_STRUCT bool is_initialized;
-#define RGB_LED_DOMAIN_T__DISPLAY_NAME__BUFFER_SIZE 5
+#define RGB_LED_DIODE_T__DISPLAY_NAME__BUFFER_SIZE 5
 
 /**
  * @brief aggregate root for an RGB LED consisting of 3 channel leds
@@ -21,10 +21,10 @@ typedef struct
     INITIALIZABLE_STRUCT;
     uint8_t id; // Uniquely identifies the RGB led in the system.
     // Display name that is used to adress the LED by name (in logs and messages).
-    char display_name[RGB_LED_DOMAIN_T__DISPLAY_NAME__BUFFER_SIZE];
-    led_domain_t red;   // Red LED of the RGB LED
-    led_domain_t green; // Green LED of the RGB LED
-    led_domain_t blue;  // Blue LED of the RGB LED
+    char display_name[RGB_LED_DIODE_T__DISPLAY_NAME__BUFFER_SIZE];
+    led_diode_t red;   // Red LED of the RGB LED
+    led_diode_t green; // Green LED of the RGB LED
+    led_diode_t blue;  // Blue LED of the RGB LED
 } rgb_led_domain_t;
 
 /**

@@ -16,9 +16,9 @@ static rgb_led_domain_bag_t registered_leds = {
     .count = LED_STORE__LED_COUNT,
     .leds = (rgb_led_domain_t[LED_STORE__LED_COUNT]){}};
 
-static const led_domain_t build_led(uint8_t id, const char *name)
+static const led_diode_t build_led(uint8_t id, const char *name)
 {
-    led_domain_t led = {
+    led_diode_t led = {
         .is_initialized = true,
         .id = id,
         .brightness_percent = 0};
