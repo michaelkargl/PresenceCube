@@ -18,7 +18,7 @@ extern struct ledc_rgb_led_t (*led_store__build_ledc_rgb_led)(
     const ledc_timer_config_t timer,
     const struct ledc_rgb_channels_t channels,
     const struct ledc_rgb_gpio_pins_t gpio_pins,
-    bool is_common_anode);
+    led_type_t led_type);
 
 static const uint8_t _dummy_led_id = 23;
 static const uint8_t _unknown_led_id = 255;

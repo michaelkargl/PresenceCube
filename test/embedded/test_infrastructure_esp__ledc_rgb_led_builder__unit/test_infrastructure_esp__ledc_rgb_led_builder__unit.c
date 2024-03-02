@@ -15,7 +15,7 @@ extern struct ledc_led_t (*ledc_rgb_led_builder__build_ledc_led)(
     ledc_timer_config_t timer,
     ledc_channel_t channel,
     uint8_t gpio_pin,
-    bool is_common_anode
+    led_type_t led_type
 );
 
 
