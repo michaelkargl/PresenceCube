@@ -1,6 +1,7 @@
 #pragma once
 #include "hal/ledc_types.h"
 #include "stdint.h"
+#include "../models/led_type_t.h"
 
 /**
  * @brief Represents a single esp32 LEDC Led
@@ -13,8 +14,7 @@ struct ledc_led_t
 {
     bool is_initialized;
     uint8_t id;
-    // TODO: refactor this to be an enum
-    bool is_common_anode;
+    led_type_t led_type;
     char name[10];
     ledc_channel_config_t channel;
     ledc_timer_config_t timer;

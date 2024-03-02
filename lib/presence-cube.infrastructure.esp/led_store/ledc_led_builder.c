@@ -15,14 +15,14 @@ struct ledc_led_t build_ledc_led(
     ledc_timer_config_t timer,
     ledc_channel_t channel,
     uint8_t gpio_pin,
-    bool is_common_anode
+    led_type_t led_type
 ) {   
     const ledc_channel_config_t channel_config = build_ledc_channel_config(channel, timer, gpio_pin);
     struct ledc_led_t led = {
         .id = _generate_id(),
         .timer = timer,
         .channel = channel_config,
-        .is_common_anode = is_common_anode
+        .led_type = led_type
     };
     
     strncpy(led.name, name, sizeof(led.name));

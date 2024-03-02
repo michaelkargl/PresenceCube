@@ -37,7 +37,7 @@ uint32_t ledc_led_duty_calculator__calculate_duty_cycle(const struct ledc_led_t 
     THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(led);
 
     percent = math_util__clamp(percent, 0, 100);
-    percent = led->is_common_anode
+    percent = led->led_type == LED_TYPE__COMMON_ANODE
                   ? 100 - percent
                   : percent;
 
@@ -53,7 +53,7 @@ float ledc_led_duty_calculator__calculate_brightness_percent(const struct ledc_l
         led->timer.duty_resolution,
         led->channel.duty);
 
-    return led->is_common_anode
+    return led->led_type == LED_TYPE__COMMON_ANODE
                ? 100.0f - percent
                : percent;
 }
