@@ -10,12 +10,12 @@ See [CODING_GUIDELINES.md]
 >
 > This README is wildly out-of-date and in dire need of refactoring. Over the course of the current milestone (%"🧪 Improve testability and cross platform support") this will be gradually change => #108
 
-* [Testing](./test)
-* Library Management
-  * [Libraries](./lib)
-  * [Components](./components)
-* [Electrical Circuitry](./circuits/)
-* [Configuration](./config)
+- [Testing](./test)
+- Library Management
+  - [Libraries](./lib)
+  - [Components](./components)
+- [Electrical Circuitry](./circuits/)
+- [Configuration](./config)
 
 <!-- old readme below -->
 
@@ -25,20 +25,33 @@ The functionality of the cube is intended to be a form of information cube. It i
 
 ## Setup
 
-### Cloning
+> Scripts are written in powershell to be as platform independent as possible. Make sure to install pwsh on your
+> non-windows systems:\
+> https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-linux
 
 1. The project uses submodules, so you will have to clone recursively
 
    ```powershell
-   git clone --recurse-submodules --remote-submodules <url>
-   ```
+   git clone --recursive <url>
 
-1. If already cloned
-
-   ```powershell
+   # if already cloned
    git submodule init
    git submodule update --recursive
    ```
+
+1. Build environments at least once to ensure that platform io has pulled all the necessary dependencies
+   ```powershell
+      ./build_env.ps1 -Environments espressif32-dev
+      ./build_env.ps1 -Environments native-dev
+   ```
+1. Ensure the setup is working
+   ```powershell
+      ./test_native.ps1
+   ```
+
+> Be careful when cloning in low-connectivity networks. If encountering issues during cloning
+> better remove the whole repo and clone anew in a more stable network to prevent unnecessary
+> troubleshooting.
 
 ### Development Environment
 
@@ -65,7 +78,7 @@ Configuration is done using Platform IO's menuconfig command. Use the IDE or the
 `platformio run --target menuconfig`
 
 > In some cases the arrow keys aren't working. Use alternative `J`,`K` bindings
-![Configuration settings](./images/configurations.jpg)
+> ![Configuration settings](./images/configurations.jpg)
 
 ## **Development** configuration
 
@@ -111,9 +124,9 @@ The most direct way of testing the devices functionality are to use the provided
 
 ## Tooling
 
-* Basic Multimeter
-* Dupont Crocodile Clamps for simpler troubleshooting
-* Preciva PR-3254 Dupont Ratcheting Crimper Plier for both Dupont- and JST cables
+- Basic Multimeter
+- Dupont Crocodile Clamps for simpler troubleshooting
+- Preciva PR-3254 Dupont Ratcheting Crimper Plier for both Dupont- and JST cables
 
 ## Troubleshooting
 
@@ -125,6 +138,6 @@ Here are a few common errors maintainers have been facing :)
 
 ## References
 
-* [CODING_GUIDELINES.md]
+- [CODING_GUIDELINES.md]
 
 [CODING_GUIDELINES.md]: /docs/CODING_GUIDELINES.md

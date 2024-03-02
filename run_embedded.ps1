@@ -9,11 +9,11 @@ Import-Module $PioModulePath -Force
 
 try
 {
+    # TODO: migrate this into a dedicated Set-PioEnvironment function to be used externally
     # developer obviously does development => switch default environment to force the IDE to use embedded intellisense
     Set-PioDefaultEnv -PlatformioIniPath $PlatformIoIniPath `
                       -Environment $TargetEnvironment `
                       -ErrorAction Stop
-
     # refresh intellisense
     Invoke-Pio project init --ide vscode
 
