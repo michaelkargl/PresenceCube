@@ -8,10 +8,14 @@
     led_store__initialized(),                       \
     "An attempt was made to access an uninitialized module: led_store.");
 
+// TODO: create menu config entry for that
+#define RGBA_EAST_LED_TYPE (LED_TYPE__COMMON_ANODE)
 #define RGBA_EAST_RED_GPIO_PIN (CONFIG_RGBA_EAST_RED_CHANNEL_PIN)
 #define RGBA_EAST_GREEN_GPIO_PIN (CONFIG_RGBA_EAST_GREEN_CHANNEL_PIN)
 #define RGBA_EAST_BLUE_GPIO_PIN (CONFIG_RGBA_EAST_BLUE_CHANNEL_PIN)
 #define RGBA_WEST_RED_GPIO_PIN (CONFIG_RGBA_WEST_RED_CHANNEL_PIN)
+// TODO: create menu config entry for that
+#define RGBA_WEST_LED_TYPE (LED_TYPE__COMMON_ANODE)
 #define RGBA_WEST_GREEN_GPIO_PIN (CONFIG_RGBA_WEST_GREEN_CHANNEL_PIN)
 #define RGBA_WEST_BLUE_GPIO_PIN (CONFIG_RGBA_WEST_BLUE_CHANNEL_PIN)
 #define LED_STORE__RGB_LED_COUNT CONFIG_CUBE_HARDWARE_RGB_LED_COUNT
@@ -61,7 +65,7 @@ static struct ledc_rgb_led_t build_ledc_rgb_led_east()
             .red = RGBA_EAST_RED_GPIO_PIN,
             .green = RGBA_EAST_GREEN_GPIO_PIN,
             .blue = RGBA_EAST_BLUE_GPIO_PIN},
-        true /* TODO: to enum */
+        RGBA_EAST_LED_TYPE
     );
 }
 
@@ -78,7 +82,7 @@ static struct ledc_rgb_led_t build_ledc_rgb_led_west()
             .red = RGBA_WEST_RED_GPIO_PIN,
             .green = RGBA_WEST_GREEN_GPIO_PIN,
             .blue = RGBA_WEST_BLUE_GPIO_PIN},
-        true /* TODO: to enum */
+        RGBA_WEST_LED_TYPE
     );
 }
 
