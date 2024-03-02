@@ -32,7 +32,7 @@ static void test_get_leds__returns_non_empty_led_bag()
 {
     led_store__initialize();
 
-    const rgb_led_domain_bag_t *led_bag = led_store__get_leds();
+    const rgb_led_diode_bag_t *led_bag = led_store__get_leds();
     TEST_ASSERT_NOT_NULL(led_bag);
     TEST_ASSERT_GREATER_THAN(0, led_bag->count);
 }

@@ -37,4 +37,4 @@ typedef struct
     INITIALIZABLE_STRUCT;
     rgb_led_diode_t *leds; // An array of RGB LEDs
     uint8_t count;          // The size of the RGB LED array
-} rgb_led_domain_bag_t;
+} rgb_led_diode_bag_t;

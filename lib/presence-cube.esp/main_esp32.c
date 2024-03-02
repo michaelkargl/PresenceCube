@@ -41,7 +41,7 @@ static esp_vfs_spiffs_conf_t spiffs_config = {
     .max_files = 10,
     .format_if_mount_failed = true};
 
-const rgb_led_domain_bag_t *led_bag;
+const rgb_led_diode_bag_t *led_bag;
 
 // prototypes
 static void initialize_modules();
@@ -60,7 +60,7 @@ static void handle_uncaught_errors(error_code_t error)
 }
 
 static void set_leds(
-    const rgb_led_domain_bag_t *led_bag,
+    const rgb_led_diode_bag_t *led_bag,
     uint8_t red_percent,
     uint8_t green_percent,
     uint8_t blue_percent)

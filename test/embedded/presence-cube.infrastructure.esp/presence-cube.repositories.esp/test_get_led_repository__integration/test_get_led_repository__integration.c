@@ -11,14 +11,14 @@ void tearDown() {}
 
 void test_get_leds__returned_bag_has_size_of_configured_rgb_led_count()
 {
-    const rgb_led_domain_bag_t* led_bag = get_led_repository__get_leds();
+    const rgb_led_diode_bag_t* led_bag = get_led_repository__get_leds();
     TEST_ASSERT_NOT_NULL(led_bag);
     TEST_ASSERT_EQUAL(CONFIG_CUBE_HARDWARE_RGB_LED_COUNT, led_bag->count);
 }
 
 void test_get_leds__all_leds_are_initialized()
 {
-    const rgb_led_domain_bag_t* led_bag = get_led_repository__get_leds();
+    const rgb_led_diode_bag_t* led_bag = get_led_repository__get_leds();
     TEST_ASSERT_NOT_NULL(led_bag);
     TEST_ASSERT_NOT_NULL(led_bag->leds);
     TEST_ASSERT_GREATER_THAN(0, led_bag->count);

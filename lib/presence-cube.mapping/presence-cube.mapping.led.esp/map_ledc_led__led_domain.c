@@ -83,7 +83,7 @@ void map_rgb_ledc_led__to__rgb_led_domain(
 
 void map_rgb_ledc_led_array__to__rgb_led_domain_bag(
     const struct ledc_rgb_led_t * source_leds, uint8_t source_leds_size,
-    rgb_led_domain_bag_t* target_leds
+    rgb_led_diode_bag_t* target_leds
 ) {
     THROW_ARGUMENT_NULL_IF_NULL(source_leds);
     THROW_ARGUMENT_NULL_IF_NULL(target_leds);

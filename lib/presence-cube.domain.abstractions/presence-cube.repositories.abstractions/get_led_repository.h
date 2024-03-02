@@ -8,10 +8,10 @@
 
 /**
  * @brief Gets a list of rgb_led_diode_t objects
- * @return const rgb_led_domain_bag_t* if LEDs were found.
+ * @return const rgb_led_diode_bag_t* if LEDs were found.
  * @return NULL if no LEDs were found.
  */
-const rgb_led_domain_bag_t* get_led_repository__get_leds();
+const rgb_led_diode_bag_t* get_led_repository__get_leds();
 
 /**
  * @brief Finds a single led

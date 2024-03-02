@@ -9,11 +9,11 @@ extern led_store__get_leds_func_t get_led_repository__get_leds_fn;
 
 DEFINE_FFF_GLOBALS
 FAKE_VALUE_FUNC1(const rgb_led_diode_t *, fff_get_led, uint8_t);
-FAKE_VALUE_FUNC0(const rgb_led_domain_bag_t *, fff_get_leds);
+FAKE_VALUE_FUNC0(const rgb_led_diode_bag_t *, fff_get_leds);
 
 static uint8_t unknown_led_id = 255;
 static uint8_t known_led_id = 1;
-static const rgb_led_domain_bag_t _known_leds = {
+static const rgb_led_diode_bag_t _known_leds = {
     .count = 2,
     .leds = (rgb_led_diode_t[2]){
         // to keep things simpler: index == id
@@ -65,7 +65,7 @@ void test_get_led__given_valid_id__returns_led()
 
 void test_get_leds__returns_leds()
 {
-    const rgb_led_domain_bag_t *result = get_led_repository__get_leds();
+    const rgb_led_diode_bag_t *result = get_led_repository__get_leds();
     TEST_ASSERT_EQUAL_PTR(&_known_leds, result);
 }
 

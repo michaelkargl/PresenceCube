@@ -6,9 +6,9 @@
 /**
  * @brief Retrieves the entirety of registered LEDs.
  *
- * @return const rgb_led_domain_bag_t* a bag filled with LEDs.
+ * @return const rgb_led_diode_bag_t* a bag filled with LEDs.
  */
-const rgb_led_domain_bag_t *led_store__get_leds();
+const rgb_led_diode_bag_t *led_store__get_leds();
 
 /**
  * @brief Attempts to find a single identifiable LED

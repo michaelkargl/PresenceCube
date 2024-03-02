@@ -22,7 +22,7 @@ void test_json_stringify__get_led_query_response_t__given_null__throws()
 
 void test_json_stringify__get_led_query_response_t__serializes_to_json()
 {
-    rgb_led_domain_bag_t led_bag = {
+    rgb_led_diode_bag_t led_bag = {
         .is_initialized = true,
         .count = 2,
         .leds = (rgb_led_diode_t[]){

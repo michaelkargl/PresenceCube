@@ -4,7 +4,7 @@
 /**
   @brief Represents the @ref led_store__get_leds function of the  @ref led_store api.
  */
-typedef const rgb_led_domain_bag_t *(*led_store__get_leds_func_t)();
+typedef const rgb_led_diode_bag_t *(*led_store__get_leds_func_t)();
 
 /**
   @brief Represents the @ref led_store__get_led function of the  @ref led_store api.

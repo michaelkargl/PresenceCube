@@ -171,7 +171,7 @@ void test__map_rgb_ledc_led__to__rgb_led_domain() {
 void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throws() {
     struct ledc_rgb_led_t dummy_source_leds[1];
     rgb_led_diode_t dummy_domain_leds[1];
-    rgb_led_domain_bag_t dummy_bag = {
+    rgb_led_diode_bag_t dummy_bag = {
         .count = ARRAY_LENGTH(dummy_domain_leds),
         .leds = dummy_domain_leds
     };
@@ -200,7 +200,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throw
 
 void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_too_small_target_throws() {
     struct ledc_rgb_led_t dummy_source_leds[2];
-    rgb_led_domain_bag_t dummy_bag = {
+    rgb_led_diode_bag_t dummy_bag = {
         .is_initialized = true,
         .leds = (rgb_led_diode_t[1]){},
         .count = 1
@@ -232,7 +232,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag() {
         _build_dummy_ledc_rgb_led()
     };
 
-    rgb_led_domain_bag_t target_bag = {
+    rgb_led_diode_bag_t target_bag = {
         .is_initialized = true,
         .leds = (rgb_led_diode_t[2]){},
         .count = 2

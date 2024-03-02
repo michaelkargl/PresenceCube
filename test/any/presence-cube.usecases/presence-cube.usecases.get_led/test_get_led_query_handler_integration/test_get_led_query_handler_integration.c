@@ -10,7 +10,7 @@ void setUp()
 
 void test_handle()
 {
-    const rgb_led_domain_bag_t *stored_leds = get_led_repository__get_leds();
+    const rgb_led_diode_bag_t *stored_leds = get_led_repository__get_leds();
     TEST_ASSERT_NOT_NULL(stored_leds);
 
     const get_led_query_response_t response = get_led_query_handler__handle((get_led_query_t){});

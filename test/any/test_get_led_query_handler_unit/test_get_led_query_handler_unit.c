@@ -5,9 +5,9 @@
 #include "fff.h"
 #include "assertion_helpers.h"
 
-extern const rgb_led_domain_bag_t *(*get_led_query_handler__led_repository__get_leds)();
+extern const rgb_led_diode_bag_t *(*get_led_query_handler__led_repository__get_leds)();
 
-static const rgb_led_domain_bag_t _valid_led_bag = {
+static const rgb_led_diode_bag_t _valid_led_bag = {
     .count = 2,
     .leds = (rgb_led_diode_t[]){
         {.id = 0, .display_name = "t1"},
@@ -15,7 +15,7 @@ static const rgb_led_domain_bag_t _valid_led_bag = {
     }};
 
 DEFINE_FFF_GLOBALS;
-FAKE_VALUE_FUNC(const rgb_led_domain_bag_t *, fff_get_leds);
+FAKE_VALUE_FUNC(const rgb_led_diode_bag_t *, fff_get_leds);
 
 void setUp(void)
 {

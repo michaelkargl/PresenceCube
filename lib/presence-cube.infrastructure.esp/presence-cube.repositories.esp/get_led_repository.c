@@ -11,12 +11,12 @@
 // PLATFORM: ESP
 //
 
-static rgb_led_domain_bag_t led_bag = {
+static rgb_led_diode_bag_t led_bag = {
     .leds = (rgb_led_diode_t[GET_LED_REPOSITORY__LED_BAG_SIZE]){},
     .count = GET_LED_REPOSITORY__LED_BAG_SIZE,
     .is_initialized = true};
 
-const rgb_led_domain_bag_t *get_led_repository__get_leds()
+const rgb_led_diode_bag_t *get_led_repository__get_leds()
 {
     map_rgb_ledc_led_array__to__rgb_led_domain_bag(
         led_store__get_leds(),
@@ -27,7 +27,7 @@ const rgb_led_domain_bag_t *get_led_repository__get_leds()
 
 const rgb_led_diode_t *get_led_repository__get_led(uint8_t id)
 {
-    const rgb_led_domain_bag_t *led_bag = get_led_repository__get_leds();
+    const rgb_led_diode_bag_t *led_bag = get_led_repository__get_leds();
     THROW_IF_TRUTHY(
         ERROR_CODE_ARGUMENT_NULL,
         led_bag == NULL,

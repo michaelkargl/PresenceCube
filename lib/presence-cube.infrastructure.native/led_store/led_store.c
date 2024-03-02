@@ -12,7 +12,7 @@
  *        If we imagine the native application to be a virtual device,
  *        these were the LEDs accessable via GPIO pins.
  */
-static rgb_led_domain_bag_t registered_leds = {
+static rgb_led_diode_bag_t registered_leds = {
     .count = LED_STORE__LED_COUNT,
     .leds = (rgb_led_diode_t[LED_STORE__LED_COUNT]){}};
 
@@ -56,7 +56,7 @@ void led_store__initialize()
     registered_leds.is_initialized = true;
 }
 
-const rgb_led_domain_bag_t *led_store__get_leds()
+const rgb_led_diode_bag_t *led_store__get_leds()
 {
     ENSURE_MODULE_INITIALIZED();
     return &registered_leds;
@@ -66,7 +66,7 @@ const rgb_led_diode_t *led_store__get_led(uint8_t id)
 {
     ENSURE_MODULE_INITIALIZED();
 
-    const rgb_led_domain_bag_t *led_bag = led_store__get_leds();
+    const rgb_led_diode_bag_t *led_bag = led_store__get_leds();
     for (uint8_t i = 0; i < led_bag->count; i++)
     {
         rgb_led_diode_t *led = led_bag->leds + i;
