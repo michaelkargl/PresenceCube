@@ -260,7 +260,6 @@ int main()
     UNITY_BEGIN();
 
     TEST_ASSERT_THROWS_NOT({
-        // TODO: fix renamings that VSCode missedin the fulltext search post refactoring
         RUN_TEST(test__map_ledc_led__to__led_diode__given_null__throws);
         RUN_TEST(test_map_ledc_led__to__led_diode);
         //

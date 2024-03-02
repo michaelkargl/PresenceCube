@@ -93,7 +93,6 @@
 #define THROW_UNINITIALIZED_ACCESS_IF_UNINITIALIZED_STRUCT_REF(variable)                                                         \
     do                                                                                                                           \
     {                                                                                                                            \
-        /* TODO: standardize the is_initialized field via a macro (similar to prototype inheritance) */                          \
         bool uninitialized = variable == NULL || !variable->is_initialized;                                                      \
         if (uninitialized)                                                                                                       \
         {                                                                                                                        \

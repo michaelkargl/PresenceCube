@@ -13,22 +13,12 @@
 static cJSON *_serialize_get_led_query_response(get_led_query_response_t *response)
 {
     // https://github.com/DaveGamble/cJSON#working-with-the-data-structure
-    // For every value type there is a cJSON_Create... function that can be used to
+    // For every value type there is a cJSON_CreateXYZ function that can be used to
     // create an item of that type. All of these will allocate a cJSON struct that
     // can later be deleted with cJSON_Delete. Note that you have to delete them at
-    // some point, otherwise you will get a memory leak.
-    //
-    // Important: If you have added an item to an array or an object already, you
-    // mustn't delete it with __cJSON_Delete__. Adding it to an array or object transfers
-    // its ownership so that when that array or object is deleted, it gets deleted as
-    // well. You also could use cJSON_SetValuestring to change a cJSON_String's //
-    /// valuestring, and you needn't to free the previous valuestring manually.
+    // some point, otherwise you will get memory leaks.
 
     cJSON *led_array = cJSON_CreateArray();
-
-    // TODO: error handling
-    // cJSON delete array on error
-    // test out if json objects can be deleted twice without error
 
     for (int i = 0; i < response->led_bag->count; i++)
     {
@@ -40,6 +30,9 @@ static cJSON *_serialize_get_led_query_response(get_led_query_response_t *respon
         cJSON_AddStringToObject(led_item, "name", led.display_name);
         cJSON_AddBoolToObject(led_item, "isInitialized", led.is_initialized);
 
+        // Important: Once an item is attached to an array or an object, ownership
+        // is transfered to that object or array. Ripping out elements by deleting
+        // manually through __cJSON_Delete__ will end in memory leaks.
         cJSON_AddItemToArray(led_array, led_item);
     }
 
