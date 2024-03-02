@@ -2,7 +2,7 @@
 #include "rgb_ledc_adapter.h"
 #include "assertion_helpers.h"
 #include "led_store_func.h"
-#include "map_ledc_led__led_domain.h"
+#include "map_ledc_led__led_diode.h"
 #include "rgb_ledc_func.h"
 #include "fff.h"
 

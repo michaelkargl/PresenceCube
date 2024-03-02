@@ -1,13 +1,13 @@
 #include "unity.h"
 #include "fff.h"
 #include "assertion_helpers.h"
-#include "map_ledc_led__led_domain.h"
+#include "map_ledc_led__led_diode.h"
 #include "ledc_led_duty_calculator_func.h"
 #include "ledc_led_builder.h"
 
 #define ONCE 1
 
-extern calculate_duty_percent_func_t map_ledc_led__led_domain__calculate_duty_percent;
+extern calculate_duty_percent_func_t map_ledc_led__led_diode__calculate_duty_percent;
 
 
 DEFINE_FFF_GLOBALS;
@@ -15,7 +15,7 @@ FAKE_VALUE_FUNC(float, _fff_calculate_duty_percent, const struct ledc_led_t*);
 
 void setUp()
 {
-    map_ledc_led__led_domain__calculate_duty_percent = _fff_calculate_duty_percent;
+    map_ledc_led__led_diode__calculate_duty_percent = _fff_calculate_duty_percent;
 }
 
 void tearDown()
@@ -44,19 +44,19 @@ static struct ledc_led_t build_2level_led(bool on)
 
 // ---------------------------------------------------------------------------
 
-void test__map_ledc_led__to__led_domain__given_null__throws()
+void test__map_ledc_led__to__led_diode__given_null__throws()
 {
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_ledc_led__to__led_domain(NULL);
+        map_ledc_led__to__led_diode(NULL);
     });
 }
 
-void test_map_ledc_led__to__led_domain()
+void test_map_ledc_led__to__led_diode()
 {
     struct ledc_led_t source = build_2level_led(true);
     _fff_calculate_duty_percent_fake.return_val = 50.0f;
     
-    led_domain_t actual = map_ledc_led__to__led_domain(&source);
+    led_diode_t actual = map_ledc_led__to__led_diode(&source);
 
     TEST_ASSERT_EQUAL(source.is_initialized, actual.is_initialized);
     TEST_ASSERT_EQUAL(source.id, actual.id);
@@ -67,23 +67,23 @@ void test_map_ledc_led__to__led_domain()
 
 // ---------------------------------------------------------------------------
 
-void test__map_ledc_led_array__to__led_domain_bag__given_null_array__throws()
+void test__map_ledc_led_array__to__led_diode_bag__given_null_array__throws()
 {
     const struct ledc_led_t dummy_source[1];
-    led_domain_bag_t target_bag = {
-        .leds = (led_domain_t[1]) {},
+    led_diode_bag_t target_bag = {
+        .leds = (led_diode_t[1]) {},
         .count = 1
     };
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_ledc_led_array__to__led_domain_bag(
+        map_ledc_led_array__to__led_diode_bag(
             NULL, ARRAY_LENGTH(dummy_source),
             &target_bag
         );
     });
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_ledc_led_array__to__led_domain_bag(
+        map_ledc_led_array__to__led_diode_bag(
             dummy_source, ARRAY_LENGTH(dummy_source),
             NULL
         );
@@ -91,37 +91,37 @@ void test__map_ledc_led_array__to__led_domain_bag__given_null_array__throws()
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
         target_bag.leds = NULL;
-        map_ledc_led_array__to__led_domain_bag(
+        map_ledc_led_array__to__led_diode_bag(
             dummy_source, ARRAY_LENGTH(dummy_source),
             NULL
         );
     });
 }
 
-void test__map_ledc_led_array__to__led_domain_bag__given_smaller_target_array__throws() {
+void test__map_ledc_led_array__to__led_diode_bag__given_smaller_target_array__throws() {
     const struct ledc_led_t large_source[2];
-    led_domain_bag_t smaller_bag = {
-        .leds = (led_domain_t[1]) {},
+    led_diode_bag_t smaller_bag = {
+        .leds = (led_diode_t[1]) {},
         .count = 1
     };
 
     TEST_ASSERT_THROWS(ERROR_CODE_INSUFFICIENT_BUFFER, {
-        map_ledc_led_array__to__led_domain_bag(
+        map_ledc_led_array__to__led_diode_bag(
             large_source, ARRAY_LENGTH(large_source),
             &smaller_bag
         );
     });
 }
 
-void test__map_ledc_led_array__to__led_domain_bag__given_larger_target_array__partly_maps() {
+void test__map_ledc_led_array__to__led_diode_bag__given_larger_target_array__partly_maps() {
     struct ledc_led_t small_source[] = { build_2level_led(true) };
-    led_domain_bag_t larger_bag = {
-        .leds = (led_domain_t[2]) {},
+    led_diode_bag_t larger_bag = {
+        .leds = (led_diode_t[2]) {},
         .count = 2
     };
 
     TEST_ASSERT_THROWS(ERROR_CODE_INSUFFICIENT_BUFFER, {
-        map_ledc_led_array__to__led_domain_bag(
+        map_ledc_led_array__to__led_diode_bag(
             small_source, ARRAY_LENGTH(small_source),
             &larger_bag
         );
@@ -134,20 +134,20 @@ void test__map_ledc_led_array__to__led_domain_bag__given_larger_target_array__pa
 
 // ---------------------------------------------------------------------------
 
-void test__map_rgb_ledc_led__to__rgb_led_domain__given_null_inputs__throws() {
+void test__map_rgb_ledc_led__to__rgb_led_diode__given_null_inputs__throws() {
     const struct ledc_rgb_led_t dummy_source_led = {};
     rgb_led_diode_t dummy_target_led = {};
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_rgb_ledc_led__to__rgb_led_domain(NULL, &dummy_target_led);
+        map_rgb_ledc_led__to__rgb_led_diode(NULL, &dummy_target_led);
     });
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_rgb_ledc_led__to__rgb_led_domain(&dummy_source_led, NULL);
+        map_rgb_ledc_led__to__rgb_led_diode(&dummy_source_led, NULL);
     });
 }
 
-void test__map_rgb_ledc_led__to__rgb_led_domain() {
+void test__map_rgb_ledc_led__to__rgb_led_diode() {
     rgb_led_diode_t target_led = { };
     const struct ledc_rgb_led_t source_led = {
         .id = 99,
@@ -158,7 +158,7 @@ void test__map_rgb_ledc_led__to__rgb_led_domain() {
         .name = "testrgbled"
     };
 
-    map_rgb_ledc_led__to__rgb_led_domain(&source_led, &target_led);
+    map_rgb_ledc_led__to__rgb_led_diode(&source_led, &target_led);
 
     TEST_ASSERT_EQUAL(source_led.id, target_led.id);
     TEST_ASSERT_EQUAL(source_led.red.id, target_led.red.id);
@@ -168,7 +168,7 @@ void test__map_rgb_ledc_led__to__rgb_led_domain() {
 
 // ------------------------------------------------------------------------
 
-void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throws() {
+void test_map_rgb_ledc_led_array__to__rgb_led_diode_bag__given_null_input_throws() {
     struct ledc_rgb_led_t dummy_source_leds[1];
     rgb_led_diode_t dummy_domain_leds[1];
     rgb_led_diode_bag_t dummy_bag = {
@@ -177,11 +177,11 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throw
     };
     
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_rgb_ledc_led_array__to__rgb_led_domain_bag(NULL, 0, &dummy_bag);
+        map_rgb_ledc_led_array__to__rgb_led_diode_bag(NULL, 0, &dummy_bag);
     });
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
-        map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+        map_rgb_ledc_led_array__to__rgb_led_diode_bag(
             dummy_source_leds,
             ARRAY_LENGTH(dummy_source_leds),
             NULL
@@ -190,7 +190,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throw
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
         dummy_bag.leds = NULL;
-        map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+        map_rgb_ledc_led_array__to__rgb_led_diode_bag(
             dummy_source_leds,
             ARRAY_LENGTH(dummy_source_leds),
             &dummy_bag
@@ -198,7 +198,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throw
     });
 }
 
-void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_too_small_target_throws() {
+void test_map_rgb_ledc_led_array__to__rgb_led_diode_bag__given_too_small_target_throws() {
     struct ledc_rgb_led_t dummy_source_leds[2];
     rgb_led_diode_bag_t dummy_bag = {
         .is_initialized = true,
@@ -207,7 +207,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_too_small_target
     };
 
     TEST_ASSERT_THROWS(ERROR_CODE_INSUFFICIENT_BUFFER, {
-        map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+        map_rgb_ledc_led_array__to__rgb_led_diode_bag(
             dummy_source_leds,
             ARRAY_LENGTH(dummy_source_leds),
             &dummy_bag
@@ -226,7 +226,7 @@ static struct ledc_rgb_led_t _build_dummy_ledc_rgb_led() {
     };
 }
 
-void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag() {
+void test_map_rgb_ledc_led_array__to__rgb_led_diode_bag() {
     struct ledc_rgb_led_t source_leds[2] = {
         _build_dummy_ledc_rgb_led(),
         _build_dummy_ledc_rgb_led()
@@ -238,7 +238,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag() {
         .count = 2
     };
     
-     map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+     map_rgb_ledc_led_array__to__rgb_led_diode_bag(
         source_leds,
         ARRAY_LENGTH(source_leds),
         &target_bag
@@ -260,18 +260,19 @@ int main()
     UNITY_BEGIN();
 
     TEST_ASSERT_THROWS_NOT({
-        RUN_TEST(test__map_ledc_led__to__led_domain__given_null__throws);
-        RUN_TEST(test_map_ledc_led__to__led_domain);
+        // TODO: fix renamings that VSCode missedin the fulltext search post refactoring
+        RUN_TEST(test__map_ledc_led__to__led_diode__given_null__throws);
+        RUN_TEST(test_map_ledc_led__to__led_diode);
         //
-        RUN_TEST(test__map_ledc_led_array__to__led_domain_bag__given_null_array__throws);
-        RUN_TEST(test__map_ledc_led_array__to__led_domain_bag__given_smaller_target_array__throws);
+        RUN_TEST(test__map_ledc_led_array__to__led_diode_bag__given_null_array__throws);
+        RUN_TEST(test__map_ledc_led_array__to__led_diode_bag__given_smaller_target_array__throws);
         //
-        RUN_TEST(test__map_rgb_ledc_led__to__rgb_led_domain__given_null_inputs__throws);
-        RUN_TEST(test__map_rgb_ledc_led__to__rgb_led_domain);
+        RUN_TEST(test__map_rgb_ledc_led__to__rgb_led_diode__given_null_inputs__throws);
+        RUN_TEST(test__map_rgb_ledc_led__to__rgb_led_diode);
         //
-        RUN_TEST(test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throws);
-        RUN_TEST(test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_too_small_target_throws);
-        RUN_TEST(test_map_rgb_ledc_led_array__to__rgb_led_domain_bag);
+        RUN_TEST(test_map_rgb_ledc_led_array__to__rgb_led_diode_bag__given_null_input_throws);
+        RUN_TEST(test_map_rgb_ledc_led_array__to__rgb_led_diode_bag__given_too_small_target_throws);
+        RUN_TEST(test_map_rgb_ledc_led_array__to__rgb_led_diode_bag);
     });
 
     return UNITY_END();

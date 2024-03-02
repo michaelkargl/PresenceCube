@@ -1,6 +1,6 @@
 #include "get_led_repository.h"
 #include "led_store.h"
-#include "map_ledc_led__led_domain.h"
+#include "map_ledc_led__led_diode.h"
 #include "throwing_helpers.h"
 #include "logger.h"
 
@@ -18,7 +18,7 @@ static rgb_led_diode_bag_t led_bag = {
 
 const rgb_led_diode_bag_t *get_led_repository__get_leds()
 {
-    map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+    map_rgb_ledc_led_array__to__rgb_led_diode_bag(
         led_store__get_leds(),
         led_store__get_led_count(),
         &led_bag);

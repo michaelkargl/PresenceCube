@@ -1,5 +1,5 @@
 #pragma once
-#include "led_domain_bag.h"
+#include "led_diode_bag.h"
 #include "rgb_led_diode.h"
 #include "ledc_rgb_led_t.h"
 
@@ -10,7 +10,7 @@
  * @return led_diode_t a new @ref led_diode_t mapping of @ref led.
  * @exception ERROR_CODE_ARGUMENT_NULL if the input @ref led is NULL.
  */
-led_diode_t map_ledc_led__to__led_domain(const struct ledc_led_t *led);
+led_diode_t map_ledc_led__to__led_diode(const struct ledc_led_t *led);
 
 
 /**
@@ -24,9 +24,9 @@ led_diode_t map_ledc_led__to__led_domain(const struct ledc_led_t *led);
  * @exception ERROR_CODE_ARGUMENT_NULL if either @ref source_leds or @ref target_led_bag is NULL.
  * @exception ERROR_CODE_INSUFFICIENT_BUFFER if the @ref target_led_bag is not big enough to hold all the mappings of @ref source_leds.
  */
-void map_ledc_led_array__to__led_domain_bag(
+void map_ledc_led_array__to__led_diode_bag(
     const struct ledc_led_t source_leds[], uint8_t source_led_count,
-    led_domain_bag_t *target_led_bag
+    led_diode_bag_t *target_led_bag
 );
 
 
@@ -38,7 +38,7 @@ void map_ledc_led_array__to__led_domain_bag(
  * @param target_led a reference to the target who shall receive the mapping result
  * @exception ERROR_CODE_ARGUMENT_NULL if either @ref source_led or @target_led is NULL
  */
-void map_rgb_ledc_led__to__rgb_led_domain(
+void map_rgb_ledc_led__to__rgb_led_diode(
     const struct ledc_rgb_led_t* source_led,
     rgb_led_diode_t* target_led
 );
@@ -55,7 +55,7 @@ void map_rgb_ledc_led__to__rgb_led_domain(
  * @exception ERROR_CODE_INSUFFICIENT_BUFFER if the @ref target_leds bag is too small to hold all the mappings of @ref source_leds.
  * @exception ERROR_CODE_ARGUMENT_NULL if either @ref source_leds, @ref target_leds is NULL or the bag points to a NULL led array.
  */
-void map_rgb_ledc_led_array__to__rgb_led_domain_bag(
+void map_rgb_ledc_led_array__to__rgb_led_diode_bag(
     const struct ledc_rgb_led_t * source_leds, uint8_t source_leds_size,
     rgb_led_diode_bag_t* target_leds
 );

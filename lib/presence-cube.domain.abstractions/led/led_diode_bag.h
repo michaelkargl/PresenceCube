@@ -4,4 +4,4 @@
 typedef struct {
     led_diode_t *leds;
     uint8_t count;
-} led_domain_bag_t;
+} led_diode_bag_t;
