@@ -51,7 +51,7 @@ static void test_get_led__given_unknown_id__returns_null()
 
 static void test_get_led__given_known_id__returns_led()
 {
-    const rgb_led_domain_t *led = led_store__get_led(_known_led_id);
+    const rgb_led_diode_t *led = led_store__get_led(_known_led_id);
 
     TEST_ASSERT_NOT_NULL(led);
     TEST_ASSERT_TRUE(led->is_initialized);
@@ -61,13 +61,13 @@ static void test_get_led__given_known_id__returns_led()
 
 void test_update_led__given_valid_id__mutates_state()
 {
-    const rgb_led_domain_t mutated_led = {
+    const rgb_led_diode_t mutated_led = {
         .id = _known_led_id,
         .red = {.brightness_percent = 99},
         .green = {.brightness_percent = 89},
         .blue = {.brightness_percent = 79}};
 
-    const rgb_led_domain_t *led = led_store__get_led(_known_led_id);
+    const rgb_led_diode_t *led = led_store__get_led(_known_led_id);
     TEST_ASSERT_NOT_EQUAL(mutated_led.red.brightness_percent, led->red.brightness_percent);
     TEST_ASSERT_NOT_EQUAL(mutated_led.green.brightness_percent, led->green.brightness_percent);
     TEST_ASSERT_NOT_EQUAL(mutated_led.blue.brightness_percent, led->blue.brightness_percent);

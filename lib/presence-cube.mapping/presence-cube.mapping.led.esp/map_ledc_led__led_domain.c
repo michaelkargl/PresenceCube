@@ -67,7 +67,7 @@ void map_ledc_led_array__to__led_domain_bag(
 
 void map_rgb_ledc_led__to__rgb_led_domain(
     const struct ledc_rgb_led_t* source_led,
-    rgb_led_domain_t* target_led
+    rgb_led_diode_t* target_led
 ) {
     THROW_ARGUMENT_NULL_IF_NULL(source_led);
     THROW_ARGUMENT_NULL_IF_NULL(target_led);

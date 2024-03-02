@@ -5,8 +5,8 @@
 #include "fff.h"
 
 DEFINE_FFF_GLOBALS
-FAKE_VOID_FUNC1(fff_update_led, rgb_led_domain_t);
-FAKE_VALUE_FUNC1(const rgb_led_domain_t *, fff_get_led, uint8_t);
+FAKE_VOID_FUNC1(fff_update_led, rgb_led_diode_t);
+FAKE_VALUE_FUNC1(const rgb_led_diode_t *, fff_get_led, uint8_t);
 
 extern led_store__update_func_t set_led_repository__led_store__update_led;
 extern led_store__get_led_func_t set_led_repository__led_store__get_led;
@@ -16,7 +16,7 @@ static const uint8_t _unknown_led_id = 255;
 static const uint8_t _dummy_id = 255;
 static const uint8_t _dummy_color = 50;
 
-static rgb_led_domain_t valid_led = {
+static rgb_led_diode_t valid_led = {
     .is_initialized = true,
     .id = _known_led_id,
     .red = {.id = 10, .brightness_percent = 10},

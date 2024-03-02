@@ -1,5 +1,5 @@
 #pragma once
-#include "rgb_led_domain.h"
+#include "rgb_led_diode.h"
 
 typedef struct {
     // A bag filled with LEDs.

@@ -32,7 +32,7 @@ bool rgb_ledc_adapter__initialized()
 }
 
 void rgb_ledc_adapter__set_color(
-    const rgb_led_domain_t *led,
+    const rgb_led_diode_t *led,
     uint8_t percent_red,
     uint8_t percent_green,
     uint8_t percent_blue)

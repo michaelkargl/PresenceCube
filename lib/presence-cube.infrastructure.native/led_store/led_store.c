@@ -14,7 +14,7 @@
  */
 static rgb_led_domain_bag_t registered_leds = {
     .count = LED_STORE__LED_COUNT,
-    .leds = (rgb_led_domain_t[LED_STORE__LED_COUNT]){}};
+    .leds = (rgb_led_diode_t[LED_STORE__LED_COUNT]){}};
 
 static const led_diode_t build_led(uint8_t id, const char *name)
 {
@@ -27,9 +27,9 @@ static const led_diode_t build_led(uint8_t id, const char *name)
     return led;
 }
 
-static const rgb_led_domain_t build_rgb_led(uint8_t id, const char *name)
+static const rgb_led_diode_t build_rgb_led(uint8_t id, const char *name)
 {
-    rgb_led_domain_t led = {
+    rgb_led_diode_t led = {
         .is_initialized = true,
         .id = id,
         .red = build_led(0, "red"),
@@ -48,7 +48,7 @@ bool led_store__initialized()
 void led_store__initialize()
 {
     LOG_INFORMATION("Initializing module...");
-    rgb_led_domain_t leds[LED_STORE__LED_COUNT] = {
+    rgb_led_diode_t leds[LED_STORE__LED_COUNT] = {
         build_rgb_led(0, "east"),
         build_rgb_led(1, "west")};
 
@@ -62,14 +62,14 @@ const rgb_led_domain_bag_t *led_store__get_leds()
     return &registered_leds;
 }
 
-const rgb_led_domain_t *led_store__get_led(uint8_t id)
+const rgb_led_diode_t *led_store__get_led(uint8_t id)
 {
     ENSURE_MODULE_INITIALIZED();
 
     const rgb_led_domain_bag_t *led_bag = led_store__get_leds();
     for (uint8_t i = 0; i < led_bag->count; i++)
     {
-        rgb_led_domain_t *led = led_bag->leds + i;
+        rgb_led_diode_t *led = led_bag->leds + i;
         if (led->id == id)
         {
             return led;
@@ -79,11 +79,11 @@ const rgb_led_domain_t *led_store__get_led(uint8_t id)
     return NULL;
 }
 
-void led_store__update(rgb_led_domain_t led)
+void led_store__update(rgb_led_diode_t led)
 {
     ENSURE_MODULE_INITIALIZED();
 
-    rgb_led_domain_t *mutatable_led = (rgb_led_domain_t *)led_store__get_led(led.id);
+    rgb_led_diode_t *mutatable_led = (rgb_led_diode_t *)led_store__get_led(led.id);
     THROW_RESOURCE_NOT_FOUND_IF_NULL(mutatable_led, "Physical led %u could not be found.", led.id);
 
     LOG_INFORMATION(

@@ -25,7 +25,7 @@ void test_json_stringify__get_led_query_response_t__serializes_to_json()
     rgb_led_domain_bag_t led_bag = {
         .is_initialized = true,
         .count = 2,
-        .leds = (rgb_led_domain_t[]){
+        .leds = (rgb_led_diode_t[]){
             {.id = 5, .display_name = "test1"},
             {.id = 6, .display_name = "test2"}}};
 
@@ -41,7 +41,7 @@ void test_json_stringify__get_led_query_response_t__serializes_to_json()
     
     for (uint8_t i = 0; i < response.led_bag->count; i++)
     {
-        rgb_led_domain_t expected_led = response.led_bag->leds[i];
+        rgb_led_diode_t expected_led = response.led_bag->leds[i];
 
         cJSON *actual_led = cJSON_GetArrayItem(_json_led_array, i);
         TEST_ASSERT_NOT_NULL(actual_led);

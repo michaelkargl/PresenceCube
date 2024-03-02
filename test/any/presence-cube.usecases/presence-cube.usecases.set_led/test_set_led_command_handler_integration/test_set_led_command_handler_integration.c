@@ -21,7 +21,7 @@ void test_handle__success()
         .green = 50,
         .blue = 75};
 
-    const rgb_led_domain_t *led = get_led_repository__get_led(_known_led_id);
+    const rgb_led_diode_t *led = get_led_repository__get_led(_known_led_id);
     TEST_ASSERT_NOT_NULL(led);
     TEST_ASSERT_NOT_EQUAL(command.red, led->red.brightness_percent);
     TEST_ASSERT_NOT_EQUAL(command.green, led->green.brightness_percent);

@@ -136,7 +136,7 @@ void test__map_ledc_led_array__to__led_domain_bag__given_larger_target_array__pa
 
 void test__map_rgb_ledc_led__to__rgb_led_domain__given_null_inputs__throws() {
     const struct ledc_rgb_led_t dummy_source_led = {};
-    rgb_led_domain_t dummy_target_led = {};
+    rgb_led_diode_t dummy_target_led = {};
 
     TEST_ASSERT_THROWS(ERROR_CODE_ARGUMENT_NULL, {
         map_rgb_ledc_led__to__rgb_led_domain(NULL, &dummy_target_led);
@@ -148,7 +148,7 @@ void test__map_rgb_ledc_led__to__rgb_led_domain__given_null_inputs__throws() {
 }
 
 void test__map_rgb_ledc_led__to__rgb_led_domain() {
-    rgb_led_domain_t target_led = { };
+    rgb_led_diode_t target_led = { };
     const struct ledc_rgb_led_t source_led = {
         .id = 99,
         .red = build_2level_led(true),
@@ -170,7 +170,7 @@ void test__map_rgb_ledc_led__to__rgb_led_domain() {
 
 void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_null_input_throws() {
     struct ledc_rgb_led_t dummy_source_leds[1];
-    rgb_led_domain_t dummy_domain_leds[1];
+    rgb_led_diode_t dummy_domain_leds[1];
     rgb_led_domain_bag_t dummy_bag = {
         .count = ARRAY_LENGTH(dummy_domain_leds),
         .leds = dummy_domain_leds
@@ -202,7 +202,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag__given_too_small_target
     struct ledc_rgb_led_t dummy_source_leds[2];
     rgb_led_domain_bag_t dummy_bag = {
         .is_initialized = true,
-        .leds = (rgb_led_domain_t[1]){},
+        .leds = (rgb_led_diode_t[1]){},
         .count = 1
     };
 
@@ -234,7 +234,7 @@ void test_map_rgb_ledc_led_array__to__rgb_led_domain_bag() {
 
     rgb_led_domain_bag_t target_bag = {
         .is_initialized = true,
-        .leds = (rgb_led_domain_t[2]){},
+        .leds = (rgb_led_diode_t[2]){},
         .count = 2
     };
     

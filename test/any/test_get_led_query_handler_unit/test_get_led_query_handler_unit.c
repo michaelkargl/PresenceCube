@@ -9,7 +9,7 @@ extern const rgb_led_domain_bag_t *(*get_led_query_handler__led_repository__get_
 
 static const rgb_led_domain_bag_t _valid_led_bag = {
     .count = 2,
-    .leds = (rgb_led_domain_t[]){
+    .leds = (rgb_led_diode_t[]){
         {.id = 0, .display_name = "t1"},
         {.id = 1, .display_name = "t2"},
     }};

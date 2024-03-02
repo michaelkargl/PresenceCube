@@ -14,7 +14,7 @@ set_led_repository__update_led_func_t _set_led_command__set_led_repository__upda
 
 set_led_command_response_t set_led_command_handler__handle(const set_led_command_t command)
 {
-    const rgb_led_domain_t *led = _set_led_command__get_led_fn(command.id);
+    const rgb_led_diode_t *led = _set_led_command__get_led_fn(command.id);
     THROW_RESOURCE_NOT_FOUND_IF_NULL(led, "A LED with id=%u could not be found.", command.id);
 
     _set_led_command__set_color_fn(led, command.red, command.green, command.blue);

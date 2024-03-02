@@ -12,7 +12,7 @@
 //
 
 static rgb_led_domain_bag_t led_bag = {
-    .leds = (rgb_led_domain_t[GET_LED_REPOSITORY__LED_BAG_SIZE]){},
+    .leds = (rgb_led_diode_t[GET_LED_REPOSITORY__LED_BAG_SIZE]){},
     .count = GET_LED_REPOSITORY__LED_BAG_SIZE,
     .is_initialized = true};
 
@@ -25,7 +25,7 @@ const rgb_led_domain_bag_t *get_led_repository__get_leds()
     return &led_bag;
 }
 
-const rgb_led_domain_t *get_led_repository__get_led(uint8_t id)
+const rgb_led_diode_t *get_led_repository__get_led(uint8_t id)
 {
     const rgb_led_domain_bag_t *led_bag = get_led_repository__get_leds();
     THROW_IF_TRUTHY(
@@ -37,7 +37,7 @@ const rgb_led_domain_t *get_led_repository__get_led(uint8_t id)
 
     for (uint8_t i = 0; i < led_bag->count; i++)
     {
-        rgb_led_domain_t *led = led_bag->leds + i;
+        rgb_led_diode_t *led = led_bag->leds + i;
         if (led->id == id)
         {
             return led;

@@ -1,5 +1,5 @@
 #pragma once
-#include "rgb_led_domain.h"
+#include "rgb_led_diode.h"
 #include "rgb_ledc_adapter_func.h"
 
 /**
@@ -25,7 +25,7 @@ bool rgb_ledc_adapter__initialized();
  * @exception ERROR_CODE_UNINITIALIZED_MODULE_ACCESS if the module has not been initialized.
  */
 void rgb_ledc_adapter__set_color(
-    const rgb_led_domain_t *led,
+    const rgb_led_diode_t *led,
     uint8_t percent_red,
     uint8_t percent_green,
     uint8_t percent_blue);

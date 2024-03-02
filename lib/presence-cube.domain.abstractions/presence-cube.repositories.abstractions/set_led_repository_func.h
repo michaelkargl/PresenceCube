@@ -1,5 +1,5 @@
 #pragma once
-#include "rgb_led_domain.h"
+#include "rgb_led_diode.h"
 
 /**
   @brief Represents the @ref set_led_repository__update_led function of the  @ref set_led_repository api.

@@ -50,7 +50,7 @@ static void print_led_states()
     LOG_DEBUG("Queried a list of %i leds\n", response.led_bag->count);
     for (uint8_t i = 0; i < response.led_bag->count; i++)
     {
-        rgb_led_domain_t led = response.led_bag->leds[i];
+        rgb_led_diode_t led = response.led_bag->leds[i];
         LOG_DEBUG(
             "  Led %u %s has color (%u, %u, %u)%%.",
             led.id,

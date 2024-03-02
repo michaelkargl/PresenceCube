@@ -8,19 +8,19 @@ extern led_store__get_led_func_t get_led_repository__get_led_fn;
 extern led_store__get_leds_func_t get_led_repository__get_leds_fn;
 
 DEFINE_FFF_GLOBALS
-FAKE_VALUE_FUNC1(const rgb_led_domain_t *, fff_get_led, uint8_t);
+FAKE_VALUE_FUNC1(const rgb_led_diode_t *, fff_get_led, uint8_t);
 FAKE_VALUE_FUNC0(const rgb_led_domain_bag_t *, fff_get_leds);
 
 static uint8_t unknown_led_id = 255;
 static uint8_t known_led_id = 1;
 static const rgb_led_domain_bag_t _known_leds = {
     .count = 2,
-    .leds = (rgb_led_domain_t[2]){
+    .leds = (rgb_led_diode_t[2]){
         // to keep things simpler: index == id
         {.id = 0, .display_name = "t0"},
         {.id = 1, .display_name = "t1"}}};
 
-static const rgb_led_domain_t *get_known_led()
+static const rgb_led_diode_t *get_known_led()
 {
     return &_known_leds.leds[known_led_id];
 }
@@ -48,14 +48,14 @@ void test_function_pointer_compatibility_with_exposed_api()
 void test_get_led__given_invalid_id__returns_null()
 {
     fff_get_led_fake.return_val = NULL;
-    const rgb_led_domain_t *result = get_led_repository__get_led(unknown_led_id);
+    const rgb_led_diode_t *result = get_led_repository__get_led(unknown_led_id);
     TEST_ASSERT_NULL(result);
 }
 
 void test_get_led__given_valid_id__returns_led()
 {
-    const rgb_led_domain_t *known_led = get_known_led();
-    const rgb_led_domain_t *result = get_led_repository__get_led(known_led->id);
+    const rgb_led_diode_t *known_led = get_known_led();
+    const rgb_led_diode_t *result = get_led_repository__get_led(known_led->id);
 
     TEST_ASSERT_NOT_NULL(result);
     TEST_ASSERT_EQUAL_PTR(known_led, result);

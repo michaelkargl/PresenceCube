@@ -1,6 +1,6 @@
 #pragma once
 #include "led_domain_bag.h"
-#include "rgb_led_domain.h"
+#include "rgb_led_diode.h"
 #include "ledc_rgb_led_t.h"
 
 /**
@@ -32,7 +32,7 @@ void map_ledc_led_array__to__led_domain_bag(
 
 
 /**
- * @brief Maps the given source led to a target of type @ref rgb_led_domain_t
+ * @brief Maps the given source led to a target of type @ref rgb_led_diode_t
  * 
  * @param source_led the source led instance to map to target
  * @param target_led a reference to the target who shall receive the mapping result
@@ -40,7 +40,7 @@ void map_ledc_led_array__to__led_domain_bag(
  */
 void map_rgb_ledc_led__to__rgb_led_domain(
     const struct ledc_rgb_led_t* source_led,
-    rgb_led_domain_t* target_led
+    rgb_led_diode_t* target_led
 );
 
 

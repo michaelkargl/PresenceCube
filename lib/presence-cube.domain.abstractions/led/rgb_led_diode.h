@@ -25,7 +25,7 @@ typedef struct
     led_diode_t red;   // Red LED of the RGB LED
     led_diode_t green; // Green LED of the RGB LED
     led_diode_t blue;  // Blue LED of the RGB LED
-} rgb_led_domain_t;
+} rgb_led_diode_t;
 
 /**
  * @brief a bag filled with RGB LED diodes. A bag does
@@ -35,6 +35,6 @@ typedef struct
 typedef struct
 {
     INITIALIZABLE_STRUCT;
-    rgb_led_domain_t *leds; // An array of RGB LEDs
+    rgb_led_diode_t *leds; // An array of RGB LEDs
     uint8_t count;          // The size of the RGB LED array
 } rgb_led_domain_bag_t;

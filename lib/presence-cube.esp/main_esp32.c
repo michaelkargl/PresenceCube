@@ -67,7 +67,7 @@ static void set_leds(
 {
     for (uint8_t i = 0; i < led_bag->count; i++)
     {
-        rgb_led_domain_t led = led_bag->leds[i];
+        rgb_led_diode_t led = led_bag->leds[i];
         set_led_command_handler__handle((set_led_command_t){
             .id = led.id,
             .red = red_percent,

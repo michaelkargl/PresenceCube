@@ -19,7 +19,7 @@ FAKE_VOID_FUNC5(
     int,
     uint32_t);
 
-static const rgb_led_domain_t _dummy_domain_led = {};
+static const rgb_led_diode_t _dummy_domain_led = {};
 static const uint8_t _dummy_color = 12;
 static const uint8_t _dummy_id = 32;
 static const uint8_t _known_led_id = 33;

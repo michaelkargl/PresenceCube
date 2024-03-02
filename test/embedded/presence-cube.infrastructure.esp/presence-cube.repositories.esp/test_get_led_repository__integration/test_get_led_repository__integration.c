@@ -25,7 +25,7 @@ void test_get_leds__all_leds_are_initialized()
     TEST_ASSERT_TRUE(led_bag->is_initialized);
 
     for(uint8_t i = 0; i < led_bag->count; i++) {
-        rgb_led_domain_t led = led_bag->leds[i];
+        rgb_led_diode_t led = led_bag->leds[i];
         TEST_ASSERT_TRUE(led.is_initialized);
         TEST_ASSERT_GREATER_THAN(0, led.id);
         TEST_ASSERT_GREATER_THAN(0, led.id);

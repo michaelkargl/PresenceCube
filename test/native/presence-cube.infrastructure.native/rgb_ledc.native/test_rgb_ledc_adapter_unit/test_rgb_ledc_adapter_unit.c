@@ -2,7 +2,7 @@
 #include "rgb_ledc_adapter.h"
 #include "assertion_helpers.h"
 
-static const rgb_led_domain_t _dummy_domain_led = {};
+static const rgb_led_diode_t _dummy_domain_led = {};
 static const uint8_t _dummy_color = 12;
 
 static void test_function_pointer_compatibility()
