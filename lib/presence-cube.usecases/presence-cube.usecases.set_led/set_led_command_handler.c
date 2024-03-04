@@ -5,7 +5,13 @@
 #include "rgb_ledc_adapter.h"
 #include "stddef.h"
 
-// TODO: configure using menuconfig
+// TODO: Create a configuration module to configure this
+//       There's no menuconfig for native, therefore, since this is a shared library
+//       we can not directly use it without either hacking our way towards it or
+//       or creating a better abstraction. A configuration module would also make
+//       the resolving of choices more DRY => handle this in a ticket
+//       Also clarify the memory impact of this design decision and decide whether
+//       we want to use this only for shared libraries or throughout natvie/embedded
 #define LED_FADE_MILLISECONDS 1000
 
 get_led_repository__get_led_func_t _set_led_command__get_led_fn = get_led_repository__get_led;

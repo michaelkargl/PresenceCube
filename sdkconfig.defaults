@@ -176,6 +176,7 @@ CONFIG_ESP_WIFI_PASSWORD=""
 # Hardware Characteristics
 #
 CONFIG_CUBE_HARDWARE_RGB_LED_COUNT=2
+CONFIG_HARDWARE_RGB_LED_TYPE_COMMON_ANODE=y
 # end of Hardware Characteristics
 # end of Presence Cube
 

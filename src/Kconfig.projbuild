@@ -1,7 +1,6 @@
 menu "Presence Cube"
 
 	menu "Light Control"
-
 		menu "RGBA East"
 			config RGBA_EAST_RED_CHANNEL_PIN
 				int "Red PWM channel pin"
@@ -78,5 +77,14 @@ menu "Presence Cube"
 		range 0 128
 		default 0
 
+		choice HARDWARE_RGB_LED_TYPE
+			prompt "LED Type"
+			config HARDWARE_RGB_LED_TYPE_COMMON_ANODE
+				bool "Common Anode"
+			config HARDWARE_RGB_LED_TYPE_COMMON_CATHODE
+				bool "Common Cathode"
+			help
+				This includes both LED diodes EAST and WEST
+		endchoice
 	endmenu
 endmenu

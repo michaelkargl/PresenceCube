@@ -8,14 +8,18 @@
     led_store__initialized(),                       \
     "An attempt was made to access an uninitialized module: led_store.");
 
-// TODO: create menu config entry for that
-#define RGBA_EAST_LED_TYPE (LED_TYPE__COMMON_ANODE)
+// TODO: validate this working by testing it out at runtime (vscode is unreliable)
+#ifdef HARDWARE_RGB_LED_TYPE_COMMON_ANODE
+#define RGBA_LED_TYPE LED_TYPE__COMMON_ANODE
+#else
+#define RGBA_LED_TYPE LED_TYPE__COMMON_CATHODE
+#endif
+
 #define RGBA_EAST_RED_GPIO_PIN (CONFIG_RGBA_EAST_RED_CHANNEL_PIN)
 #define RGBA_EAST_GREEN_GPIO_PIN (CONFIG_RGBA_EAST_GREEN_CHANNEL_PIN)
 #define RGBA_EAST_BLUE_GPIO_PIN (CONFIG_RGBA_EAST_BLUE_CHANNEL_PIN)
+
 #define RGBA_WEST_RED_GPIO_PIN (CONFIG_RGBA_WEST_RED_CHANNEL_PIN)
-// TODO: create menu config entry for that
-#define RGBA_WEST_LED_TYPE (LED_TYPE__COMMON_ANODE)
 #define RGBA_WEST_GREEN_GPIO_PIN (CONFIG_RGBA_WEST_GREEN_CHANNEL_PIN)
 #define RGBA_WEST_BLUE_GPIO_PIN (CONFIG_RGBA_WEST_BLUE_CHANNEL_PIN)
 #define LED_STORE__RGB_LED_COUNT CONFIG_CUBE_HARDWARE_RGB_LED_COUNT
@@ -65,8 +69,7 @@ static struct ledc_rgb_led_t build_ledc_rgb_led_east()
             .red = RGBA_EAST_RED_GPIO_PIN,
             .green = RGBA_EAST_GREEN_GPIO_PIN,
             .blue = RGBA_EAST_BLUE_GPIO_PIN},
-        RGBA_EAST_LED_TYPE
-    );
+        RGBA_LED_TYPE);
 }
 
 static struct ledc_rgb_led_t build_ledc_rgb_led_west()
@@ -82,8 +85,7 @@ static struct ledc_rgb_led_t build_ledc_rgb_led_west()
             .red = RGBA_WEST_RED_GPIO_PIN,
             .green = RGBA_WEST_GREEN_GPIO_PIN,
             .blue = RGBA_WEST_BLUE_GPIO_PIN},
-        RGBA_WEST_LED_TYPE
-    );
+        RGBA_LED_TYPE);
 }
 
 static bool all_leds_initialized()
@@ -151,7 +153,7 @@ static bool try_get_index_of_led(uint8_t id, uint8_t *out_index)
 struct ledc_rgb_led_t *led_store__get_led(uint8_t id)
 {
     ENSURE_MODULE_INITIALIZED();
-    
+
     uint8_t index = 0;
     if (!try_get_index_of_led(id, &index))
     {
