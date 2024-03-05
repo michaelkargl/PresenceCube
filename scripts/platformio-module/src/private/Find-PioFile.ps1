@@ -21,7 +21,7 @@ Function Find-PioFile
         [string] $SearchPath
     )
 
-    Write-Debug "Attempting to find command $CommandName in path $SearchPath";
+    Write-Debug "Attempting to find command '$CommandName' in path $SearchPath";
     $CommandPath = Get-ChildItem `
         -Recurse -File `
         -LiteralPath $SearchPath `

@@ -10,6 +10,11 @@
 $script:ScriptDirectory = $PSScriptRoot
 $script:PesterInstallScript = Join-Path -Resolve $script:ScriptDirectory 'platformio-module/Install-Pester.ps1'
 
+# TODO: make pester a dependency of the module
 & $script:PesterInstallScript
 
+
 Invoke-Pester -Path $script:ScriptDirectory
+if ($LASTEXITCODE -ne 0) {
+    Throw "$LASTEXITCODE tests are failing"
+}

@@ -33,7 +33,7 @@ Function Find-PioCommand {
     )
 
     try {
-        Write-Debug "Attempting to find path $CommandName in registered paths"
+        Write-Debug "Attempting to find command '$CommandName' in registered paths"
         $Command = Get-Command $CommandName -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty 'Path'
         if ($Command) {
             Write-Debug "Command registered: $Command"

@@ -8,5 +8,6 @@
  *        false-positive states and provides oportunities
  *        for more fine-grained error checking.
  * @todo // TODO #119: move to global helper in case this proves useful
+ *                     (do this after the module refactoring)
  */
 #define INITIALIZABLE_STRUCT bool is_initialized;

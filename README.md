@@ -55,27 +55,30 @@ The functionality of the cube is intended to be a form of information cube. It i
 
 ### Development Environment
 
-The project uses [PlatformIO](https://platformio.org/) so you will have to install the VSCode plugins. After opening the project, VSCode should offer you to install all recommended plugins. If it does not, please refer to the PlatformIO setup documentation for up-to-date install instructions.
+The project uses [PlatformIO](https://platformio.org/) so you will have to install the a PlatformIO supported IDE and the corresponsing plugin.
+
+Choosing VSCode, opening the folder should prompt you with all the recommended plugins automatically. If it does not, please refer to the [PlatformIO] documentation and the projects [.vscode/extensions.json] up-to-date install instructions.
+
+[.vscode/extensions.json]: ./.vscode/extensions.json
 
 ### Filesystem with fonts
 
-To display text onto the display, fonts need to be available to the device. These are stored on its filesystem. This step needs to be done only once with the device plugged in.
+To display text onto the display, fonts need to be available to the device. These are stored on the devices filesystem. To flash the fonts onto the devices flash, plug in the device and exectute these steps once
 
-Build and upload filesystem image
-
-1. Open PlatformIO CLI
-
-1. ```powershell
-   platformio run --target buildfs --environment esp32
-   platformio run --target uploadfs --environment esp32
-   ```
+```powershell
+./invoke-pio.ps1 run --target buildfs --environment esp32
+./invoke-pio.ps1 run --target uploadfs --environment esp32
+```
 
 ### Configuration
 
 ## Usage configuration
 
 Configuration is done using Platform IO's menuconfig command. Use the IDE or the pio command
-`platformio run --target menuconfig`
+
+```powershell
+./invoke-pio.ps1 run --target menuconfig
+```
 
 > In some cases the arrow keys aren't working. Use alternative `J`,`K` bindings
 > ![Configuration settings](./images/configurations.jpg)

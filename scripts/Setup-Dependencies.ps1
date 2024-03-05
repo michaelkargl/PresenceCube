@@ -39,7 +39,7 @@ Function Find-ConfigurationFiles {
     }
 }
 
-Function Concatenate-ConfigurationFile {
+Function Join-ConfigurationFile {
     PARAM(
         [Parameter(Mandatory)]
         [String]$Path,
@@ -73,4 +73,4 @@ Function Concatenate-ConfigurationFile {
     $LibraryPath,
     $ConfigPath
 ) | Find-ConfigurationFiles -Recurse `
-  | Concatenate-ConfigurationFile -Verbose -Path $ConfigurationPath
+  | Join-ConfigurationFile -Verbose -Path $ConfigurationPath

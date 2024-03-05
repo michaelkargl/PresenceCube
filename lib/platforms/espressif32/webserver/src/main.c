@@ -15,7 +15,8 @@ static const char *LOGGING_TAG = "main";
 
 esp_err_t app_main()
 {   
-    printf("Hello Webserver");
+    // TODO: use logger instead of ESP specific macros
+    ESP_LOGI(LOGGING_TAG, "Hello Webserver");
 
     initialize_non_volatile_storage(); // wifi requirement
 

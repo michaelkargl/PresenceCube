@@ -7,17 +7,17 @@ $script:TargetEnvironment = 'native-dev'
 
 Import-Module $PioModulePath -Force
 
-try
-{
-    # developer obviously does development => switch default environment to force the IDE to use native intellisense
-    Set-PioDefaultEnv -PlatformioIniPath $PlatformIoIniPath `
-                      -Environment $script:TargetEnvironment `
-                      -ErrorAction Stop
-    Build-PioEnvironment -Environments $script:TargetEnvironment
-}
-catch
-{
-    Throw
-}
+# developer obviously does development => switch default environment to force the IDE to use native intellisense
+Set-PioDefaultEnv `
+    -PlatformioIniPath $PlatformIoIniPath `
+    -Environment $script:TargetEnvironment `
+    -ErrorAction Stop
+
+# refresh intellisense
+Invoke-Pio project init --ide vscode
+
+Build-PioEnvironment `
+    -Environments $script:TargetEnvironment `
+    -ErrorAction Stop
 
 & "./.pio/build/$script:TargetEnvironment/program"

@@ -4,11 +4,13 @@
 #include "hagl_extensions.h"
 #include "logger.h"
 
-// TODO: move configuration into separate header file
+// TODO: move make this configurable via menuconfig
 #define LOGGER_TAG "hud_controller"
 #define REQUEST_PAYLOAD_BUFFER_SIZE 128
 #define ERROR_BUFFER_SIZE 128
 
+
+// TODO: static?
 esp_err_t POST_hud_handler(httpd_req_t *req);
 static esp_err_t OPTIONS_handler(httpd_req_t *req);
 
@@ -20,6 +22,9 @@ static const httpd_uri_t endpoints[] = {
      .method = HTTP_OPTIONS,
      .handler = OPTIONS_handler}};
 
+// TODO: this breaks single responsibility
+//       initializing a web controller should not be dealing with HUD drawing
+//       move this outa heeeeeeere
 void initialize_hud_controller()
 {
     info_hud_initialize();
@@ -50,12 +55,15 @@ static esp_err_t OPTIONS_handler(httpd_req_t *request)
     return ESP_OK;
 }
 
+
+
+// TODO: make this function smaller by introduing functions
 esp_err_t POST_hud_handler(httpd_req_t *req)
 {
     char payload_buffer[REQUEST_PAYLOAD_BUFFER_SIZE];
     char error_buffer[ERROR_BUFFER_SIZE];
 
-    // TODO: move parsing of incoming json-string to request dto into separate module
+    // TODO: move parsing of incoming json-string to request dto into separate module or function
     cJSON *json = webserver_try_get_json_request(
         req,
         payload_buffer, sizeof(payload_buffer) / sizeof(payload_buffer[0]),
@@ -72,6 +80,7 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
     log_information(LOGGER_TAG, "Received json request: %s\n", cJSON_Print(json));
     
     // TODO: move the mutation of the hud into a separate command handler
+    //       this will be especially needed once MQTT connection is implemented
     // -------------------------------------------------------
     log_information(LOGGER_TAG, "Testing for color changes...\n");
     if (cJSON_HasObjectItem(json, "rgbhex"))
@@ -85,6 +94,7 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
     }
     
     // TODO: move the mutation of the hud into a separate command handler
+    //       this will be especially needed once MQTT connection is implemented
     // -------------------------------------------------------
     log_information(LOGGER_TAG, "Testing for top changes...\n");
     if (cJSON_HasObjectItem(json, "top"))
@@ -99,6 +109,7 @@ esp_err_t POST_hud_handler(httpd_req_t *req)
     }
     
     // TODO: move the mutation of the hud into a separate command handler
+    //       this will be especially needed once MQTT connection is implemented
     // -------------------------------------------------------
     log_information(LOGGER_TAG, "Testing for bottom changes...\n");
     if (cJSON_HasObjectItem(json, "bottom"))

@@ -27,6 +27,8 @@
 #define B_OFF 0
 
 // TODO: expose feature toggles as menuconfig entries
+//       menuconfig dependencies could be helpful here
+//       https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html#menu-dependencies
 #define CUBE_WIFI_ENABLED 1
 #define CUBE_WEBSERVER_ENABLED CUBE_WIFI_ENABLED & 1
 #define CUBE_LED_API_ENABLED CUBE_WEBSERVER_ENABLED & 1

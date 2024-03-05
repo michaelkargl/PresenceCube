@@ -11,8 +11,7 @@ static const httpd_uri_t get_hello = {
     .user_ctx = "Hello World!"};
 
 static const struct home_controller_endpoints_t home_controller_endpoints = {
-    .get_hello = &get_hello
-};
+    .get_hello = &get_hello};
 
 const struct home_controller_endpoints_t *get_home_controller_endpoints()
 {

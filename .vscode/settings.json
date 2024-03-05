@@ -10,7 +10,9 @@
         "rgb_led_diode.h": "c",
         "led_diode_bag.h": "c",
         "map_ledc_led__led_diode.h": "c",
-        "initializable_struct.h": "c"
+        "initializable_struct.h": "c",
+        "set_led_command_handler.h": "c",
+        "json_parse_utils.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#142D52",

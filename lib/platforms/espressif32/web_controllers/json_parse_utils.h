@@ -1,8 +1,6 @@
 #pragma once
 #include "cJSON.h"
 
-// TODO: TEST
-
 /**
  * @brief Extracts the given property from a cJSON object
  * @param json the json object from which to extract the @ref property_name

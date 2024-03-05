@@ -7,21 +7,14 @@ $Script:TargetEnvironment = 'espressif32-dev'
 
 Import-Module $PioModulePath -Force
 
-try
-{
-    # TODO: migrate this into a dedicated Set-PioEnvironment function to be used externally
-    # developer obviously does development => switch default environment to force the IDE to use embedded intellisense
-    Set-PioDefaultEnv -PlatformioIniPath $PlatformIoIniPath `
-                      -Environment $TargetEnvironment `
-                      -ErrorAction Stop
-    # refresh intellisense
-    Invoke-Pio project init --ide vscode
+Set-PioDefaultEnv -PlatformioIniPath $PlatformIoIniPath `
+    -Environment $TargetEnvironment `
+    -ErrorAction Stop
 
-    Invoke-Pio run --target upload `
-                 --target monitor `
-                 --environment "$TargetEnvironment"
-}
-catch
-{
-    throw
-}
+# refresh intellisense
+Invoke-Pio project init --ide vscode
+
+Invoke-Pio -ErrorAction Stop run `
+    --target upload `
+    --target monitor `
+    --environment "$TargetEnvironment"
