@@ -22,7 +22,7 @@ Write-Warning 'This function is [Obsolete]!'
 Write-Warning 'Use invoke-tests directly!'
 Write-Warning '-------------------------------'
 Write-Warning ''
-Write-Host
+Write-Host ''
 
 
 $InvokeTestsScript = Join-Path $PSScriptRoot 'invoke-tests.ps1'

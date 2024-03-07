@@ -1,20 +1,11 @@
-$script:ProjectRoot = $PSScriptRoot
-$script:ScriptRoot = Join-Path -Resolve $ProjectRoot 'scripts/'
-$script:PioModulePath = Join-Path -Resolve $ScriptRoot 'platformio-module/platformio-module.psd1'
-$script:PlatformIoIniPath = Join-Path -Resolve $ProjectRoot 'platformio.ini'
-# you can find these in the platformio.ini
-$Script:TargetEnvironment = 'espressif32-dev'
+Write-Warning ''
+Write-Warning '-------------------------------'
+Write-Warning 'This function is [Obsolete]!'
+Write-Warning 'Use invoke-environment directly!'
+Write-Warning 'Get-Help ./invoke-environment.ps1'
+Write-Warning '-------------------------------'
+Write-Warning ''
+Write-Host ''
 
-Import-Module $PioModulePath -Force
-
-Set-PioDefaultEnv -PlatformioIniPath $PlatformIoIniPath `
-    -Environment $TargetEnvironment `
-    -ErrorAction Stop
-
-# refresh intellisense
-Invoke-Pio project init --ide vscode
-
-Invoke-Pio -ErrorAction Stop run `
-    --target upload `
-    --target monitor `
-    --environment "$TargetEnvironment"
+$InvokeTestsScript = Join-Path $PSScriptRoot 'invoke-environment.ps1'
+& $InvokeTestsScript -Environment 'espressif32-dev'
