@@ -65,6 +65,9 @@ Choosing VSCode, opening the folder should prompt you with all the recommended p
 
 To display text onto the display, fonts need to be available to the device. These are stored on the devices filesystem. To flash the fonts onto the devices flash, plug in the device and exectute these steps once
 
+<!-- TODO: This might be simplifiable via platformio 
+           https://github.com/RobustoFramework/Multi-platform-Multi-board/blob/main/platformio.ini -->
+
 ```powershell
 ./invoke-pio.ps1 run --target buildfs --environment esp32
 ./invoke-pio.ps1 run --target uploadfs --environment esp32
