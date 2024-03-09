@@ -11,8 +11,7 @@
 .EXAMPLE
     ./Build-PioEnvironment.ps1 'native-dev' 'espressif32-dev'
 #>
-Function Build-PioEnvironment
-{
+Function Build-PioEnvironment {
     Param (
         [Parameter(Mandatory, ValueFromRemainingArguments)]
         [ValidateNotNullOrEmpty()]
@@ -22,22 +21,19 @@ Function Build-PioEnvironment
     Begin {
         $Script:HeadlineColor = @{
             ForegroundColor = [ConsoleColor]::Magenta
-        }
+        }               
     }
 
     Process {
-        try
-        {
-            foreach ($Environment in $Environments)
-            {
+        try {
+            foreach ($Environment in $Environments) {
                 Write-Host @HeadlineColor "`n--------------------------------"
                 Write-Host @HeadlineColor "Building $Environment environemt"
                 Write-Host @HeadlineColor "--------------------------------`n"
                 Invoke-Pio run --environment $Environment
             }
         }
-        catch
-        {
+        catch {
             Write-Error "An error occured while building the $Environment environment."
             $_ | Select-Object * | Out-String | Write-Error
             Throw

@@ -5,11 +5,11 @@
 #include "string.h"
 #include <unistd.h>
 #include "logger.h"
+#include "error_codes.h"
 
 #define WEBSERVER_SLEEP_INTERVAL_SECONDS 1
 #define MAX_DOTS_PER_ROW 60
-#define LOGGING_DISABLED 1
-#define LOGGING_ENABLED 0
+#define SLEEP_LOUDLY true
 
 static struct mg_callbacks _event_callbacks;
 static struct mg_context *_webserver_context = NULL;
@@ -17,7 +17,7 @@ static struct mg_context *_webserver_context = NULL;
 static int log_message(const struct mg_connection *conn, const char *message)
 {
     LOG_DEBUG("[_log_message]: %s", message);
-    return LOGGING_ENABLED;
+    return ERROR_CODE_SUCCESS;
 }
 
 static void register_event_callbacks()
@@ -34,7 +34,6 @@ static void initialize_webserver()
     mg_init_library(MG_FEATURES_DEFAULT);
     register_event_callbacks();
 }
-
 
 static void stop_webserver()
 {
@@ -60,8 +59,10 @@ static void await_cancellation(bool *_cancellation_token)
 {
     // blocking the root thread from closing
     // wait until cancellation has been requested
+    // sleeping in intervals to show the watch dog that we are still alive
     for (__uint8_t iteration_counter = 1; !*_cancellation_token; iteration_counter++)
     {
+#if SLEEP_LOUDLY
         fprintf(stdout, ".");
         bool full_row = iteration_counter % MAX_DOTS_PER_ROW == 0;
         if (full_row)
@@ -71,6 +72,7 @@ static void await_cancellation(bool *_cancellation_token)
         }
         fflush(stdout);
         fflush(stderr);
+#endif
         sleep(WEBSERVER_SLEEP_INTERVAL_SECONDS);
     }
 }
@@ -80,7 +82,7 @@ int web_host__host_web_application(
     int (*application_fn)(bool *),
     bool *cancellation_token)
 {
-    printf("Starting web host...\n");   
+    printf("Starting web host...\n");
 
     initialize_webserver();
     if (!start_webserver(webserver_options))
@@ -88,10 +90,10 @@ int web_host__host_web_application(
         fprintf(stderr, "Unable to start web server instance...\n");
         return 1;
     }
-    
+
     // Endpoint registration requires a running web server
     controller_registrar__register(_webserver_context, cancellation_token);
-    
+
     application_fn(cancellation_token);
     await_cancellation(cancellation_token);
 

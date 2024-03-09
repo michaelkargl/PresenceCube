@@ -10,7 +10,7 @@ param ()
 
 . (Join-Path -Resolve $PSScriptRoot '/src/private/ScopingConstants.ps1')
 
-New-Variable @privateConst -Name 'ModuleName' -Value 'Pester' 
+New-Variable @private @const -Name 'ModuleName' -Value 'Pester' 
 
 $private:Module = Get-Module -ListAvailable | Where-Object Name -eq $ModuleName
 if ($Module) {

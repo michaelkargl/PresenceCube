@@ -39,15 +39,23 @@ The functionality of the cube is intended to be a form of information cube. It i
    git submodule update --recursive
    ```
 
+1. Review configuration
+   ```pwsh
+   # https://docs.platformio.org/en/latest/core/userguide/cmd_settings.html
+   ./invoke-pio.ps1 settings get
+   ```
+
 1. Build environments at least once to ensure that platform io has pulled all the necessary dependencies
    ```powershell
       ./build_env.ps1 -Environments espressif32-dev
       ./build_env.ps1 -Environments native-dev
    ```
+
 1. Ensure the setup is working
    ```powershell
       ./test_native.ps1
    ```
+
 
 > Be careful when cloning in low-connectivity networks. If encountering issues during cloning
 > better remove the whole repo and clone anew in a more stable network to prevent unnecessary
