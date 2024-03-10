@@ -15,10 +15,6 @@
 //       https://github.com/RobustoFramework/Multi-platform-Multi-board/tree/main/development
 //       evaluate this solution or create a custom strategy
 
-#define REQUEST_TIMEOUT_MS "10000"
-#define ERROR_LOG_FILE "error.log"
-#define PORTS "8888,8884"
-
 static bool cancellation_token = false;
 
 static void initialize_modules();
@@ -86,7 +82,7 @@ static int app_main(bool *cancellation_token)
 {
     LOG_INFORMATION("-------------------------------------------------");
     LOG_INFORMATION("Running %s main %s build", "native", BUILD_ENVIRONMENT);
-    LOG_INFORMATION("Running webserver on port " PORTS);
+    LOG_INFORMATION("Running webserver on port " CONFIG_WEBSERVER_PORTS);
     LOG_INFORMATION("-------------------------------------------------");
 
     initialize_modules();
@@ -98,14 +94,13 @@ static int app_main(bool *cancellation_token)
 
 int main()
 {
-    LOG_INFORMATION("WIFI SSID: %s", CONFIG_ESP_WIFI_SSID);
-    // return web_host__host_web_application((const char *[]){
-    //                                 "listening_ports",
-    //                                 PORTS,
-    //                                 "request_timeout_ms",
-    //                                 REQUEST_TIMEOUT_MS,
-    //                                 "error_log_file",
-    //                                 ERROR_LOG_FILE,
-    //                                 0},
-    //                             app_main, &cancellation_token);
+    return web_host__host_web_application((const char *[]){
+                                    "listening_ports",
+                                    CONFIG_WEBSERVER_PORTS,
+                                    "request_timeout_ms",
+                                    CONFIG_WEBSERVER_REQUEST_TIMEOUT_MS,
+                                    "error_log_file",
+                                    CONFIG_WEBSERVER_ERROR_LOG_FILE,
+                                    0},
+                                app_main, &cancellation_token);
 }

@@ -17,8 +17,8 @@ CONFIG_VAR4=123
 '@
 
     New-Variable @private @script @const ExpectedFileContent @'
-#ifndef _SDK_CONFIG_f2a1245a-4e04-4039-b5dc-c1c7d37aa471
-#define _SDK_CONFIG_f2a1245a-4e04-4039-b5dc-c1c7d37aa471
+#ifndef _SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471
+#define _SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471
 
 // Commented Line 1
 // #define CONFIG_VAR1 "#value_var1#"

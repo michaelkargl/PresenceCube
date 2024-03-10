@@ -19,7 +19,7 @@ Function Convert-MenuConfigToCHeader {
     # The prefix menuconfig uses to prefix config values
     New-Variable -Option Constant VariablePrefix 'CONFIG_'
     # Unique string to prevent duplicate including of the same header file (manual #pragma once)
-    New-Variable -Option Constant IncudeGuard "_SDK_CONFIG_f2a1245a-4e04-4039-b5dc-c1c7d37aa471"
+    New-Variable -Option Constant IncudeGuard "_SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471"
 
     @"
 #ifndef $IncudeGuard
