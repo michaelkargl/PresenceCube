@@ -19,7 +19,11 @@
         "controller_registrar.h": "c",
         "cstdlib": "c",
         "sdkconfig.defaults.h": "c",
-        "config.h": "c"
+        "config.h": "c",
+        "stdlib.h": "c",
+        "web_host.h": "c",
+        "exception_handling.h": "c",
+        "logger.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#142D52",

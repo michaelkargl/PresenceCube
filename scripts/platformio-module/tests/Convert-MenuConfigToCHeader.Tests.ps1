@@ -24,28 +24,43 @@ CONFIG_VAR4=123
 #ifndef SDKCONFIG_TEST
 #define SDKCONFIG_TEST
 
-// Commented Line 1
-// #ifndef CONFIG_VAR1
-// #define CONFIG_VAR1 "#value_var1#"
-// #endif
+// menuconfig uses y and n macros for boolean values
+// we need to assign values to them to be able to do
+// #if checks
+#ifndef y
+#define y 1
+#endif // y
 
-// #ifndef CONFIG_VAR11
-// #define CONFIG_VAR11 "//value_var1#"
-// #endif
+#ifndef n
+#define n 0
+#endif // n
+
+// Commented Line 1
+/*
+#ifndef CONFIG_VAR1
+#define CONFIG_VAR1 "#value_var1#"
+#endif // CONFIG_VAR1
+*/
+
+/*
+#ifndef CONFIG_VAR11
+#define CONFIG_VAR11 "//value_var1#"
+#endif // CONFIG_VAR11
+*/
 
 #ifndef CONFIG_VAR2
 #define CONFIG_VAR2 "#value_value2#"
-#endif
+#endif // CONFIG_VAR2
 
 #ifndef CONFIG_VAR3
 #define CONFIG_VAR3 "value with = signs"
-#endif
+#endif // CONFIG_VAR3
 
 #ifndef CONFIG_VAR4
 #define CONFIG_VAR4 123
-#endif
+#endif // CONFIG_VAR4
 
-#endif
+#endif // SDKCONFIG_TEST
 
 '@
 }

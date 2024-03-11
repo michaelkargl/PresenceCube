@@ -7,6 +7,6 @@
    "presence-cube.hal.abstractions": "*",
    "presence-cube.errorhandling": "*",
    "led_store.native": "*",
-   "logging": "*"
+   "logging.abstractions": "*"
  }
 }

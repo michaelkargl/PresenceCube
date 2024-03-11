@@ -35,6 +35,13 @@ The functionality of the cube is intended to be a form of information cube. It i
    git submodule update --recursive
    ```
 
+1. Install tools
+   ```pwsh
+      # used for menuconfig
+      # https://pypi.org/project/kconfiglib/#installation-with-pip
+      pip install kconfiglib
+   ```
+
 1. Review configuration
    ```pwsh
    # https://docs.platformio.org/en/latest/core/userguide/cmd_settings.html

@@ -23,15 +23,18 @@ Invoke-Pio project init --ide vscode
 
 Build-PioEnvironment `
     -Environments $script:Environment `
-    -ErrorAction Stop
+    -ErrorAction Stop `
+    -vv
+
 
 $NativeEnvironment = $Environment.StartsWith('native-');
 if ( $NativeEnvironment ) {
-    & "./.pio/build/$script:Environment/program"
+    & "./.pio/build/$script:Environment/program" $RemainingArgs
 }
 else {
     Invoke-Pio -ErrorAction Stop run `
         --target upload `
         --target monitor `
-        --environment "$TargetEnvironment"
+        --environment "$TargetEnvironment" `
+        $RemainingArgs
 }

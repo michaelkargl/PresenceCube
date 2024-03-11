@@ -1,5 +1,6 @@
 {
     "name": "presence-cube.infrastructure.native.web",
+    "owner": "Kami",
     "version": "0.0.1",
     "platforms": [ "native" ],
     "frameworks": [ "*" ],
@@ -9,8 +10,8 @@
         "srcFilter": "+<*.c>"
      },
      "dependencies": {
-        "presence-cube.shared": "*",
         "civetweb": "*",
+        "presence-cube.shared": "*",
         "http-status-codes-cpp": "*"
      }
 }

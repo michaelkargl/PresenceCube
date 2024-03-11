@@ -7,5 +7,6 @@ Write-Warning '-------------------------------'
 Write-Warning ''
 Write-Host ''
 
-$InvokeTestsScript = Join-Path $PSScriptRoot 'invoke-environment.ps1'
-& $InvokeTestsScript -Environment 'native-dev'
+$InvokeScript = Join-Path $PSScriptRoot 'invoke-environment.ps1'
+& $InvokeScript -Environment 'native-dev'
+

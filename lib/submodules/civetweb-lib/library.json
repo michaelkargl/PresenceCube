@@ -3,7 +3,7 @@
     "description": "Embedded C/C++ web server",
     "author": "civetweb",
     "license": "https://github.com/civetweb/civetweb/blob/master/LICENSE.md",
-    "version": "0.0.0-c6e4e33",
+    "version": "c6e4e33",
     "repository": {
         "type": "git",
         "url": "https://github.com/civetweb/civetweb.git"

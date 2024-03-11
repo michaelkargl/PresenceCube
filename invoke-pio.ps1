@@ -1,14 +1,5 @@
+$ScriptDirPath = Join-Path $PSScriptRoot 'scripts'
+$PlatformIoModule = Join-Path $ScriptDirPath 'platformio-module/platformio-module.psd1'
 
-
-# TODO #156: Migrate to well tested powershell module
-
-$PioCommand = 'pio';
-$PioFallbackSearchPath = Join-Path $HOME '.platformio'
-$PioCommand = Find-Pio -CommandName $PioCommand -FallbackSearchPath $PioFallbackSearchPath -Debug
-
-& $PioCommand $args
-if ($LASTEXITCODE -ne 0)
-{
-    # TODO #156: Test
-    Throw "Command $PioCommand failed with error code $LASTEXITCODE"
-}
+Import-Module $PlatformIoModule -Force
+Invoke-Pio $args

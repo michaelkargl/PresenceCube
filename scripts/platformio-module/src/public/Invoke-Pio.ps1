@@ -6,10 +6,11 @@ Function Invoke-Pio {
     )
 
     $PioCommand = Find-PioCommand `
-        -CommandName 'pio' `
+        -CommandNames ('platformio', 'pio') `
         -FallbackSearchPath (Join-Path $HOME '.platformio') `
         -Debug
-    
+
+    Write-Debug "PWD: $PWD"
     & $PioCommand $PioArguments
     if ($LASTEXITCODE -ne 0) {
         Throw "[CommandUnsuccessfulError] Command $PioCommand $PioArguments failed with error code $LASTEXITCODE"

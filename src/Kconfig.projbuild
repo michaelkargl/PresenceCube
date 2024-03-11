@@ -1,19 +1,26 @@
 menu "Presence Cube"
 
 	menu "Web Server"
+        config WEBSERVER_ENABLED
+            bool "Use Webserver"
+            default y
+        
 		config WEBSERVER_PORTS
 			string "Webserver ports (comma separated)"
 			default "8080"
+            depends on WEBSERVER_ENABLED
 			help
 				Comma separated list of ports the webserver is to listen to
 		
 		config WEBSERVER_ERROR_LOG_FILE
 			string "Error Log File"
 			default "error.log"
+            depends on WEBSERVER_ENABLED
 		
 		config WEBSERVER_REQUEST_TIMEOUT_MS
 			string "Request Timeout"
 			default "10000"
+            depends on WEBSERVER_ENABLED
 	endmenu
 
 

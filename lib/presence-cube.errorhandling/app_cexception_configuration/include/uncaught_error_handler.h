@@ -1,6 +1,7 @@
 #pragma once
 #include "error_codes.h"
 
+// TODO: fix naming: <module>__<function>()
 
 /**
  * @brief reverts changes made by its counter part: uncaught_error_handler_init

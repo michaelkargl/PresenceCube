@@ -5,8 +5,6 @@
   "frameworks": ["*"],
   "dependencies": {
     "logging.abstractions": "*",
-    "presence-cube.domain": "*",
-    "presence-cube.usecases": "*",
     "presence-cube.errorhandling": "*",
     "presence-cube.using": "*"
   }

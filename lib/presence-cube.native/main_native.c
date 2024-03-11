@@ -7,8 +7,11 @@
 #include "stdlib.h"
 #include "led_store.h"
 #include "stdio.h"
-#include "web_host.h"
 #include "config.h"
+
+#if CONFIG_WEBSERVER_ENABLED
+#include "web_host.h"
+#endif
 
 // TODO: move this into a menuconfig
 //       adding native menuconfig needs some hacking though
@@ -80,11 +83,6 @@ static void set_led_states()
 
 static int app_main(bool *cancellation_token)
 {
-    LOG_INFORMATION("-------------------------------------------------");
-    LOG_INFORMATION("Running %s main %s build", "native", BUILD_ENVIRONMENT);
-    LOG_INFORMATION("Running webserver on port " CONFIG_WEBSERVER_PORTS);
-    LOG_INFORMATION("-------------------------------------------------");
-
     initialize_modules();
 
     print_led_states();
@@ -94,13 +92,24 @@ static int app_main(bool *cancellation_token)
 
 int main()
 {
+#if CONFIG_WEBSERVER_ENABLED
+    LOG_INFORMATION("-------------------------------------------------");
+    LOG_INFORMATION("Running %s main %s build", "native", BUILD_ENVIRONMENT);
+    LOG_INFORMATION("Running webserver on port " CONFIG_WEBSERVER_PORTS);
+    LOG_INFORMATION("-------------------------------------------------");
     return web_host__host_web_application((const char *[]){
-                                    "listening_ports",
-                                    CONFIG_WEBSERVER_PORTS,
-                                    "request_timeout_ms",
-                                    CONFIG_WEBSERVER_REQUEST_TIMEOUT_MS,
-                                    "error_log_file",
-                                    CONFIG_WEBSERVER_ERROR_LOG_FILE,
-                                    0},
-                                app_main, &cancellation_token);
+                                              "listening_ports",
+                                              CONFIG_WEBSERVER_PORTS,
+                                              "request_timeout_ms",
+                                              CONFIG_WEBSERVER_REQUEST_TIMEOUT_MS,
+                                              "error_log_file",
+                                              CONFIG_WEBSERVER_ERROR_LOG_FILE,
+                                              0},
+                                          app_main, &cancellation_token);
+#else
+    LOG_INFORMATION("-------------------------------------------------");
+    LOG_INFORMATION("Running %s main %s build", "native", BUILD_ENVIRONMENT);
+    LOG_INFORMATION("-------------------------------------------------");
+    return app_main(&cancellation_token);
+#endif
 }

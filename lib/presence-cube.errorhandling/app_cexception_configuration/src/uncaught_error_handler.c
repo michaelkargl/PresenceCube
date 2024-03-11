@@ -8,6 +8,8 @@ static const char * const logger_tag = "error_handling";
 static void (*handle_uncaught_error_callback)(error_code_t) = 0;
 void (*uncaught_error_handler__exit_fn)(int) = exit;
 
+// TODO: it would be safer to have a flag set on __init and __deinit
+//       since it removes orthogonality and bug potential in cases when new fields are introduced
 static bool assert_module_initialized() {
     bool uncaught_error_callback_handler_defined = handle_uncaught_error_callback != 0;    
     return uncaught_error_callback_handler_defined;

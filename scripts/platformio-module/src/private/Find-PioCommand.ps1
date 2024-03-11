@@ -23,7 +23,7 @@ Function Find-PioCommand {
     Param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string] $CommandName,
+        [string[]] $CommandNames,
         # --------------------------------
         [Parameter()]
         [string] $SearchPath,
@@ -33,21 +33,24 @@ Function Find-PioCommand {
     )
 
     try {
-        Write-Debug "Attempting to find command '$CommandName' in registered paths"
-        $Command = Get-Command $CommandName -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty 'Path'
+        $Command = $CommandNames | ForEach-Object {
+            Write-Debug "Attempting to find command '$_' in registered paths"
+            Get-Command $_ -ErrorAction SilentlyContinue 
+        } | Select-Object -First 1 -ExpandProperty Path
+
         if ($Command) {
             Write-Debug "Command registered: $Command"
             return $Command
         }
         else {
-            Write-Warning "Command not registered"
+            Write-Warning "Commands $($CommandNames -join ', ') not registered"
         }
 
 
         $FileSearchRequested = -not [string]::IsNullOrWhiteSpace($SearchPath)
         if ($FileSearchRequested) {
-            $Command = Find-PioFile -CommandName $CommandName -SearchPath $SearchPath
-            if( $Command ) {
+            $Command = Find-PioFile -CommandNames $CommandNames -SearchPath $SearchPath
+            if ( $Command ) {
                 Write-Debug "Command found: $Command"
                 return $Command
             } {
@@ -61,7 +64,7 @@ Function Find-PioCommand {
     }
     catch [System.Management.Automation.CommandNotFoundException] {
         if ($FallbackSearchPath) {
-            return Find-PioCommand -CommandName $CommandName -SearchPath $FallbackSearchPath
+            return Find-PioCommand -CommandNames $CommandNames -SearchPath $FallbackSearchPath
         }
         throw
     }

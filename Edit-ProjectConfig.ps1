@@ -45,11 +45,11 @@ if ( $NativeEnvironment ) {
 
     Convert-MenuConfigToCHeader `
         -InputFile $OutputConfigFile `
-        -OutputFile $OutputHeaderFile
+        -OutputFile $OutputHeaderFile | Out-Null
     
     Convert-MenuConfigToCHeader `
         -InputFile $DefaultsConfigFile `
-        -OutputFile $OutputDefaultsHeaderFile
+        -OutputFile $OutputDefaultsHeaderFile | Out-Null
 }
 else {
     # automatically merges esp-idf menuconfig entries with project config entries

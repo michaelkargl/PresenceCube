@@ -13,9 +13,13 @@
 #>
 Function Build-PioEnvironment {
     Param (
-        [Parameter(Mandatory, ValueFromRemainingArguments)]
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string[]] $Environments
+        [string[]] $Environments,
+        # --------------------------------------
+        [Parameter(ValueFromRemainingArguments)]
+        [string[]] $RemainingArguments
+
     )
 
     Begin {
@@ -30,7 +34,7 @@ Function Build-PioEnvironment {
                 Write-Host @HeadlineColor "`n--------------------------------"
                 Write-Host @HeadlineColor "Building $Environment environemt"
                 Write-Host @HeadlineColor "--------------------------------`n"
-                Invoke-Pio run --environment $Environment
+                Invoke-Pio run --environment $Environment $RemainingArguments
             }
         }
         catch {

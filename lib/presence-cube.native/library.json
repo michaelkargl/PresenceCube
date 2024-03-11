@@ -13,6 +13,8 @@
     "dependencies": {
         "logging.native": "*",
         "infrastructure.native": "*",
-        "presence-cube.shared": "*"
+        "presence-cube.shared": "*",
+        "presence-cube.domain": "*",
+        "presence-cube.usecases": "*"
     }
 }

@@ -42,7 +42,6 @@ Set-PioDefaultEnv `
 
 & $InvokeScriptTestsScript
 
-# -vvv can decrease build performance (lots of console statements)
-# UNITY just skips the tests for different environments.
-# These lines are excluded to make the output better readable
-Invoke-Pio test --environment "$Environment" -vv @RemainingArgs | Select-String -NotMatch 'SKIPPED'
+# Careful with output verbosity!
+# -vvv can decrease build performance drastically as it issues a lot of console statements
+Invoke-Pio test --environment "$Environment" -vv @RemainingArgs

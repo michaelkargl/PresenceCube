@@ -1,0 +1,42 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/include",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/src",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/.pio/libdeps/native-test/Unity/src",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/main_native",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/include",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/include",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/src",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/.pio/libdeps/native-test/Unity/src",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/main_native",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/include",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60114",
+                ""
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "compilerArgs": [
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
