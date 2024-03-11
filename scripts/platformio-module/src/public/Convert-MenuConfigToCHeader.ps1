@@ -21,30 +21,38 @@ Function Convert-MenuConfigToCHeader {
     # Unique string to prevent duplicate including of the same header file (manual #pragma once)
     New-Variable -Option Constant IncudeGuard "_SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471"
 
-    @"
-#ifndef $IncudeGuard
-#define $IncudeGuard
-
-"@ | Tee-Object -FilePath $OutputFile
+    & {
+        Write-Output "#ifndef $IncudeGuard"
+        Write-Output "#define $IncudeGuard"
+        Write-Output ""
+    } | Tee-Object -FilePath $OutputFile
     
     Get-Content $InputFile | ForEach-Object {
         $Line = $_
+        
         # shell comment to C comments
         $Line = $Line -replace '^#', '//'
-        # prepend config values with #define
-        $Line = $Line -replace "^$VariablePrefix", "#define $VariablePrefix"
-        # prepend commented config values as well 
-        $Line = $Line -replace "^//( )*$VariablePrefix", "// #define $VariablePrefix"
-        # #define doesn't use = so replace the first occurence
-        [regex] $pattern = "="
-        $Line = $pattern.Replace($Line, ' ', 1);
         
-        Write-Output $Line
+        # match anything except '=' until the first occurance of '=' and call it <symbol>
+        # then match anything after the = and call it <value>
+        $validAssignOperation = $Line -match '^( )*(?<comment>(//)?)( )*(?<symbol>[^=]*)=(?<value>.+)$'
+        if ($validAssignOperation) {
+            $Comment = $Matches.comment
+            $Symbol = $Matches.symbol
+            $Value = $Matches.value
+            "$Comment #ifndef $Symbol".TrimStart()
+            "$Comment #define $Symbol $Value".TrimStart()
+            "$Comment #endif".TrimStart()
+            ""
+        }
+        else {
+            $CommentedLine = $Line -match '^( )*//'
+            if ($CommentedLine) {
+                # keep comments intact
+                Write-Output $Line
+            }
+        }
     } | Tee-Object -Append -FilePath $OutputFile
 
-
-    @'
-
-#endif
-'@ | Tee-Object -Append -FilePath $OutputFile
+    "#endif`n"  | Tee-Object -Append -FilePath $OutputFile
 }
