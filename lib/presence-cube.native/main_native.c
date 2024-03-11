@@ -8,7 +8,7 @@
 #include "led_store.h"
 #include "stdio.h"
 #include "web_host.h"
-#include "sdkconfig.h"
+#include "config.h"
 
 // TODO: move this into a menuconfig
 //       adding native menuconfig needs some hacking though

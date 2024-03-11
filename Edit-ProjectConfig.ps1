@@ -31,7 +31,9 @@ $script:ScriptRoot = Join-Path -Resolve $ProjectRoot 'scripts/'
 $script:PioModulePath = Join-Path -Resolve $ScriptRoot 'platformio-module/platformio-module.psd1'
 $script:KconfigFile = Join-Path -Resolve $ProjectRoot './src/Kconfig.projbuild'
 $script:OutputConfigFile = Join-Path $ProjectRoot "sdkconfig.$Environment"
+$script:DefaultsConfigFile = Join-Path $ProjectRoot "sdkconfig.defaults"
 $script:OutputHeaderFile = Join-Path $ProjectRoot "lib/presence-cube.native/sdkconfig.h"
+$script:OutputDefaultsHeaderFile = Join-Path $ProjectRoot "lib/presence-cube.native/sdkconfig.defaults.h"
 
 Import-Module $PioModulePath -Force
 
@@ -46,6 +48,10 @@ if ( $NativeEnvironment ) {
     Convert-MenuConfigToCHeader `
         -InputFile $OutputConfigFile `
         -OutputFile $OutputHeaderFile
+    
+    Convert-MenuConfigToCHeader `
+        -InputFile $DefaultsConfigFile `
+        -OutputFile $OutputDefaultsHeaderFile
 }
 else {
     # automatically merges esp-idf menuconfig entries with project config entries

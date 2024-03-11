@@ -17,7 +17,9 @@
         "sdkconfig.h": "c",
         "rgb_ledc_adapter.h": "c",
         "controller_registrar.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "sdkconfig.defaults.h": "c",
+        "config.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#142D52",

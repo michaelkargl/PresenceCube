@@ -17,8 +17,12 @@ CONFIG_VAR4=123
 '@
 
     New-Variable @private @script @const ExpectedFileContent @'
-#ifndef _SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471
-#define _SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471
+// -----------------------------------------------------------------------
+// This is generated code, do not edit unless you know what you are doing!
+// -----------------------------------------------------------------------
+
+#ifndef SDKCONFIG_TEST
+#define SDKCONFIG_TEST
 
 // Commented Line 1
 // #ifndef CONFIG_VAR1
@@ -67,7 +71,8 @@ Describe 'Convert-MenuConfigToCHeader.ps1' {
 
             Convert-MenuConfigToCHeader `
                 -InputFile $script:InputConfigFilePath `
-                -OutputFile $ActualHeaderFilePath
+                -OutputFile $ActualHeaderFilePath `
+                -IncludeGuard 'SDKCONFIG_TEST'
             
             $ActualContent = Get-Content $ActualHeaderFilePath
 

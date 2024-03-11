@@ -13,19 +13,25 @@ Function Convert-MenuConfigToCHeader {
         # -----------------------------------
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
-        [string] $OutputFile
+        [string] $OutputFile,
+        # -----------------------------------
+        [Parameter()]
+        [string] $IncludeGuard = "SDKCONFIG_$([guid]::NewGuid().Guid.Replace('-',''))"
     )
 
     # The prefix menuconfig uses to prefix config values
     New-Variable -Option Constant VariablePrefix 'CONFIG_'
     # Unique string to prevent duplicate including of the same header file (manual #pragma once)
-    New-Variable -Option Constant IncudeGuard "_SDK_CONFIG_f2a1245a4e044039b5dcc1c7d37aa471"
 
-    & {
-        Write-Output "#ifndef $IncudeGuard"
-        Write-Output "#define $IncudeGuard"
-        Write-Output ""
-    } | Tee-Object -FilePath $OutputFile
+    @"
+// -----------------------------------------------------------------------
+// This is generated code, do not edit unless you know what you are doing!
+// -----------------------------------------------------------------------
+
+#ifndef $IncludeGuard
+#define $IncludeGuard
+
+"@ | Tee-Object -FilePath $OutputFile
     
     Get-Content $InputFile | ForEach-Object {
         $Line = $_
