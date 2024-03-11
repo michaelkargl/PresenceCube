@@ -1,21 +1,19 @@
 <#
 .SYNOPSIS
-    Runs all tests for a given environment
+    Opens project configuration editor and prepares configuration as necessary
 .DESCRIPTION
-    Different pio environments have different dependencies.
-    This command switches to 'native testing' in an effort
-    to make the development of tests easier by triggering a 
-    pio context switch. This reinitializes code completion
-    and intelisense while removing linter errors due to 
-    missing dependencies.
+    Different environments have different configuration capabilities.
+    This command knows about the needs of the specific environments and
+    enables the user to configure their system.
+    
 .PARAMETER Environment
     This is an environment defined in the platformio.ini
+.EXAMPLE 
+    Edit-ProjectConfig.ps1 -environment native-dev
+    Opens the config editor and prepares the config headers
 .EXAMPLE
-    invoke-tests -Environment native-test
-    Run all tests
-.EXAMPLE
-    invoke-tests -Environment native-test --filter '*cexception*'
-    Run only tests containing the word cexception
+    Edit-ProjectConfig.ps1 -environment espressif32-dev
+    Opens the config editor and prepares the config to be pushed to the embedded device
 #>
 PARAM(
     [Parameter(Mandatory)]
@@ -41,7 +39,7 @@ Import-Module $PioModulePath -Force
 $NativeEnvironment = $Environment.StartsWith('native-');
 if ( $NativeEnvironment ) {
     $env:KCONFIG_CONFIG = $OutputConfigFile;
-    $env:MENUCONFIG_STYLE = "monochrome selection=fg:white,bg:red";
+    $env:MENUCONFIG_STYLE = "monochrome selection=fg:black,bg:white";
     
     menuconfig $KconfigFile
 

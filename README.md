@@ -1,14 +1,10 @@
 # Zube App
 
-A multipurpose, edge connected cube
+A network connected information cube with lighting capabilities
 
 ## Coding Guidelines
 
 See [CODING_GUIDELINES.md]
-
-> ## Note from the future
->
-> This README is wildly out-of-date and in dire need of refactoring. Over the course of the current milestone (%"🧪 Improve testability and cross platform support") this will be gradually change => #108
 
 - [Testing](./test)
 - Library Management
@@ -43,11 +39,11 @@ The functionality of the cube is intended to be a form of information cube. It i
    ```pwsh
    # https://docs.platformio.org/en/latest/core/userguide/cmd_settings.html
    ./invoke-pio.ps1 settings get
+   ./Edit-ProjectConfig.ps1 -environment native-dev
    ```
 
 1. Build environments at least once to ensure that platform io has pulled all the necessary dependencies
    ```powershell
-      ./build_env.ps1 -Environments espressif32-dev
       ./build_env.ps1 -Environments native-dev
    ```
 
@@ -55,7 +51,6 @@ The functionality of the cube is intended to be a form of information cube. It i
    ```powershell
       ./test_native.ps1
    ```
-
 
 > Be careful when cloning in low-connectivity networks. If encountering issues during cloning
 > better remove the whole repo and clone anew in a more stable network to prevent unnecessary
@@ -77,22 +72,29 @@ To display text onto the display, fonts need to be available to the device. Thes
            https://github.com/RobustoFramework/Multi-platform-Multi-board/blob/main/platformio.ini -->
 
 ```powershell
-./invoke-pio.ps1 run --target buildfs --environment esp32
-./invoke-pio.ps1 run --target uploadfs --environment esp32
+./invoke-pio.ps1 run --target buildfs --environment espressif32-dev
+./invoke-pio.ps1 run --target uploadfs --environment espressif32-dev
 ```
 
 ### Configuration
 
 ## Usage configuration
 
-Configuration is done using Platform IO's menuconfig command. Use the IDE or the pio command
+Configuration has been abstracted by a powershell script that knows how to handle 
+the different requirements of each environment. Use this script to configure your app:
 
 ```powershell
-./invoke-pio.ps1 run --target menuconfig
+# In some cases the arrow keys aren't working. Use alternative `J`,`K` bindings
+Get-Help ./Edit-ProjectConfig.pd1 -Detailed
 ```
 
-> In some cases the arrow keys aren't working. Use alternative `J`,`K` bindings
-> ![Configuration settings](./images/configurations.jpg)
+![Configuration settings](./images/configurations.jpg)
+
+> Note that configuration is not filtered depending on environment needs.
+> So you will find items that are not applicable in certain environments.
+> For instance `CONFIG_WIFI_SSID` can can be ignored in native. Ignoring
+> only causes problems if there's no fallback value defined yet. Should 
+> you come across such an item, create a dummy value in `sdkconfig.defaults`.
 
 ## **Development** configuration
 
@@ -107,25 +109,8 @@ Sometimes, libraries include custom configuration values. Unless these libraries
 All the steps necessary are performed using the PlatformIO's sidebar or CLI
 
 ```powershell
-platformio run --target upload --target monitor --environment esp32
+./invoke-pio.ps1 run --target upload --target monitor --environment espressif32-dev
 ```
-
-## What happens next
-
-After booting:
-
-1. A wireless connection is established using the credentials entered via menuconfig. The IP address is printed to console
-
-   ```txt
-   ␛[0;32mI (5135) wifi: WIFI station connected!␛[0m
-   W (5175) wifi:<ba-add>idx:0 (ifx:0, 08:ec:f5:90:53:40), tid:0, ssn:2, winSize:64
-   I (5195) wifi:AP's beacon interval = 102400 us, DTIM period = 1
-   ␛[0;32mI (5775) esp_netif_handlers: sta ip: 192.168.34.235, mask: 255.255.252.0, gw: 192.168.32.1␛[0m
-   ␛[0;32mI (5775) wifi: Received station address.␛[0m
-   ␛[0;32mI (5775) wifi: IP:192.168.34.235␛[0m
-   ␛[0;32mI (5775) wifi: Unregistering wifi handlers␛[0m
-   ␛[0;32mI (5785) main: Setting up web server...␛[0m
-   ```
 
 ## Manual test
 
