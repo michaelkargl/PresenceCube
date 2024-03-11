@@ -2,8 +2,8 @@
 #include "wifi_init.h"
 #include "nvs_init.h"
 
-#define WIFI_SSID CONFIG_ESP_WIFI_SSID
-#define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
+#define WIFI_SSID CONFIG_WIFI_SSID
+#define WIFI_PASS CONFIG_WIFI_PASSWORD
 
 static const char *LOGGING_TAG = "zube.wifi_setup";
 

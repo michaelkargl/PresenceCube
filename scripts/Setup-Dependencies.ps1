@@ -1,9 +1,9 @@
-$ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ProjectRoot = Split-Path -Parent $PSScriptRoot
 
 $SrcPath = Join-Path $ProjectRoot 'src'
 $ConfigurationPath = Join-Path $SrcPath 'Kconfig.projbuild'
 $LibraryPath = Join-Path $ProjectRoot 'lib'
-$ConfigPath = Join-Path $ProjectRoot 'config'
+$IdfComponentsPath = Join-Path $ProjectRoot 'components'
 
 If ( -not (Test-Path "$ConfigurationPath") ) {
     New-Item -ItemType File -Path $ConfigurationPath
@@ -71,6 +71,6 @@ Function Join-ConfigurationFile {
 
 @(
     $LibraryPath,
-    $ConfigPath
+    $IdfComponentsPath
 ) | Find-ConfigurationFiles -Recurse `
   | Join-ConfigurationFile -Verbose -Path $ConfigurationPath
