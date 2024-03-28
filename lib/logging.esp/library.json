@@ -9,6 +9,6 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-  "logging.shared": "*"
+  "logging.abstractions": "*"
  }
 }

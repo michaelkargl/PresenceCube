@@ -11,6 +11,7 @@
  },
  "dependencies": {
   "presence-cube.repositories.abstractions": "*",
-  "led_domain": "*"
+  "led_domain": "*",
+  "logging_abstractions": "*"
  }
 }

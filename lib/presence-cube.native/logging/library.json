@@ -1,5 +1,5 @@
 {
- "name": "logging.native",
+ "name": "presence-cube.native.logging",
  "version": "0.0.1",
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
@@ -9,6 +9,6 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-    "logging.shared": "*"
+    "logging.abstractions": "*"
  }
 }

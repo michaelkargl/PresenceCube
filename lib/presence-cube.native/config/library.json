@@ -1,0 +1,10 @@
+{
+    "name": "presence-cube.native.config",
+    "version": "0.0.1",
+    "platforms": [ "native" ],
+    "srcDir": ".",
+    "build": {
+        "srcFilter": [ "+<*.c>" ],
+        "includeDir": "./"
+    }
+}

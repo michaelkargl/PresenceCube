@@ -1,5 +1,5 @@
 {
-    "name": "presence-cube.native",
+    "name": "presence-cube.native.main",
     "description": "Composition root of the native platform branch of the presence-cube project. This project is responsible for wiring up the dependency tree and providing the applications entry point.",
     "version": "0.0.1",
     "platforms": [ "native" ],
@@ -12,6 +12,10 @@
     },
     "dependencies": {
         "presence-cube.native.config": "*",
-        "presence-cube.native.main": "*"
+        "presence-cube.native.logging": "*",
+        "infrastructure.native": "*",
+        "presence-cube.shared": "*",
+        "presence-cube.domain": "*",
+        "presence-cube.usecases": "*"
     }
 }
