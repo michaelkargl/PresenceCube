@@ -30,8 +30,8 @@ $script:PioModulePath = Join-Path -Resolve $ScriptRoot 'platformio-module/platfo
 $script:KconfigFile = Join-Path -Resolve $ProjectRoot './src/Kconfig.projbuild'
 $script:OutputConfigFile = Join-Path $ProjectRoot "sdkconfig.$Environment"
 $script:DefaultsConfigFile = Join-Path $ProjectRoot "sdkconfig.defaults"
-$script:OutputHeaderFile = Join-Path $ProjectRoot "lib/presence-cube.native/sdkconfig.h"
-$script:OutputDefaultsHeaderFile = Join-Path $ProjectRoot "lib/presence-cube.native/sdkconfig.defaults.h"
+$script:OutputHeaderFile = Join-Path $ProjectRoot "lib/presence-cube.native/config/sdkconfig.h"
+$script:OutputDefaultsHeaderFile = Join-Path $ProjectRoot "lib/presence-cube.native/config/sdkconfig.defaults.h"
 
 Import-Module $PioModulePath -Force
 

@@ -1,0 +1,11 @@
+{
+  "name": "presence-cube.native.infrastructure",
+  "version": "0.0.1",
+  "platforms": ["native"],
+  "frameworks": ["*"],
+  "dependencies": {
+    "presence-cube.native.infrastructure.web": "*",
+    "get_led_infrastructure": "*",
+    "rgb_ledc.native": "*"
+  }
+}

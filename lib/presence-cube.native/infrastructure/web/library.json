@@ -1,5 +1,5 @@
 {
-    "name": "presence-cube.infrastructure.native.web",
+    "name": "presence-cube.native.infrastructure.web",
     "owner": "Kami",
     "version": "0.0.1",
     "platforms": [ "native" ],
