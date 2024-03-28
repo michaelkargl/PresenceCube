@@ -1,0 +1,13 @@
+{
+  "name": "main.native",
+  "version": "0.0.1",
+  "platforms": "native",
+  "build": {
+    "srcDir": ".",
+    "includeDir": ".",
+    "srcFilter": "+<*.c> -<.git/>"
+  },
+  "dependencies": {
+    "math_util": "*"
+  }
+}

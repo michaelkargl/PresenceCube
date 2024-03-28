@@ -1,0 +1,13 @@
+{
+  "name": "test.setup.shared",
+  "version": "0.0.1",
+  "platforms": "native",
+  "build": {
+    "srcDir": ".",
+    "includeDir": ".",
+    "srcFilter": "+<*.c> -<.git/>"
+  },
+  "dependencies": {
+    "throwtheswitch/Unity": "^2.5.2"
+  }
+}

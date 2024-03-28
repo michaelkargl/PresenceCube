@@ -7,7 +7,7 @@
         "includeDir": "./includes"
     },
     "dependencies": {
-        "Unity": "*",
+        "Unity": "2.5.2",
         "fff_lib": "*",
         "presence-cube.errorhandling": "*"
     }
