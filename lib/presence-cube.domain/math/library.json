@@ -8,5 +8,7 @@
     "includeDir": "./",
     "srcFilter": ["+<*.c>"]
   },
-  "dependencies": {}
+  "dependencies": {
+    "presence-cube.domain.errorhandling": "*"
+  }
 }

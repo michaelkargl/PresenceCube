@@ -5,7 +5,7 @@
  "frameworks": [ "*" ],
  "dependencies": {
    "presence-cube.hal.abstractions": "*",
-   "presence-cube.errorhandling": "*",
+   "presence-cube.domain.errorhandling": "*",
    "led_store.native": "*",
    "logging.abstractions": "*"
  }

@@ -8,7 +8,7 @@
         "srcFilter": "+<*.h>"
     },
     "dependencies": {
-        "presence-cube.errorhandling": "*",
+        "presence-cube.domain.errorhandling": "*",
         "cJSON": "*"
     }
 }

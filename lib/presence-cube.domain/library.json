@@ -10,6 +10,7 @@
   "dependencies": {
     "presence-cube.domain.math": "*",
     "presence-cube.shared": "*",
+    "presence-cube.domain.errorhandling": "*",
     "presence-cube.repositories.abstractions": "*",
     "led_domain": "*",
     "logging_abstractions": "*"
