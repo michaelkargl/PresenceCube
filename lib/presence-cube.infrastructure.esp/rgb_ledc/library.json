@@ -15,7 +15,7 @@
         "presence-cube.shared": "*",
         "presence-cube.infrastructure.led_store.esp": "*",
         "presence-cube.hal.abstractions": "*",
-        "presence-cube.domain.abstractions": "*",
+        "presence-cube.domain": "*",
         "infrastructure.esp.models": "*"
     }
 }

@@ -1,20 +1,17 @@
 {
- "name": "presence-cube.domain",
- "version": "0.0.1",
- "platforms": [ "*" ],
- "frameworks": [ "*" ],
- "build": {
+  "name": "presence-cube.domain",
+  "version": "0.0.1",
+  "platforms": ["*"],
+  "frameworks": ["*"],
+  "build": {
     "srcDir": "./",
-    "includeDir": "./",
-    "srcFilter": [
-      "+<math/*.c>"
-    ],
-    "flags": [
-      "-I math"
-    ]
- },
- "dependencies": {
-  "presence-cube.shared": "*",
-  "presence-cube.domain.abstractions": "*"
- }
+    "includeDir": "./"
+  },
+  "dependencies": {
+    "presence-cube.domain.math": "*",
+    "presence-cube.shared": "*",
+    "presence-cube.repositories.abstractions": "*",
+    "led_domain": "*",
+    "logging_abstractions": "*"
+  }
 }

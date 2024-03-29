@@ -2,8 +2,8 @@
 // This is generated code, do not edit unless you know what you are doing!
 // -----------------------------------------------------------------------
 
-#ifndef SDKCONFIG_59babefe60ec46f489f96fa5589d09f8
-#define SDKCONFIG_59babefe60ec46f489f96fa5589d09f8
+#ifndef SDKCONFIG_a768af09a3b0402b8b950d51cf5182f8
+#define SDKCONFIG_a768af09a3b0402b8b950d51cf5182f8
 
 // menuconfig uses y and n macros for boolean values
 // we need to assign values to them to be able to do
@@ -22,22 +22,7 @@
 //
 // Web Server
 //
-#ifndef CONFIG_WEBSERVER_ENABLED
-#define CONFIG_WEBSERVER_ENABLED y
-#endif // CONFIG_WEBSERVER_ENABLED
-
-#ifndef CONFIG_WEBSERVER_PORTS
-#define CONFIG_WEBSERVER_PORTS "8080"
-#endif // CONFIG_WEBSERVER_PORTS
-
-#ifndef CONFIG_WEBSERVER_ERROR_LOG_FILE
-#define CONFIG_WEBSERVER_ERROR_LOG_FILE "error.log"
-#endif // CONFIG_WEBSERVER_ERROR_LOG_FILE
-
-#ifndef CONFIG_WEBSERVER_REQUEST_TIMEOUT_MS
-#define CONFIG_WEBSERVER_REQUEST_TIMEOUT_MS "10000"
-#endif // CONFIG_WEBSERVER_REQUEST_TIMEOUT_MS
-
+// CONFIG_WEBSERVER_ENABLED is not set
 // end of Web Server
 //
 // Light Control
@@ -255,5 +240,5 @@
 #endif // CONFIG_HAGL_TJPGD_NEEDS_BYTESWAP
 
 // end of Hardware Agnostic Graphics Library (HAGL)
-#endif // SDKCONFIG_59babefe60ec46f489f96fa5589d09f8
+#endif // SDKCONFIG_a768af09a3b0402b8b950d51cf5182f8
 

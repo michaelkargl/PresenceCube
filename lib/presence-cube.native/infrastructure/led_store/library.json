@@ -9,6 +9,7 @@
         "srcFilter": "+<*.c>"
      },
      "dependencies": {
-        "presence-cube.shared": "*"
+        "presence-cube.shared": "*",
+        "presence-cube.domain": "*"
      }
 }
