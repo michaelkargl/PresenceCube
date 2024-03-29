@@ -2,8 +2,8 @@
   "name": "math_util",
   "version": "0.0.1",
   "build": {
-    "srcDir": "./src",
-    "includeDir": "./include",
-    "srcFilter": "+<*.c> -<.git/>"
+    "srcDir": ".",
+    "includeDir": ".",
+    "srcFilter": "+<**/*.c> -<.git/>"
   }
 }

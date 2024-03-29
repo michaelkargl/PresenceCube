@@ -1,14 +1,14 @@
 #include "stdio.h"
-#include "math_util.h"
+#include "add_util/add_util.h"
+#include "subtract_util/subtract_util.h"
 
 int main()
 {
-    int a = 123;
-    int b = 321;
-    int sum = add(a, b);
-    
+    int left = 125;
+    int right = 326;
     printf("------------------------------\n");
-    printf("Sum of %i + %i = %i\n", a, b, sum);
+    printf("%i + %i = %i\n", left, right, add_util__add(left, right));
+    printf("%i - %i = %i\n", left, right, subtract_util__subtract(left, right));
     printf("------------------------------\n");
 
     return 0;

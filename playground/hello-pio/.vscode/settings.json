@@ -3,5 +3,9 @@
         "activityBar.background": "#223216",
         "titleBar.activeBackground": "#30461F",
         "titleBar.activeForeground": "#F8FBF5"
+    },
+    "files.associations": {
+        "add_util.h": "c",
+        "math_util.h": "c"
     }
 }

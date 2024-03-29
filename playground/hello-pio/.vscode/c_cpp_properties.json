@@ -12,8 +12,7 @@
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/src",
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/.pio/libdeps/native-test/Unity/src",
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/main_native",
-                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/include",
-                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/src",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util",
                 ""
             ],
             "browse": {
@@ -23,8 +22,7 @@
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/src",
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/.pio/libdeps/native-test/Unity/src",
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/main_native",
-                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/include",
-                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util/src",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util",
                     ""
                 ]
             },
