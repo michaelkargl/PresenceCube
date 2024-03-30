@@ -10,9 +10,13 @@
             "includePath": [
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/include",
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/src",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/test/lib/test.setup.native",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/test/lib/test.setup.shared",
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/.pio/libdeps/native-test/Unity/src",
-                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/main_native",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/app.native",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/app.shared",
                 "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util",
+                "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/app.espressif32",
                 ""
             ],
             "browse": {
@@ -20,9 +24,13 @@
                 "path": [
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/include",
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/src",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/test/lib/test.setup.native",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/test/lib/test.setup.shared",
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/.pio/libdeps/native-test/Unity/src",
-                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/main_native",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/app.native",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/app.shared",
                     "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/math_util",
+                    "/home/kami/workspace/zube/presence-cube/playground/hello-pio/lib/app.espressif32",
                     ""
                 ]
             },

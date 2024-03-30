@@ -1,4 +1,4 @@
-#include "main_native.h"
+#include "main.h"
 
 void app_main()
 {

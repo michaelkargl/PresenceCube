@@ -6,6 +6,9 @@
     },
     "files.associations": {
         "add_util.h": "c",
-        "math_util.h": "c"
+        "math_util.h": "c",
+        "subtract_util.h": "c",
+        "stdio.h": "c",
+        "main.h": "c"
     }
 }
