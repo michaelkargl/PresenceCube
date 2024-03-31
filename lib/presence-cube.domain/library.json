@@ -12,6 +12,7 @@
     "presence-cube.domain.math": "*",
     "presence-cube.shared": "*",
     "presence-cube.repositories.abstractions": "*",
-    "logging.abstractions": "*"
+    "logging.abstractions": "*",
+    "cJSON": "*"
   }
 }

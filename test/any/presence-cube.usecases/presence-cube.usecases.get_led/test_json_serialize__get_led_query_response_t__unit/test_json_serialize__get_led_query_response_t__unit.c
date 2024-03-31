@@ -1,8 +1,8 @@
 #include "unity.h"
 #include "assertion_helpers.h"
-#include "json_serialize__get_led_query_response_t.h"
-#include "using_json.h"
-#include "using_free.h"
+#include "get_led/json_serialize__get_led_query_response_t.h"
+#include "using/using_json.h"
+#include "using/using_free.h"
 
 static cJSON *_json_led_array;
 

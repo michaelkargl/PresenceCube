@@ -9,6 +9,6 @@
     "srcFilter": ["+<*.c>"]
   },
   "dependencies": {
-    "presence-cube.domain.errorhandling": "*"
+    "presence-cube.domain": "*"
   }
 }
