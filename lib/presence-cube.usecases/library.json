@@ -3,8 +3,14 @@
   "version": "0.0.1",
   "platforms": ["*"],
   "frameworks": ["*"],
+  "srcDir": "./",
+  "build": {
+    "includeDir": "./"
+  },
   "dependencies": {
-    "presence-cube.usecases.get_led": "*",
-    "presence-cube.usecases.set_led": "*"
+    "presence-cube.shared": "*",
+    "presence-cube.domain": "*",
+    "presence-cube.repositories.abstractions": "*",
+    "logging.abstractions": "*"
   }
 }

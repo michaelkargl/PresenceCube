@@ -12,8 +12,8 @@
 #include "led_endpoints.h"
 #include "hud_controller.h"
 
-#include "get_led_query_handler.h"
-#include "set_led_command_handler.h"
+#include "get_led/get_led_query_handler.h"
+#include "set_led/set_led_command_handler.h"
 #include "rgb_ledc_adapter.h"
 
 #include "exception_handling.h"

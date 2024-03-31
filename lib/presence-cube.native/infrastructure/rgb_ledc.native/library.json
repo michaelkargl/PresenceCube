@@ -4,8 +4,7 @@
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
  "dependencies": {
-   "presence-cube.domain.hal": "*",
-   "presence-cube.domain.errorhandling": "*",
+   "presence-cube.domain": "*",
    "led_store.native": "*",
    "logging.abstractions": "*"
  }
