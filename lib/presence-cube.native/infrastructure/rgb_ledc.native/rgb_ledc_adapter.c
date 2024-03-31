@@ -1,4 +1,4 @@
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "logger.h"
 #include "exception_handling.h"
 #include "led_store.h"

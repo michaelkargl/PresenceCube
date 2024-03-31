@@ -8,11 +8,12 @@
     "includeDir": "./"
   },
   "dependencies": {
-    "presence-cube.domain.math": "*",
-    "presence-cube.shared": "*",
     "presence-cube.domain.errorhandling": "*",
+    "presence-cube.domain.math": "*",
+    "presence-cube.domain.hal": "*",
+    "presence-cube.shared": "*",
     "presence-cube.repositories.abstractions": "*",
     "led_domain": "*",
-    "logging_abstractions": "*"
+    "logging.abstractions": "*"
   }
 }

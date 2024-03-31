@@ -11,6 +11,6 @@
  "dependencies": {
   "presence-cube.repositories.abstractions": "*",
   "presence-cube.mapping.led.esp": "*",
-   "led_store": "*"
+  "presence-cube.infrastructure.led_store.esp": "*"
  }
 }

@@ -14,7 +14,7 @@
     "dependencies": {
         "presence-cube.shared": "*",
         "presence-cube.infrastructure.led_store.esp": "*",
-        "presence-cube.hal.abstractions": "*",
+        "presence-cube.domain.hal": "*",
         "presence-cube.domain": "*",
         "infrastructure.esp.models": "*"
     }

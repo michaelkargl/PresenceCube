@@ -23,7 +23,8 @@
         "stdlib.h": "c",
         "web_host.h": "c",
         "exception_handling.h": "c",
-        "logger.h": "c"
+        "logger.h": "c",
+        "rgb_ledc_adapter_func.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#142D52",

@@ -2,7 +2,7 @@
 #include "get_led_repository.h"
 #include "set_led_repository.h"
 #include "exception_handling.h"
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "stddef.h"
 
 // TODO: Create a configuration module to configure this

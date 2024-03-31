@@ -2,7 +2,7 @@
 #include "logger.h"
 #include "get_led_query_handler.h"
 #include "set_led_command_handler.h"
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "exception_handling.h"
 #include "stdlib.h"
 #include "led_store.h"
