@@ -1,6 +1,6 @@
 #pragma once
 #include "get_led_query.h"
-#include "get_led_query_response.h"
+#include "get_led/get_led_query_response.h"
 
 /**
  * @brief Handles the input request and provides a response.

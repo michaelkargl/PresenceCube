@@ -2,7 +2,7 @@
 #include "set_led/set_led_command_handler.h"
 #include "get_led_repository.h"
 #include "exception_assertion_helper.h"
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "led_store.h"
 
 static const uint8_t _known_led_id = 0;

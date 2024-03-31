@@ -24,7 +24,11 @@
         "web_host.h": "c",
         "exception_handling.h": "c",
         "logger.h": "c",
-        "rgb_ledc_adapter_func.h": "c"
+        "rgb_ledc_adapter_func.h": "c",
+        "ledc_rgb_led_t.h": "c",
+        "set_led_request_dto_t.h": "c",
+        "json_parse__set_led_request_dto_t.h": "c",
+        "json_serialize__get_led_query_response_t.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#142D52",

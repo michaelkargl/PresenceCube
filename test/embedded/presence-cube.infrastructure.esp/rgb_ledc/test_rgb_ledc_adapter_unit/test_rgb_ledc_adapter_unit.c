@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "assertion_helpers.h"
 #include "led_store_func.h"
 #include "map_ledc_led__led_diode.h"

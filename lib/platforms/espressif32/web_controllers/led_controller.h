@@ -1,5 +1,5 @@
 #pragma once
-#include "get_led_query_response.h"
+#include "get_led/get_led_query_response.h"
 #include "set_led_request_dto_t.h"
 
 get_led_query_response_t led_controller__GET_leds_handler();

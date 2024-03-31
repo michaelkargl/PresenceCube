@@ -1,4 +1,4 @@
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "logger.h"
 #include "rgb_ledc_init.h"
 #include "rgb_ledc.h"

@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "rgb_ledc_adapter.h"
+#include "hal/rgb_ledc_adapter.h"
 #include "assertion_helpers.h"
 
 static const rgb_led_diode_t _dummy_domain_led = {};

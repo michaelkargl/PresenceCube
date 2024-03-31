@@ -1,5 +1,5 @@
 #pragma once
-#include "get_led_query_response.h"
+#include "get_led/get_led_query_response.h"
 
 /**
  * @brief Json stringifies the given structure

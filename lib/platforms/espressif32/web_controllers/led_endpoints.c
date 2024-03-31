@@ -5,7 +5,7 @@
 #include "using_json.h"
 #include "using_free.h"
 #include "ledc_rgb_led_t.h"
-#include "json_serialize__get_led_query_response_t.h"
+#include "get_led/json_serialize__get_led_query_response_t.h"
 #include "json_parse__set_led_request_dto_t.h"
 #include "esp_err.h"
 
