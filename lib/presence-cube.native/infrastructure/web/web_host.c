@@ -4,7 +4,7 @@
 #include "controller_registrar.h"
 #include "string.h"
 #include <unistd.h>
-#include "logger.h"
+#include "logger.iface.h"
 #include "error_codes.h"
 
 #define WEBSERVER_SLEEP_INTERVAL_SECONDS 1

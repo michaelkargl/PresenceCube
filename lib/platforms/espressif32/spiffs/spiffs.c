@@ -1,7 +1,7 @@
 #include "spiffs.h"
 #include "esp_vfs.h"
 #include "esp_spiffs.h"
-#include "logger.h"
+#include "logger.iface.h"
 
 static const char *TAG = "spiffs";
 

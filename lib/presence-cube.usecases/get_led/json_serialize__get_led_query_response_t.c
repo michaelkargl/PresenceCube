@@ -1,5 +1,5 @@
 #include "get_led/json_serialize__get_led_query_response_t.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "exception_handling.h"
 #include "using/using_json.h"
 

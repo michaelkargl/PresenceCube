@@ -1,7 +1,7 @@
 #include "nvs_flash.h"
 #include "nvs_init.h"
 #include "nvs.h"
-#include "logger.h"
+#include "logger.iface.h"
 
 static const char *LOGGING_TAG = "nvs";
 

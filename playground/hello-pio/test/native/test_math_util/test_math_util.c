@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "math_util.h"
+#include "math/math_util.h"
 
 static void test_add()
 {

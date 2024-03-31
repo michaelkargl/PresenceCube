@@ -1,5 +1,5 @@
 #include "webserver.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "esp_err.h"
 
 static const char *LOGGER_TAG = "webserver";

@@ -1,7 +1,7 @@
 #include "hagl_extensions.h"
 #include "stdlib.h"
 #include "stdio.h"
-#include "logger.h"
+#include "logger.iface.h"
 
 #define LOGGER_TAG "hagl_extensions"
 

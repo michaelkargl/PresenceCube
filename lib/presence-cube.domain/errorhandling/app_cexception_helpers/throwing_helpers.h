@@ -1,7 +1,7 @@
 #pragma once
 #include "stddef.h"
 #include "error_codes.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "CException.h"
 
 /**

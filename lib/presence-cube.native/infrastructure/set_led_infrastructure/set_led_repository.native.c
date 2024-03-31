@@ -1,6 +1,6 @@
 #include "stddef.h"
 #include "set_led_repository.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "led_store.h"
 #include "exception_handling.h"
 

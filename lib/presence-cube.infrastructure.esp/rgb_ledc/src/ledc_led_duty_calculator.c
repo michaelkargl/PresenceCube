@@ -1,7 +1,7 @@
 #include "ledc_led_duty_calculator.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "math.h"
-#include "math_util.h"
+#include "math/math_util.h"
 #include "exception_handling.h"
 
 static const char *MODULE_NAME = "ledc_led_duty_calculator";

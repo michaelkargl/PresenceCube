@@ -1,6 +1,6 @@
 #include "get_led_repository.h"
 #include "led_store.h"
-#include "logger.h"
+#include "logger.iface.h"
 
 led_store__get_led_func_t get_led_repository__get_led_fn = led_store__get_led;
 led_store__get_leds_func_t get_led_repository__get_leds_fn = led_store__get_leds;

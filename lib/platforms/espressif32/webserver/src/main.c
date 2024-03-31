@@ -4,7 +4,7 @@
 #include "home_controller.h"
 #include "esp_wifi.h"
 #include "nvs_init.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "wifi_init.h"
 
 // TODO: move configuration into separate header file

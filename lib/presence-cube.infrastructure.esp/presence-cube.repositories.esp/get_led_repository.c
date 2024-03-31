@@ -2,7 +2,7 @@
 #include "led_store.h"
 #include "map_ledc_led__led_diode.h"
 #include "throwing_helpers.h"
-#include "logger.h"
+#include "logger.iface.h"
 
 #define GET_LED_REPOSITORY__LED_BAG_SIZE CONFIG_CUBE_HARDWARE_RGB_LED_COUNT
 

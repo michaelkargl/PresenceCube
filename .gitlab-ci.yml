@@ -12,10 +12,10 @@ variables:
   GIT_SUBMODULE_UPDATE_STRATEGY: default
   PLATFORMIO_CI_SRC: src/main.c
   SCRIPTS_FOLDER: scripts
-  PLATFORMIO_PIP_VERSION: '6.1.3'
+  PLATFORMIO_PIP_VERSION: '6.1.14'
   FLAWFINDER_PIP_VERSION: '2.0.19'
   PYTHON_DOCKER_VERSION: '3.8'
-  POWERSHELL_DOCKER_VERSION: 'lts-debian-10'
+  POWERSHELL_DOCKER_VERSION: 'lts-7.2-debian-bullseye-slim'
 
 default:
   image: mcr.microsoft.com/powershell:$POWERSHELL_DOCKER_VERSION

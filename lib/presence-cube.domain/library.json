@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "presence-cube.domain.errorhandling": "*",
-    "presence-cube.domain.math": "*",
+    "presence-cube.domain": "*",
     "presence-cube.shared": "*",
     "presence-cube.repositories.abstractions": "*",
     "logging.abstractions": "*",

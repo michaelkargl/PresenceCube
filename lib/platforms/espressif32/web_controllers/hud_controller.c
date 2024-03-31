@@ -2,7 +2,7 @@
 #include "webserver.h"
 #include "info_hud.h"
 #include "hagl_extensions.h"
-#include "logger.h"
+#include "logger.iface.h"
 
 // TODO: move make this configurable via menuconfig
 #define LOGGER_TAG "hud_controller"

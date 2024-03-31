@@ -1,5 +1,5 @@
 #include "log_level_tostring.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "stdio.h"
 #include "stdarg.h"
 

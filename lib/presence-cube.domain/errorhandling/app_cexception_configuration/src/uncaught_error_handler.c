@@ -1,5 +1,5 @@
 #include "uncaught_error_handler.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "stdlib.h"
 #include "stdbool.h"
 

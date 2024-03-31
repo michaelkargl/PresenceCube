@@ -1,5 +1,5 @@
 #include "hal/rgb_ledc_adapter.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "rgb_ledc_init.h"
 #include "rgb_ledc.h"
 #include "exception_handling.h"

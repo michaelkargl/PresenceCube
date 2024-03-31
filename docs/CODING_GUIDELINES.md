@@ -7,7 +7,18 @@ When naming identifiers follow these rules:
 - use [snake casing] for identifiers
 - mind [reserved keywords and identifiers]
 
-## public members
+
+## File names
+
+1. files use `snake_casing`
+1. interface type headers are suffixed `logger.iface.h`
+   - Interface type headers intended to have multiple
+     implementations (for instance a `native` library and an `embedded` library).
+   - Adding an `iface` suffix tells library users that 
+     a specific header does not have a default default
+     implementation yet and needs a concrete  
+     implementation before it can be used
+## `public` members
 
 Publicly accessible declarations
 
@@ -29,7 +40,7 @@ int add(int left, int right);
 extern bool initialized;
 ```
 
-## private members
+## `private` members
 
 > As a rule: anything that doesn't have a module name prefix is intended to be `private` / `static`. Inversely, anything with a module name is intended to be used by other modules.
 

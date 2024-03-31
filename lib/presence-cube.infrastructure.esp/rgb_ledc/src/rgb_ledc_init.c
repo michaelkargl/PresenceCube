@@ -4,7 +4,7 @@
 #include "ledc_led_duty_calculator.h"
 #include "rgb_ledc_init.h"
 #include "esp_err.h"
-#include "logger.h"
+#include "logger.iface.h"
 #include "string.h"
 #include "ledc_init.h"
 #include "exception_handling.h"

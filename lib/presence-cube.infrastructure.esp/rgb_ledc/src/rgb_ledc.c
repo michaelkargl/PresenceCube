@@ -1,6 +1,6 @@
 #include "rgb_ledc.h"
-#include "logger.h"
-#include "math_util.h"
+#include "logger.iface.h"
+#include "math/math_util.h"
 #include "esp_err.h"
 #include "ledc_facade.h"
 #include "ledc_facade_funcs.h"
