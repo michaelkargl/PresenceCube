@@ -13,7 +13,6 @@
     "presence-cube.domain.hal": "*",
     "presence-cube.shared": "*",
     "presence-cube.repositories.abstractions": "*",
-    "led_domain": "*",
     "logging.abstractions": "*"
   }
 }

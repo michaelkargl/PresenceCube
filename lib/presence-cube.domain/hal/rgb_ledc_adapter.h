@@ -1,5 +1,5 @@
 #pragma once
-#include "rgb_led_diode.h"
+#include "led/rgb_led_diode.h"
 #include "rgb_ledc_adapter_func.h"
 
 /**

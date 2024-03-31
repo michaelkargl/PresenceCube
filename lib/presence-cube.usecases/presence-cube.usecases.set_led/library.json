@@ -8,8 +8,9 @@
     "includeDir": "./"
  },
  "dependencies": {
-   "presence-cube.shared": "*",   
-   "presence-cube.usecases.set_led.abstractions": "*",
+   "presence-cube.shared": "*",
+   "presence-cube.domain": "*",   
+   "presence-cube.usecases": "*",
    "presence-cube.repositories.abstractions": "*",
    "rgb_ledc": "*"
  }

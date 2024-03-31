@@ -1,6 +1,6 @@
 #pragma once
 #include "led_diode_bag.h"
-#include "rgb_led_diode.h"
+#include "led/rgb_led_diode.h"
 #include "ledc_rgb_led_t.h"
 
 /**

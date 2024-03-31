@@ -1,9 +1,0 @@
-{
-  "name": "presence-cube.usecases.abstractions",
-  "version": "0.0.1",
-  "platforms": ["*"],
-  "frameworks": ["*"],
-  "build": {
-    "flags": ["-I ./get_led", "-I ./set_led"]
-  }
-}

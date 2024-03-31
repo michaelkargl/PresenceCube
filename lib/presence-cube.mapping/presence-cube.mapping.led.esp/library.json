@@ -10,7 +10,7 @@
         "srcFilter": "+<*.c> +<*.h>"
     },
     "dependencies": {
-        "led_domain": "*",
+        "presence-cube.domain": "*",
         "infrastructure.esp.models": "*",
         "rgb_ledc": "*"
     }

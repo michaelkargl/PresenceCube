@@ -10,7 +10,7 @@
  },
  "dependencies": {
    "presence-cube.repositories.abstractions": "*",
-   "presence-cube.usecases.get_led.abstractions": "*",
+   "presence-cube.usecases": "*",
    "logging.abstractions": "*",
    "led_store.native": "*"
  }

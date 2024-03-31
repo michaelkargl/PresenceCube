@@ -3,7 +3,7 @@
  * @brief accesspoint for platform specific RGB led informations
  */
 #pragma once
-#include "rgb_led_diode.h"
+#include "led/rgb_led_diode.h"
 #include "get_led_repository_func.h"
 
 /**
