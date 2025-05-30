@@ -1,3 +1,5 @@
+#Requires -Version 7.5
+#Requires -PSEdition Core
 #
 # Module manifest for module 'platformio-module'
 #

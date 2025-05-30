@@ -10,9 +10,9 @@
     The name of the command to be found
 .PARAMETER SearchPath
     This path is searched recursively for a file with the name of the command
-.PARAMETER FallbackSearchPath
+.PARAMETER FallbackSearchPaths
     Last resort before breaking off search. In case none
-    of the options are fruitful, this path is used as a search base.
+    of the options are fruitful, these paths are used as a search base.
 .OUTPUTS
     If found, the absolute path to the command in question
     if it is not found, a System.Management.Automation.CommandNotFoundException
@@ -29,12 +29,12 @@ Function Find-PioCommand {
         [string] $SearchPath,
         # --------------------------------
         [Parameter()]
-        [string] $FallbackSearchPath
+        [string[]] $FallbackSearchPaths = @()
     )
 
     try {
         $Command = $CommandNames | ForEach-Object {
-            Write-Debug "Attempting to find command '$_' in registered paths"
+            Write-Debug "Attempting to find command '$_' in PATH"
             Get-Command $_ -ErrorAction SilentlyContinue 
         } | Select-Object -First 1 -ExpandProperty Path
 
@@ -49,6 +49,7 @@ Function Find-PioCommand {
 
         $FileSearchRequested = -not [string]::IsNullOrWhiteSpace($SearchPath)
         if ($FileSearchRequested) {
+            Write-Debug "Attempting to find command '$_' in $SearchPath"
             $Command = Find-PioFile -CommandNames $CommandNames -SearchPath $SearchPath
             if ( $Command ) {
                 Write-Debug "Command found: $Command"
@@ -63,9 +64,13 @@ Function Find-PioCommand {
         )
     }
     catch [System.Management.Automation.CommandNotFoundException] {
-        if ($FallbackSearchPath) {
-            return Find-PioCommand -CommandNames $CommandNames -SearchPath $FallbackSearchPath
+        $FallbackSearchPaths | ForEach-Object {
+            $Path = $_
+            Write-Debug "Attempting to find command '$_' in $Path"
+            $Command = Find-PioCommand -CommandNames $CommandNames -SearchPath $Path
+            if($Command) {
+                return $Command
+            }
         }
-        throw
     }
 }

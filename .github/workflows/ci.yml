@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    container: mcr.microsoft.com/dotnet/sdk:8.0
+    container: mcr.microsoft.com/dotnet/sdk:9.0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -21,6 +21,6 @@ jobs:
           pipx install platformio==6.1.14
           pipx ensurepath
       - name: Build Native
-        run: $HOME/.local/bin/pio run --environment native-dev
+        run: pwsh ./build_env.ps1 native-dev
       - name: Build Embedded
-        run: $HOME/.local/bin/pio run --environment espressif32-dev
+        run: pwsh ./build_env.ps1 espressif32-dev

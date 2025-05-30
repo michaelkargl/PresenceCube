@@ -22,11 +22,9 @@ Describe 'Find-PioCommand' {
         Find-PioCommand -CommandName $DummyCommand.Name | Should -BeExactly $DummyCommand.FullName
     }
 
-    it 'Throws exception if command can not be found and no search path is provided' {
+    it 'Returns null if command can not be found and no search path is provided' {
         $UnknownCommand = [Guid]::NewGuid().Guid
-        {
-            Find-PioCommand -CommandName $UnknownCommand
-        } | Should -Throw "*[Management.Automation.CommandNotFoundException]*"
+        Find-PioCommand -CommandName $UnknownCommand | Should -BeNullOrEmpty
     }
 
     it 'Returns command path if found in search path' {
@@ -52,10 +50,11 @@ Describe 'Find-PioCommand' {
         #            of these variables overlap with any parameter names, otherwise
         #            you will run into weird behaviors due to scoping issues
         $NormalSearchDir = New-Item -ItemType Directory 'TestDrive:/normal_search_path' -Force
-        $FallbackSearchDir = New-Item -ItemType Directory 'TestDrive:/fallback_search_path' -Force    
-        $NormalSearchTestPath = $NormalSearchDir.FullName
-        $FallbackSearchTestPath = $FallbackSearchDir.FullName
-        $ExpectedCommandPath = "$($FallbackSearchTestPath)/expected_command"
+        $FallbackSearchDirs = 1..3 | ForEach-Object {
+            New-Item -ItemType Directory "TestDrive:/fallback_search_path/$_" -Force
+        }
+        
+        $ExpectedCommandPath = New-Item -ItemType File -Path "$($FallbackSearchDirs[-1].FullName)/expected_command"
 
         Mock -CommandName Find-PioFile -MockWith {
             Throw [System.Management.Automation.CommandNotFoundException] (
@@ -64,15 +63,15 @@ Describe 'Find-PioCommand' {
         }
         
         Mock -CommandName Find-PioFile -MockWith {
-            Write-Output $ExpectedCommandPath
+            Write-Output $ExpectedCommandPath.FullName
         } -ParameterFilter {
-            $SearchPath -eq $FallbackSearchTestPath
+            $SearchPath -eq $ExpectedCommandPath.DirectoryName
         } -Verifiable
 
         Write-Host "Fallback: $FallbackSearchTestPath"
-        Find-PioCommand -CommandName 'dummy' `
-                        -SearchPath $NormalSearchTestPath `
-                        -FallbackSearchPath $FallbackSearchTestPath `
-                        | Should -BeExactly $ExpectedCommandPath
+        Find-PioCommand -CommandName $ExpectedCommandPath.Name `
+                        -SearchPath $NormalSearchDir.FullName `
+                        -FallbackSearchPath $FallbackSearchDirs.FullName `
+                        | Should -BeExactly $ExpectedCommandPath.FullName
     }
 }

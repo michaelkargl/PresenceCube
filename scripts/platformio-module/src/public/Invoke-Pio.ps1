@@ -7,12 +7,14 @@ Function Invoke-Pio {
 
     $PioCommand = Find-PioCommand `
         -CommandNames ('platformio', 'pio') `
-        -FallbackSearchPath (Join-Path $HOME '.platformio') `
-        -Debug
+        -FallbackSearchPaths @(
+            # default pio install dir
+            Join-Path $HOME '.platformio'
+            # pipx install dir
+            Join-Path $HOME '.local/bin'
+        ) -Debug
 
-    Write-Debug "PWD: $PWD"
-    Write-Debug "PIO: $PioCommand"
-
+    Write-Host "Command: '$PioCommand $PioArguments'"
     & $PioCommand $PioArguments
 
     Write-Debug "Exit Code: $LASTEXITCODE"
