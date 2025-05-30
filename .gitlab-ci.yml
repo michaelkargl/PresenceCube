@@ -40,7 +40,7 @@ build:
  stage: build
  allow_failure: false
  interruptible: true
- script: 
+ script:
   - |
     apt install python3-pip -y
     pip3 install -U platformio==$PLATFORMIO_PIP_VERSION

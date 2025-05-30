@@ -6,11 +6,11 @@ BeforeAll {
 }
 
 Describe 'Find-PioFile' {
-    It 'Throws validation error when passing invalid search path' {
+    It 'Throws CommandNotFoundException when passing invalid search path' {
         {
             $InvalidSearchPath = [Guid]::NewGuid().Guid
             Find-PioFile -CommandName 'Get-ChildItem' -SearchPath $InvalidSearchPath
-        } | Should -Throw "*Cannot validate argument on parameter 'SearchPath'*"
+        } | Should -Throw "*[Management.Automation.CommandNotFoundException]*"
     }
 
     it 'Throws exception if command can not be found' {

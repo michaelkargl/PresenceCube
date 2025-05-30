@@ -16,9 +16,14 @@ Function Find-PioFile {
         [string[]] $CommandNames,
         # --------------------------------
         [Parameter()]
-        [ValidateScript({ Test-Path $_ })]
         [string] $SearchPath
     )
+    
+    if (-not [string]::IsNullOrWhiteSpace($SearchPath) -and -not (Test-Path "$SearchPath")) {
+        Throw [Management.Automation.CommandNotFoundException](
+            "[Management.Automation.CommandNotFoundException] Unable to find $PioCommandName`: Search path '$SearchPath' does not exist."
+        );
+    }
 
     Foreach ($CommandName in $CommandNames) {
         Write-Debug "Attempting to find command '$CommandName' in path $SearchPath";

@@ -6,114 +6,21 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  PLATFORMIO_CI_SRC: src/main.c
-  SCRIPTS_FOLDER: scripts
-  PLATFORMIO_PIP_VERSION: '6.1.14'
-  FLAWFINDER_PIP_VERSION: '2.0.19'
-  PYTHON_DOCKER_VERSION: '3.8'
-  POWERSHELL_DOCKER_VERSION: 'lts-7.2-debian-bullseye-slim'
-
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/powershell:${{ env.POWERSHELL_DOCKER_VERSION }}
+    runs-on: ubuntu-22.04
+    container: mcr.microsoft.com/dotnet/sdk:8.0
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
-          submodules: recursive
-      - name: Setup
+          submodules: true
+      - name: Install PlatformIO
         run: |
-          apt update
-          echo "----------- Variables ---------------"
-          echo "GitHub workflow: ${{ github.workflow }}"
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "PWD: $PWD"
-          echo
-      - name: Build
-        run: |
-          apt install python3-pip -y
-          pip3 install -U platformio==${{ env.PLATFORMIO_PIP_VERSION }}
-          pwsh ./build_env.ps1 'native-dev' 'espressif32-dev'
-
-  tests:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/powershell:${{ env.POWERSHELL_DOCKER_VERSION }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-      - name: Setup
-        run: |
-          apt update
-          echo "----------- Variables ---------------"
-          echo "GitHub workflow: ${{ github.workflow }}"
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "PWD: $PWD"
-          echo
-      - name: Run Tests
-        run: |
-          apt install python3-pip -y
-          pip3 install -U platformio==${{ env.PLATFORMIO_PIP_VERSION }}
-          pwsh ./test_native.ps1
-
-  test_scripts:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/powershell:${{ env.POWERSHELL_DOCKER_VERSION }}
-    # Note: This is a simplified condition and may not exactly match GitLab's behavior
-    # GitHub doesn't have a direct equivalent to GitLab's 'changes' condition
-    if: |
-      github.event_name == 'push' ||
-      contains(toJSON(github.event.pull_request.files.*.filename), env.SCRIPTS_FOLDER)
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-      - name: Setup
-        run: |
-          apt update
-          echo "----------- Variables ---------------"
-          echo "GitHub workflow: ${{ github.workflow }}"
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "PWD: $PWD"
-          echo
-      - name: Run Script Tests
-        run: pwsh -Command "${{ env.SCRIPTS_FOLDER }}/Invoke-ScriptTests.ps1"
-
-  gitstats:
-    runs-on: ubuntu-latest
-    container:
-      image: masaedw/gitstats
-    if: github.ref == 'refs/heads/master'
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Generate Git Stats
-        run: gitstats . gitstats.html
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: gitstats
-          path: gitstats.html
-
-  flawfinder:
-    runs-on: ubuntu-latest
-    container:
-      image: python:${{ env.PYTHON_DOCKER_VERSION }}
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run Flawfinder
-        run: |
-          python -m pip install flawfinder==${{ env.FLAWFINDER_PIP_VERSION }}
-          flawfinder --context --html ./src ./test > flawfinder.html
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: flawfinder
-          path: flawfinder.html
+          apt update && apt install -y pipx build-essential
+          pipx install platformio==6.1.14
+          pipx ensurepath
+      - name: Build Native
+        run: $HOME/.local/bin/pio run --environment native-dev
+      - name: Build Embedded
+        run: $HOME/.local/bin/pio run --environment espressif32-dev

@@ -11,7 +11,11 @@ Function Invoke-Pio {
         -Debug
 
     Write-Debug "PWD: $PWD"
+    Write-Debug "PIO: $PioCommand"
+
     & $PioCommand $PioArguments
+
+    Write-Debug "Exit Code: $LASTEXITCODE"
     if ($LASTEXITCODE -ne 0) {
         Throw "[CommandUnsuccessfulError] Command $PioCommand $PioArguments failed with error code $LASTEXITCODE"
     }

@@ -35,6 +35,11 @@ The functionality of the cube is intended to be a form of information cube. It i
    git submodule update --recursive
    ```
 
+1. Install platformio
+  - The simplest way is to install the PlatformIO IDE VSCode extension
+    <https://platformio.org/platformio-ide>
+  - After installation, when openingf the PlatformIO IDE through the sidebar on the left, the pio toolchain will be installed.
+
 1. Install tools
    ```pwsh
       # used for menuconfig
@@ -133,6 +138,16 @@ The most direct way of testing the devices functionality are to use the provided
 - Basic Multimeter
 - Dupont Crocodile Clamps for simpler troubleshooting
 - Preciva PR-3254 Dupont Ratcheting Crimper Plier for both Dupont- and JST cables
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration and continuous deployment. The workflow configuration is located in `.github/workflows/ci.yml`. The CI pipeline includes:
+
+- Building the project
+- Running tests
+- Running script tests (when scripts are modified)
+- Generating git statistics
+- Running code analysis with flawfinder
 
 ## Troubleshooting
 

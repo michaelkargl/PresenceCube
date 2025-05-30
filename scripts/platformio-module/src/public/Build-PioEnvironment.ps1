@@ -34,7 +34,12 @@ Function Build-PioEnvironment {
                 Write-Host @HeadlineColor "`n--------------------------------"
                 Write-Host @HeadlineColor "Building $Environment environemt"
                 Write-Host @HeadlineColor "--------------------------------`n"
-                Invoke-Pio run --environment $Environment $RemainingArguments
+                if($RemainingArguments) {
+                    Invoke-Pio run --environment $Environment $RemainingArguments
+                } else {
+                    Invoke-Pio run --environment $Environment
+                }
+                
             }
         }
         catch {
