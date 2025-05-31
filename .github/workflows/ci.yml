@@ -7,39 +7,39 @@ on:
     branches: [ master ]
 
 jobs:
-#  native:
-#    runs-on: ubuntu-22.04
-#    container: mcr.microsoft.com/dotnet/sdk:9.0
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#        with:
-#          submodules: true
-#      - name: Install PlatformIO
-#        run: |
-#          apt update && apt install -y pipx build-essential
-#          pipx install platformio==6.1.14
-#          pipx ensurepath
-#      - name: Build Native
-#        run: pwsh ./build_env.ps1 native-dev
-#      - name: Build Embedded
-#        run: pwsh ./build_env.ps1 espressif32-dev
-#      - name: Test Native
-#        run: pwsh ./test_native.ps1
-#  pwsh-tests:
-#    runs-on: ubuntu-22.04
-#    container: mcr.microsoft.com/dotnet/sdk:9.0
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#      - name: Run Pester Tests
-#        run: pwsh ./scripts/Invoke-ScriptTests.ps1
+  native:
+    runs-on: ubuntu-22.04
+    container: mcr.microsoft.com/dotnet/sdk:9.0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install PlatformIO
+        run: |
+          apt update && apt install -y pipx build-essential
+          pipx install platformio==6.1.14
+          pipx ensurepath
+      - name: Build Native
+        run: pwsh ./build_env.ps1 native-dev
+      - name: Build Embedded
+        run: pwsh ./build_env.ps1 espressif32-dev
+      - name: Test Native
+        run: pwsh ./test_native.ps1
+  pwsh-tests:
+    runs-on: ubuntu-22.04
+    container: mcr.microsoft.com/dotnet/sdk:9.0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Pester Tests
+        run: pwsh ./scripts/Invoke-ScriptTests.ps1
   flawfinder:
     runs-on: ubuntu-22.04
     container: python:3.8
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Flawfinder
         run: python -m pip install flawfinder==2.0.19
       - name: Generate Flawfinder Report
