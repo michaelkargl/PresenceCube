@@ -7,8 +7,8 @@ on:
     branches: [ master ]
 
 jobs:
-  native:
-    runs-on: ubuntu-22.04
+  build-and-test-native:
+    runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:9.0
     steps:
       - name: Checkout repository
@@ -22,10 +22,23 @@ jobs:
           pipx ensurepath
       - name: Build Native
         run: pwsh ./build_env.ps1 native-dev
-      - name: Build Embedded
-        run: pwsh ./build_env.ps1 espressif32-dev
       - name: Test Native
         run: pwsh ./test_native.ps1
+  build-embedded:
+    runs-on: ubuntu-22.04
+    container: mcr.microsoft.com/dotnet/sdk:9.0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install PlatformIO
+        run: |
+          apt update && apt install -y pipx build-essential
+          pipx install platformio==6.1.18
+          pipx ensurepath
+      - name: Build Native
+        run: pwsh ./build_env.ps1 espressif32-dev
   pwsh-tests:
     runs-on: ubuntu-22.04
     container: mcr.microsoft.com/dotnet/sdk:9.0
