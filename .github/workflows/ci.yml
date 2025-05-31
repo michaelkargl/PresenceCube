@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  native:
     runs-on: ubuntu-22.04
     container: mcr.microsoft.com/dotnet/sdk:9.0
     steps:
@@ -24,3 +24,13 @@ jobs:
         run: pwsh ./build_env.ps1 native-dev
       - name: Build Embedded
         run: pwsh ./build_env.ps1 espressif32-dev
+      - name: Test Native
+        run: pwsh ./test_native.ps1
+  pwsh-tests:
+    runs-on: ubuntu-22.04
+    container: mcr.microsoft.com/dotnet/sdk:9.0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Run Pester Tests
+        run: pwsh ./scripts/Invoke-ScriptTests.ps1

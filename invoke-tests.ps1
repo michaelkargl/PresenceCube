@@ -1,3 +1,6 @@
+#Requires -Version 7.5
+#Requires -PSEdition Core
+
 <#
 .SYNOPSIS
     Runs all tests for a given environment

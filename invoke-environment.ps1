@@ -1,3 +1,6 @@
+#Requires -Version 7.5
+#Requires -PSEdition Core
+
 PARAM(
     [Parameter(Mandatory)]
     [ValidateSet('espressif32-dev', 'native-dev')]

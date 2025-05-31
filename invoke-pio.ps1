@@ -1,3 +1,6 @@
+#Requires -Version 7.5
+#Requires -PSEdition Core
+
 $ScriptDirPath = Join-Path $PSScriptRoot 'scripts'
 $PlatformIoModule = Join-Path $ScriptDirPath 'platformio-module/platformio-module.psd1'
 

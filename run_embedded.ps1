@@ -1,3 +1,6 @@
+#Requires -Version 7.5
+#Requires -PSEdition Core
+
 Write-Warning ''
 Write-Warning '-------------------------------'
 Write-Warning 'This function is [Obsolete]!'
