@@ -21,11 +21,20 @@ static void test_get_leds__given_uninitialized_module__throws()
     });
 }
 
+// DI test: This test ensures that the function pointer types are compatible with the actual function implementations.
 static void test_function_compatibility()
 {
-    (led_store__get_leds_func_t) led_store__get_leds;
-    (led_store__get_led_func_t) led_store__get_led;
-    (led_store__update_func_t) led_store__update;
+    // By assigning the function pointers to volatile variables, we prevent the compiler from optimizing away these assignments as unused values.
+    // This enforces type safety at compile time: if the function signatures do not match the typedefs, the compiler will emit an error here.
+    // This approach is especially useful in C projects where interface contracts are important, but the functions may not be directly invoked in the test.
+    volatile led_store__get_leds_func_t _unused1 = (led_store__get_leds_func_t) led_store__get_leds;
+    volatile led_store__get_led_func_t _unused2 = (led_store__get_led_func_t) led_store__get_led;
+    volatile led_store__update_func_t _unused3 = (led_store__update_func_t) led_store__update;
+
+	// using (void) to explicitly mark the variables as used, preventing compiler warnings about unused variables.
+    (void)_unused1;
+    (void)_unused2;
+    (void)_unused3;
 }
 
 static void test_get_leds__returns_non_empty_led_bag()

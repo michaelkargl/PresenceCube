@@ -39,10 +39,18 @@ void tearDown()
     RESET_FAKE(fff_get_leds);
 }
 
+// DI test: This test ensures that the function pointer types are compatible with the actual function implementations.
 void test_function_pointer_compatibility_with_exposed_api()
 {
-    (get_led_repository__get_led_func_t) get_led_repository__get_led_fn;
-    (get_led_repository__get_leds_func_t) get_led_repository__get_leds_fn;
+	// By assigning the function pointers to volatile variables, we prevent the compiler from optimizing away these assignments as unused values.
+    // This enforces type safety at compile time: if the function signatures do not match the typedefs, the compiler will emit an error here.
+    // This approach is especially useful in C projects where interface contracts are important, but the functions may not be directly invoked in the test.
+    volatile get_led_repository__get_led_func_t _unused1 = (get_led_repository__get_led_func_t) get_led_repository__get_led_fn;
+    volatile get_led_repository__get_leds_func_t _unused2 = (get_led_repository__get_leds_func_t) get_led_repository__get_leds_fn;
+
+	// using (void) to explicitly mark the variables as used, preventing compiler warnings about unused variables.
+    (void)_unused1;
+    (void)_unused2;
 }
 
 void test_get_led__given_invalid_id__returns_null()

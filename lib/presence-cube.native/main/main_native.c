@@ -88,6 +88,8 @@ static int app_main(bool *cancellation_token)
     print_led_states();
     set_led_states();
     print_led_states();
+
+    return 0;
 }
 
 int main()
