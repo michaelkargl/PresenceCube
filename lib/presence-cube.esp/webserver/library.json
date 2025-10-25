@@ -1,5 +1,5 @@
 {
-    "name": "presence-cube.esp.platforms.webserver",
+    "name": "presence-cube.esp.webserver",
     "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "srcDir": "./src",

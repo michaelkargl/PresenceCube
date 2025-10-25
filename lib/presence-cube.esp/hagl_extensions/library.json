@@ -1,16 +1,17 @@
 {
-    "name": "presence-cube.esp.platforms.nvs_init",
-    "version": "1.0.0",
+    "name": "presence-cube.esp.hagl_extensions",
+    "version": "0.0.1",
     "platforms": [ "espressif32" ],
-    "frameworks": [ "espidf" ],
+    "frameworks": "*",
     "srcDir": ".",
     "build": {
         "srcFilter": [
             "+<*.c>"
         ],
-        "includeDir": "include"
+        "includeDir": "./"
     },
     "dependencies": {
+        "hagl_lib": "*",
         "presence-cube.domain.logging": "*"
     }
 }

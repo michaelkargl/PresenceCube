@@ -1,6 +1,6 @@
 {
-    "name": "presence-cube.esp.platforms.info_hud",
-    "version": "0.0.1",
+    "name": "presence-cube.esp.wifi_init",
+    "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
     "srcDir": ".",
@@ -11,6 +11,7 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "presence-cube.esp.platforms.hagl_extensions": "*"
+        "presence-cube.domain.logging": "*",
+        "presence-cube.esp.nvs_init": "*"
     }
 }

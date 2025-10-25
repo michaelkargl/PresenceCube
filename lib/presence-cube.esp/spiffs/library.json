@@ -1,5 +1,5 @@
 {
-    "name": "presence-cube.esp.platforms.spiffs",
+    "name": "presence-cube.esp.spiffs",
     "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
