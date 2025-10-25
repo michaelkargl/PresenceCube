@@ -1,0 +1,18 @@
+{
+ "name": "presence-cube.esp.infrastructure",
+ "version": "0.0.1",
+ "platforms": [ "espressif32" ],
+ "frameworks": [ "espidf" ],
+ "build": {
+    "srcDir": "./",
+    "includeDir": "./",
+    "srcFilter": "+<*.c> -<.git/>"
+ },
+ "dependencies": {
+   "presence-cube.domain": "*",
+   "presence-cube.esp.infrastructure.led_store": "*",
+   "presence-cube.esp.repositories": "*",
+   "presence-cube.esp.infrastructure.models": "*",
+   "presence-cube.esp.infrastructure.rgb_ledc": "*"
+ }
+}

@@ -1,5 +1,6 @@
 #if defined(PLATFORM_NATIVE)
     #include "main_native.h"
 #elif defined(PLATFORM_ESPRESSIF32)
-    #include "main_esp32.h"
+    // Forward declaration - implementation in presence-cube.esp.main
+    extern int app_main();
 #endif  

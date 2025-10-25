@@ -1,5 +1,5 @@
 {
- "name": "presence-cube.repositories.esp",
+ "name": "presence-cube.esp.repositories",
  "version": "0.0.1",
  "platforms": [ "espressif32" ],
  "frameworks": [ "espidf" ],
@@ -9,8 +9,8 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-  "presence-cube.repositories.abstractions": "*",
-  "presence-cube.mapping.led.esp": "*",
-  "presence-cube.infrastructure.led_store.esp": "*"
+  "presence-cube.domain.repositories": "*",
+  "presence-cube.esp.mapping.led": "*",
+  "presence-cube.esp.infrastructure.led_store": "*"
  }
 }

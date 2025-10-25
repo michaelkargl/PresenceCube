@@ -1,0 +1,23 @@
+{
+    "name": "presence-cube.esp.main",
+    "description": "Main entry point for ESP32 platform",
+    "version": "0.0.1",
+    "platforms": [ "espressif32" ],
+    "frameworks": [ "espidf" ],
+    "build": {
+        "srcDir": "./",
+        "includeDir": "./"
+    },
+    "dependencies": {
+        "presence-cube.usecases": "*",
+        "presence-cube.mapping": "*",
+        "presence-cube.shared": "*",
+        "presence-cube.esp.infrastructure": "*",
+        "presence-cube.esp.logging": "*",
+        "spiffs": "*",
+        "wifi_init": "*",
+        "delay_service": "*",
+        "webserver": "*",
+        "web_controllers": "*"
+    }
+}

@@ -12,16 +12,6 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "presence-cube.usecases": "*",
-        "presence-cube.mapping": "*",
-        "presence-cube.shared": "*",
-        "presence-cube.infrastructure.esp": "*",
-        "logging.esp": "*",
-        "spiffs": "*",
-        "wifi_init": "*",
-        "rgb_ledc": "*",
-        "delay_service": "*",
-        "webserver": "*",
-        "web_controllers": "*"
+        "presence-cube.esp.main": "*"
     }
 }

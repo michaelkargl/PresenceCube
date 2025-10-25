@@ -9,7 +9,7 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-   "presence-cube.repositories.abstractions": "*",
+   "presence-cube.domain.repositories": "*",
    "presence-cube.usecases": "*",
    "logging.abstractions": "*",
    "led_store.native": "*"

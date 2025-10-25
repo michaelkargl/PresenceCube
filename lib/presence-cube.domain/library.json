@@ -11,7 +11,7 @@
     "presence-cube.domain.errorhandling": "*",
     "presence-cube.domain": "*",
     "presence-cube.shared": "*",
-    "presence-cube.repositories.abstractions": "*",
+    "presence-cube.domain.repositories": "*",
     "logging.abstractions": "*",
     "cJSON": "*"
   }

@@ -1,5 +1,5 @@
 {
-    "name": "presence-cube.repositories.abstractions",
+    "name": "presence-cube.domain.repositories",
     "description": "Infrastructure Abstractions Umbrella",
     "platforms": [ "*" ],
     "frameworks": [ "*" ],

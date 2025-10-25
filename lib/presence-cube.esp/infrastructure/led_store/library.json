@@ -1,5 +1,5 @@
 {
-  "name": "presence-cube.infrastructure.led_store.esp",
+  "name": "presence-cube.esp.infrastructure.led_store",
   "version": "0.0.1",
   "platforms": ["espressif32"],
   "frameworks": ["espidf"],
@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "presence-cube.shared": "*",
-    "infrastructure.esp.models": "*"
+    "presence-cube.esp.infrastructure.models": "*"
   }
 }

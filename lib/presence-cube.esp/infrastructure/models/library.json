@@ -1,5 +1,5 @@
 {
-    "name": "infrastructure.esp.models",
+    "name": "presence-cube.esp.infrastructure.models",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],

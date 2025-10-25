@@ -1,5 +1,5 @@
 {
- "name": "logging.esp",
+ "name": "presence-cube.esp.logging",
  "version": "0.0.1",
  "platforms": [ "espressif32" ],
  "frameworks": [ "espidf" ],
