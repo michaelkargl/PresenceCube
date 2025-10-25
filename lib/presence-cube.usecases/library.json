@@ -8,7 +8,6 @@
     "includeDir": "./"
   },
   "dependencies": {
-    "presence-cube.shared": "*",
     "presence-cube.domain": "*",
     "presence-cube.domain.repositories": "*",
     "presence-cube.domain.logging": "*"

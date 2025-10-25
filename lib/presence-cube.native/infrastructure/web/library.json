@@ -11,7 +11,7 @@
      },
      "dependencies": {
         "civetweb": "*",
-        "presence-cube.shared": "*",
+        "presence-cube.domain": "*",
         "http-status-codes-cpp": "*"
      }
 }

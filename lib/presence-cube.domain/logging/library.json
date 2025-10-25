@@ -9,6 +9,5 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-  "presence-cube.shared": "*"
  }
 }

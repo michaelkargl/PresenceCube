@@ -14,7 +14,6 @@
         "presence-cube.native.config": "*",
         "presence-cube.native.logging": "*",
         "presence-cube.native.infrastructure": "*",
-        "presence-cube.shared": "*",
         "presence-cube.domain": "*",
         "presence-cube.usecases": "*"
     }

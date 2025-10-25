@@ -12,9 +12,8 @@
         "includeDir": "include"
     },
     "dependencies": {
-        "presence-cube.shared": "*",
-        "presence-cube.esp.infrastructure.led_store": "*",
         "presence-cube.domain": "*",
+        "presence-cube.esp.infrastructure.led_store": "*",
         "presence-cube.esp.infrastructure.models": "*"
     }
 }
