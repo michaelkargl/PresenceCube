@@ -11,6 +11,6 @@
     "presence-cube.shared": "*",
     "presence-cube.domain": "*",
     "presence-cube.domain.repositories": "*",
-    "logging.abstractions": "*"
+    "presence-cube.domain.logging": "*"
   }
 }

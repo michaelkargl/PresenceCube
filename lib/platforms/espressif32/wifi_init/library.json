@@ -1,5 +1,5 @@
 {
-    "name": "wifi_init",
+    "name": "presence-cube.esp.platforms.wifi_init",
     "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
@@ -11,7 +11,7 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "logging.abstractions": "*",
-        "nvs_init": "*"
+        "presence-cube.domain.logging": "*",
+        "presence-cube.esp.platforms.nvs_init": "*"
     }
 }

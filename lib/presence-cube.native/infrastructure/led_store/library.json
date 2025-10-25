@@ -1,5 +1,5 @@
 {
-    "name": "led_store.native",
+    "name": "presence-cube.native.infrastructure.led_store",
     "version": "0.0.1",
     "platforms": [ "native" ],
     "frameworks": [ "*" ],

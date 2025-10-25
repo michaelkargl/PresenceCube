@@ -1,5 +1,5 @@
 {
-    "name": "web_controllers",
+    "name": "presence-cube.esp.platforms.web_controllers",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": "*",
@@ -11,9 +11,9 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "webserver": "*",
-        "delay_service": "*",
-        "logging.abstractions": "*",
-        "info_hud": "*"
+        "presence-cube.esp.platforms.webserver": "*",
+        "presence-cube.esp.platforms.delay_service": "*",
+        "presence-cube.domain.logging": "*",
+        "presence-cube.esp.platforms.info_hud": "*"
     }
 }

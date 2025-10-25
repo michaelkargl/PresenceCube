@@ -1,5 +1,5 @@
 {
-    "name": "info_hud",
+    "name": "presence-cube.esp.platforms.info_hud",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
@@ -11,6 +11,6 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "hagl_extensions": "*"
+        "presence-cube.esp.platforms.hagl_extensions": "*"
     }
 }

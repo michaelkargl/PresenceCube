@@ -1,5 +1,5 @@
 {
-    "name": "spiffs",
+    "name": "presence-cube.esp.platforms.spiffs",
     "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
@@ -11,6 +11,6 @@
         "includeDir": "./"
     },
     "dependencies": {
-        "logging.abstractions": "*"
+        "presence-cube.domain.logging": "*"
     }
 }

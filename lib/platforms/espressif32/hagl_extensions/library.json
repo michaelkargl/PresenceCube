@@ -1,5 +1,5 @@
 {
-    "name": "hagl_extensions",
+    "name": "presence-cube.esp.platforms.hagl_extensions",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": "*",
@@ -12,6 +12,6 @@
     },
     "dependencies": {
         "hagl_lib": "*",
-        "logging.abstractions": "*"
+        "presence-cube.domain.logging": "*"
     }
 }

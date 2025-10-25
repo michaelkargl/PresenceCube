@@ -1,5 +1,5 @@
 {
-    "name": "delay_service",
+    "name": "presence-cube.esp.platforms.delay_service",
     "version": "0.0.1",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],

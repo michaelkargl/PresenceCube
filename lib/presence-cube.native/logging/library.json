@@ -9,6 +9,6 @@
     "srcFilter": "+<*.c> -<.git/>"
  },
  "dependencies": {
-    "logging.abstractions": "*"
+    "presence-cube.domain.logging": "*"
  }
 }

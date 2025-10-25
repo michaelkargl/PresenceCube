@@ -1,5 +1,5 @@
 {
-    "name": "throwtheswitch_cexception",
+    "name": "presence-cube.domain.errorhandling.throwtheswitch_cexception",
     "license": "MIT",
     "author": "Mark VanderVoord",
     "version": "1.3.3",
@@ -13,6 +13,6 @@
         "url": "https://github.com/ThrowTheSwitch/CException.git#v1.3.3"
     },
     "dependencies": {
-        "app_cexception_configuration": "*"
+        "presence-cube.domain.errorhandling.app_cexception_configuration": "*"
     }
 }

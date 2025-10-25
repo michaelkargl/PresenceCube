@@ -1,5 +1,5 @@
 {
-    "name": "nvs_init",
+    "name": "presence-cube.esp.platforms.nvs_init",
     "version": "1.0.0",
     "platforms": [ "espressif32" ],
     "frameworks": [ "espidf" ],
@@ -11,6 +11,6 @@
         "includeDir": "include"
     },
     "dependencies": {
-        "logging.abstractions": "*"
+        "presence-cube.domain.logging": "*"
     }
 }

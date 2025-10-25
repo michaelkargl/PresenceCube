@@ -5,7 +5,7 @@
   "frameworks": ["*"],
   "dependencies": {
     "presence-cube.native.infrastructure.web": "*",
-    "get_led_infrastructure": "*",
-    "rgb_ledc.native": "*"
+    "presence-cube.native.infrastructure.get_led": "*",
+    "presence-cube.native.infrastructure.rgb_ledc": "*"
   }
 }

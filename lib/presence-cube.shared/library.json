@@ -4,7 +4,7 @@
   "platforms": ["*"],
   "frameworks": ["*"],
   "dependencies": {
-    "logging.abstractions": "*",
+    "presence-cube.domain.logging": "*",
     "presence-cube.domain": "*"
   }
 }

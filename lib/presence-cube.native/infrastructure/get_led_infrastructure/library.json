@@ -1,5 +1,5 @@
 {
- "name": "get_led_infrastructure",
+ "name": "presence-cube.native.infrastructure.get_led",
  "version": "0.0.1",
  "platforms": [ "native" ],
  "frameworks": [ "*" ],
@@ -11,7 +11,7 @@
  "dependencies": {
    "presence-cube.domain.repositories": "*",
    "presence-cube.usecases": "*",
-   "logging.abstractions": "*",
-   "led_store.native": "*"
+   "presence-cube.domain.logging": "*",
+   "presence-cube.native.infrastructure.led_store": "*"
  }
 }

@@ -2,6 +2,6 @@
   "name": "presence-cube.domain.errorhandling",
   "version": "0.0.1",
   "dependencies": {
-    "app_cexception_helpers": "*"
+    "presence-cube.domain.errorhandling.app_cexception_helpers": "*"
   }
 }

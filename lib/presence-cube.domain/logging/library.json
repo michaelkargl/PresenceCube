@@ -1,9 +1,14 @@
 {
- "name": "logging.abstractions",
+ "name": "presence-cube.domain.logging",
  "version": "0.0.1",
  "platforms": [ "*" ],
  "frameworks": [ "*" ],
  "build": {
-    "includeDir": "./"
+    "srcDir": "./",
+    "includeDir": "./",
+    "srcFilter": "+<*.c> -<.git/>"
+ },
+ "dependencies": {
+  "presence-cube.shared": "*"
  }
 }

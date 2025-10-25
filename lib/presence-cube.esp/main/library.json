@@ -10,14 +10,14 @@
     },
     "dependencies": {
         "presence-cube.usecases": "*",
-        "presence-cube.mapping": "*",
+        "presence-cube.esp.mapping.led": "*",
         "presence-cube.shared": "*",
         "presence-cube.esp.infrastructure": "*",
         "presence-cube.esp.logging": "*",
-        "spiffs": "*",
-        "wifi_init": "*",
-        "delay_service": "*",
-        "webserver": "*",
-        "web_controllers": "*"
+        "presence-cube.esp.platforms.spiffs": "*",
+        "presence-cube.esp.platforms.wifi_init": "*",
+        "presence-cube.esp.platforms.delay_service": "*",
+        "presence-cube.esp.platforms.webserver": "*",
+        "presence-cube.esp.platforms.web_controllers": "*"
     }
 }
