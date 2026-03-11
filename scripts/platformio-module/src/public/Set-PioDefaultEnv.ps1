@@ -44,5 +44,5 @@ function Set-PioDefaultEnv
     $LineIndex = $LineNumber - $LineNumberToArrayIndexOffset
     $Lines[$LineIndex] = $DefaultEnvsLinePattern -f $environment
 
-    $Lines | Out-File -FilePath $PlatformioIniPath
+    $Lines | Out-File -FilePath $PlatformioIniPath -Encoding utf8
 }

@@ -37,6 +37,9 @@ $script:InvokeScriptTestsScript = Join-Path $ScriptRoot 'Invoke-ScriptTests.ps1'
 
 Import-Module $PioModulePath -Force
 
+# clean before testing to make sure we are testing the latest code and not some old build artifacts
+Invoke-Pio run --target clean --environment "$Environment"
+
 # developer obviously does testing => switch default environment to force the IDE to use testing intellisense
 Set-PioDefaultEnv `
     -PlatformioIniPath $PlatformIoIniPath `
@@ -47,4 +50,4 @@ Set-PioDefaultEnv `
 
 # Careful with output verbosity!
 # -vvv can decrease build performance drastically as it issues a lot of console statements
-Invoke-Pio test --environment "$Environment" -vv @RemainingArgs
+Invoke-Pio test --environment "$Environment"
