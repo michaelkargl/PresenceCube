@@ -277,3 +277,6 @@ bom/
 
 # Reenable kicad schema libraries (.lib)
 !circuits/**/*.lib
+
+# node
+node_modules/
