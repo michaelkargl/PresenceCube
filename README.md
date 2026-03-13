@@ -38,13 +38,14 @@ The functionality of the cube is intended to be a form of information cube. It i
 1. Install platformio
   - The simplest way is to install the PlatformIO IDE VSCode extension
     <https://platformio.org/platformio-ide>
-  - After installation, when openingf the PlatformIO IDE through the sidebar on the left, the pio toolchain will be installed.
+  - After installation, when opening the PlatformIO IDE through the sidebar on the left, the pio toolchain will be installed.
 
 1. Install tools
    ```pwsh
       # used for menuconfig
       # https://pypi.org/project/kconfiglib/#installation-with-pip
       pip install kconfiglib
+      npm install
    ```
 
 1. Review configuration
@@ -70,11 +71,16 @@ The functionality of the cube is intended to be a form of information cube. It i
 
 ### Development Environment
 
-The project uses [PlatformIO](https://platformio.org/) so you will have to install the a PlatformIO supported IDE and the corresponsing plugin.
-
-Choosing VSCode, opening the folder should prompt you with all the recommended plugins automatically. If it does not, please refer to the [PlatformIO] documentation and the projects [.vscode/extensions.json] up-to-date install instructions.
+- The project uses [PlatformIO](https://platformio.org/) so you will have to install the a PlatformIO supported IDE and the corresponsing plugin.
+  - Choosing VSCode, opening the folder should prompt you with all the recommended plugins automatically. If it does not, please refer to the [PlatformIO] documentation and the projects [.vscode/extensions.json] up-to-date install instructions.
+- For **backlog management**, we use a combination of [OpenSpec] and [Backlog.md]
+   - See `claude` skills > `/opsx:xyz` and the OpenSpec [README](/openspec/README.md)
+   - See `npx backlog` and the Backlog.md [README](/backlog/README.md)
 
 [.vscode/extensions.json]: ./.vscode/extensions.json
+[Backlog.md]: https://github.com/MrLesk/Backlog.md
+[OpenSpec]: https://openspec.dev/
+
 
 ### Filesystem with fonts
 
