@@ -2,6 +2,8 @@
 
 A network connected information cube with lighting capabilities
 
+![shows the presence cube lit up](images/cube-v1.0.0.png)
+
 ## Coding Guidelines
 
 See [CODING_GUIDELINES.md]
